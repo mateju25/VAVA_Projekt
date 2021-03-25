@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import project.model.loginSystem.PlayerDatabase;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class RegistrationSceneController {
     @FXML
@@ -17,7 +18,7 @@ public class RegistrationSceneController {
     @FXML
     private Label Warning;
     @FXML
-    private void Registration() {
+    private void registration() {
         Warning.setText("");
         String name = Name.getText();
         String password=Password.getText();
@@ -26,14 +27,18 @@ public class RegistrationSceneController {
             Warning.setText("Vyplnťe všetky povinné polia!");
             return;
         }
-        PlayerDatabase.Registration(name,password,email);
+        try {
+            PlayerDatabase.registration(name,password,email);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         Name.setText("");
         Password.setText("");
         Email.setText("");
         Warning.setText("Registrácia prebehla úspešne!");
     }
     @FXML
-    private void ChangeSceneLogin() throws IOException {
+    private void changeSceneLogin() throws IOException {
         LoginSceneController.switchScene("/project/gui/views/LoginScene.fxml");
     }
 }

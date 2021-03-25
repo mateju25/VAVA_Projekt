@@ -45,6 +45,7 @@ public class LoginSceneController {
         Parent root = FXMLLoader.load(Main.class.getResource(s));
         Scene scene = new Scene(root);
         Main.primaryStage.setScene(scene);
+        Main.primaryStage.setMaximized(true);
         Main.primaryStage.show();
     }
 }

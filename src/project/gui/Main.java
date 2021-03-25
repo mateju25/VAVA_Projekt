@@ -16,8 +16,9 @@ public class Main extends Application {
         primaryStage.setTitle("Void Chess");
         primaryStage.getIcons().add(new Image("/project/gui/resources/pictures/ikonka.png"));
         Parent root = FXMLLoader.load(getClass().getResource("/project/gui/views/LoginScene.fxml"));
-        Scene scene = new Scene(root, 1000, 700);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
