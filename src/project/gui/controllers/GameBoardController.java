@@ -3,6 +3,7 @@ package project.gui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import project.gui.Main;
 
 import java.awt.*;
 import java.net.URL;
@@ -21,6 +22,7 @@ public class GameBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Main.primaryStage.setMaximized(true);
         // set all to default
         ImageView imageView = new ImageView();
         //////////////////////////////////////////////////////
