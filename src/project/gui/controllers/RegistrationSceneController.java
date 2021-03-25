@@ -6,36 +6,46 @@ import javafx.scene.control.TextField;
 import project.model.loginSystem.PlayerDatabase;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegistrationSceneController {
     @FXML
-    private TextField Name;
+    private TextField name;
     @FXML
-    private TextField Password;
+    private TextField password;
     @FXML
-    private TextField Email;
+    private TextField email;
     @FXML
-    private Label Warning;
+    private Label warning;
     @FXML
     private void registration() {
-        Warning.setText("");
-        String name = Name.getText();
-        String password=Password.getText();
-        String email=Email.getText();
+        warning.setText("");
+        String name = this.name.getText();
+        String password= this.password.getText();
+        String email= this.email.getText();
+
         if(name.isEmpty()||password.isEmpty()) {
-            Warning.setText("Vyplnťe všetky povinné polia!");
+            warning.setText("Vyplnťe všetky povinné polia!");
             return;
         }
-        try {
-            PlayerDatabase.registration(name,password,email);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+
+        Pattern p = Pattern.compile(".*@.*[.].*");
+        Matcher m = p.matcher(email);
+        if (!m.matches()) {
+            warning.setText("Email v zlom tvare!");
+            return;
         }
-        Name.setText("");
-        Password.setText("");
-        Email.setText("");
-        Warning.setText("Registrácia prebehla úspešne!");
+        if (PlayerDatabase.getInstance().existsUserName(name, email)) {
+            warning.setText("Daný užívateľ už existuje!");
+            return;
+        }
+        PlayerDatabase.getInstance().registrationUser(name,password,email);
+
+        this.name.setText("");
+        this.password.setText("");
+        this.email.setText("");
+        warning.setText("Registrácia prebehla úspešne!");
     }
     @FXML
     private void changeSceneLogin() throws IOException {
