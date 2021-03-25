@@ -94,11 +94,11 @@ public class Stockfish {
 
     //endregion
 
-//    public static void main(String[] args) {
-//        Stockfish stockfish = Stockfish.getInstance();
-//        Scanner in = new Scanner(System.in);
-//        for (int i = 0; i < 100; i++) {
-//            System.out.println(stockfish.getBestMove(in.nextLine()));
-//        }
-//    }
+    public static void main(String[] args) {
+        Stockfish stockfish = Stockfish.getInstance();
+        Scanner in = new Scanner(System.in);
+        for (int i = 0; i < 100; i++) {
+            System.out.println(stockfish.getBestMove(in.nextLine()));
+        }
+    }
 }
