@@ -15,7 +15,7 @@
    <left>
       <AnchorPane prefHeight="700.0" prefWidth="335.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="Name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" style="-fx-background-color: red; -fx-background-radius: 20;">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -24,11 +24,11 @@
                   <Font name="System Bold" size="29.0" />
                </font>
             </Text>
-            <TextField fx:id="Password" layoutX="42.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="password" layoutX="42.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <Button layoutX="41.0" layoutY="287.0" mnemonicParsing="false" onAction="#ChangeSceneRegistration" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Registrácia" textFill="#0d0d0d">
+            <Button layoutX="41.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneRegistration" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Registrácia" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -43,7 +43,7 @@
                   <Image url="@../resources/pictures/dec2.png" />
                </image>
             </ImageView>
-            <Button layoutX="175.0" layoutY="287.0" mnemonicParsing="false" onAction="#ChangeSceneMenu" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
+            <Button layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -58,6 +58,11 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
+            <Label fx:id="warning" alignment="CENTER" layoutX="14.0" layoutY="276.0" prefHeight="25.0" prefWidth="309.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </left>

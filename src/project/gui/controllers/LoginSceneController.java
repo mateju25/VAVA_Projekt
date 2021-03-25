@@ -10,32 +10,48 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import project.gui.Main;
+import project.model.loginSystem.ChessPlayer;
+import project.model.loginSystem.PlayerDatabase;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginSceneController {
     @FXML
-    private TextField Name;
+    private TextField name;
     @FXML
-    private TextField Password;
+    private TextField password;
     @FXML
-    private Label Warning;
+    private Label warning;
 
 
     @FXML
     private void setCancelButton() {
         System.exit(0);
-
     }
 
     @FXML
-    private void ChangeSceneMenu() throws IOException {
+    private void changeSceneMenu() throws IOException {
+        warning.setText("");
+        String name = this.name.getText();
+        String password= this.password.getText();
+
+        if(name.isEmpty()||password.isEmpty()) {
+            warning.setText("Vyplnťe všetky povinné polia!");
+            return;
+        }
+
+        if (!PlayerDatabase.getInstance().loginUser(name, password)) {
+            warning.setText("Nepodarilo sa prihlasit");
+            return;
+        }
+        PlayerDatabase.getInstance().setActivePlayer(new ChessPlayer(name));
         switchScene("/project/gui/views/GameBoard.fxml");
-
     }
 
     @FXML
-    private void ChangeSceneRegistration() throws IOException {
+    private void changeSceneRegistration() throws IOException {
         switchScene("/project/gui/views/RegistrationScene.fxml");
 
     }

@@ -14,7 +14,7 @@
     <left>
         <AnchorPane prefHeight="700.0" prefWidth="335.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="Name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" style="-fx-background-color: red; -fx-background-radius: 20;">
+                <TextField fx:id="name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" style="-fx-background-color: red; -fx-background-radius: 20;">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="29.0" />
                     </font>
                 </Text>
-                <TextField fx:id="Password" layoutX="42.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
+                <TextField fx:id="password" layoutX="42.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -37,7 +37,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <TextField fx:id="Email" layoutX="41.0" layoutY="219.0" prefHeight="35.0" prefWidth="248.0" promptText="☎ Email" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="email" layoutX="41.0" layoutY="219.0" prefHeight="35.0" prefWidth="248.0" promptText="☎ Email" style="-fx-background-color: red; -fx-background-radius: 20;">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -56,7 +56,7 @@
                   <Image url="@../resources/pictures/dec2.png" />
                </image>
             </ImageView>
-            <Label fx:id="Warning" alignment="CENTER" layoutX="15.0" layoutY="402.0" prefHeight="25.0" prefWidth="309.0" textFill="RED">
+            <Label fx:id="warning" alignment="CENTER" layoutX="15.0" layoutY="402.0" prefHeight="25.0" prefWidth="309.0" textFill="RED">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
