@@ -1,5 +1,8 @@
 package project.model.gameChess;
 
+import project.model.gameChess.pieces.Pawn;
+import project.model.gameChess.pieces.Queen;
+
 import java.util.ArrayList;
 
 public class Chessboard {
@@ -11,6 +14,17 @@ public class Chessboard {
 
     public GameState getState() {
         return state;
+    }
+
+    public ArrayList<Coordinates> getLegalMoves(int x, int y) {
+        if (state.getPieceOnPlace(x,y) == null)
+            return new ArrayList<>();
+        else
+            return state.getPieceOnPlace(x,y).getLegalMoves(state, x, y);
+    }
+
+    public void makeMove(int startX, int startY, int finishX, int finishY) {
+        state.getPieceOnPlace(startX, startY).makeMove(state, startX, startY, finishX, finishY);
     }
 
 //    public static void main(String[] args) {

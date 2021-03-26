@@ -14,6 +14,18 @@ public abstract class Piece {
         this.black = black;
     }
 
+    public void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
+        state.getState()[finishX][finishY] = state.getPieceOnPlace(startX, startY);
+        state.getState()[startX][startY] = null;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (state.getPieceOnPlace(i, j) instanceof Pawn)
+                    ((Pawn) state.getPieceOnPlace(i, j)).setEnPasant(false);
+            }
+        }
+    }
+
     public abstract ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y);
 
     public Image getPic() {
