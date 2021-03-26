@@ -1,5 +1,6 @@
 package project.model.gameChess.pieces;
 
+import javafx.scene.image.Image;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 
@@ -7,9 +8,14 @@ import java.util.ArrayList;
 
 public class Pawn extends Piece{
     private boolean isMoved = false;
-    public Pawn(Boolean black, String name) {
-        super(black, name);
+    public Pawn(Boolean black)  {
+        super(black);
+        if (black)
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackPawn.png"));
+        else
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhitePawn.png"));
     }
+
 
     @Override
     public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {

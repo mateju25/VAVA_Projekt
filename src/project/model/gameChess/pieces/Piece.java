@@ -1,5 +1,6 @@
 package project.model.gameChess.pieces;
 
+import javafx.scene.image.Image;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 
@@ -7,17 +8,16 @@ import java.util.ArrayList;
 
 public abstract class Piece {
     protected Boolean black;
-    protected String name;
+    protected Image pic;
 
-    public Piece(Boolean black, String name) {
+    public Piece(Boolean black) {
         this.black = black;
-        this.name = name;
     }
 
     public abstract ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y);
 
-    public String getName() {
-        return this.name;
+    public Image getPic() {
+        return this.pic;
     }
 
     public Boolean getBlack() {

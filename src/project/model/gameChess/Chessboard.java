@@ -13,26 +13,26 @@ public class Chessboard {
         return state;
     }
 
-    public static void main(String[] args) {
-        Chessboard chessboard = new Chessboard(new GameState());
-        chessboard.getState().setNewStateStandardWhiteFiguresCloser();
-        chessboard.getState().drawState();
-
-        ArrayList<Coordinates> surs = chessboard.getState().getPieceOnPlace(7,6).getLegalMoves(chessboard.getState(), 7, 6);
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (chessboard.isInCoors(surs, j, i))
-                    System.out.print("_");
-                else
-                    System.out.print(" ");
-            }
-            System.out.print("\n");
-        }
-        for (Coordinates coor:
-             surs) {
-            System.out.println(coor.getX() + " " + coor.getY());
-        }
-    }
+//    public static void main(String[] args) {
+//        Chessboard chessboard = new Chessboard(new GameState());
+//        chessboard.getState().setNewStateStandardWhiteFiguresCloser();
+//        chessboard.getState().drawState();
+//
+//        ArrayList<Coordinates> surs = chessboard.getState().getPieceOnPlace(7,6).getLegalMoves(chessboard.getState(), 7, 6);
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                if (chessboard.isInCoors(surs, j, i))
+//                    System.out.print("_");
+//                else
+//                    System.out.print(" ");
+//            }
+//            System.out.print("\n");
+//        }
+//        for (Coordinates coor:
+//             surs) {
+//            System.out.println(coor.getX() + " " + coor.getY());
+//        }
+//    }
 
     public boolean isInCoors(ArrayList<Coordinates> surs, int x, int y) {
         for (Coordinates coor:
