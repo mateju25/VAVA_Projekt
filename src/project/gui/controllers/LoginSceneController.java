@@ -3,12 +3,14 @@ package project.gui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Screen;
 import project.gui.Main;
 import project.model.loginSystem.ChessPlayer;
 import project.model.loginSystem.PlayerDatabase;
@@ -33,21 +35,33 @@ public class LoginSceneController {
 
     @FXML
     private void changeSceneMenu() throws IOException {
-        warning.setText("");
-        String name = this.name.getText();
-        String password= this.password.getText();
+//        warning.setText("");
+//        String name = this.name.getText();
+//        String password= this.password.getText();
+//
+//        if(name.isEmpty()||password.isEmpty()) {
+//            warning.setText("Vyplnťe všetky povinné polia!");
+//            return;
+//        }
+//
+//        if (!PlayerDatabase.getInstance().loginUser(name, password)) {
+//            warning.setText("Nepodarilo sa prihlasit");
+//            return;
+//        }
+//        PlayerDatabase.getInstance().setActivePlayer(new ChessPlayer(name));
+        Main.primaryStage.setResizable(true);
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
 
-        if(name.isEmpty()||password.isEmpty()) {
-            warning.setText("Vyplnťe všetky povinné polia!");
-            return;
-        }
+        Main.primaryStage.setX(bounds.getMinX());
+        Main.primaryStage.setY(bounds.getMinY());
+        Main.primaryStage.setWidth(bounds.getWidth());
+        Main.primaryStage.setHeight(bounds.getHeight());
 
-        if (!PlayerDatabase.getInstance().loginUser(name, password)) {
-            warning.setText("Nepodarilo sa prihlasit");
-            return;
-        }
-        PlayerDatabase.getInstance().setActivePlayer(new ChessPlayer(name));
+        Main.primaryStage.setMaximized(true);
         switchScene("/project/gui/views/GameBoard.fxml");
+
+
     }
 
     @FXML
@@ -61,7 +75,6 @@ public class LoginSceneController {
         Parent root = FXMLLoader.load(Main.class.getResource(s));
         Scene scene = new Scene(root);
         Main.primaryStage.setScene(scene);
-        Main.primaryStage.setMaximized(true);
         Main.primaryStage.show();
     }
 }
