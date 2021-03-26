@@ -10,12 +10,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import project.gui.Main;
 import project.model.gameChess.Chessboard;
+import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 import project.model.gameChess.pieces.Piece;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static javafx.scene.paint.Color.*;
 
 public class GameBoardController implements Initializable {
 
@@ -24,9 +28,21 @@ public class GameBoardController implements Initializable {
     private int sizeOfSquare;
     private Chessboard board = null;
 
+
+    private boolean stateLegalMoves = false;
+    private int activeFigureX;
+    private int activeFigureY;
+    private ArrayList<Coordinates> legalMovesOfFigure;
+
     public void drawPiece(int x, int y, Piece piece) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(piece.getPic(),x*(sizeOfSquare),y*(sizeOfSquare), sizeOfSquare, sizeOfSquare);
+    }
+
+    public void drawLegalMovePoint(int x, int y) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(rgb(128, 255, 255));
+        gc.fillOval(x*(sizeOfSquare)+45, y*(sizeOfSquare)+45, sizeOfSquare-90, sizeOfSquare-90);
     }
 
     public void refreshBoard() {
@@ -83,7 +99,43 @@ public class GameBoardController implements Initializable {
         int x = (int) ((mouseEvent.getX()) / sizeOfSquare);
         int y = (int) ((mouseEvent.getY()) / sizeOfSquare);
 
-        System.out.print(x);
-        System.out.println(y);
+        if (stateLegalMoves) {
+            stateLegalMoves = false;
+            boolean isThere = false;
+            if (legalMovesOfFigure == null) {
+                refreshBoard();
+                return;
+            }
+            for (Coordinates coors :
+                    legalMovesOfFigure) {
+                if (coors.getX() == x && coors.getY() == y)
+                    isThere = true;
+            }
+
+
+            if (isThere)
+                board.makeMove(activeFigureX, activeFigureY, x, y);
+            refreshBoard();
+        } else {
+            refreshBoard();
+            if (board.getState().getPieceOnPlace(x, y) == null)
+                return;
+            ArrayList<Coordinates> legalMoves = board.getLegalMoves(x, y);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(rgb(128, 255, 255));
+            gc.setLineWidth(5);
+            gc.strokeRect(x * (sizeOfSquare), y * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
+            if (legalMoves.size() != 0) {
+                for (Coordinates coors :
+                        legalMoves) {
+                    drawLegalMovePoint(coors.getX(), coors.getY());
+                }
+                legalMovesOfFigure = legalMoves;
+                activeFigureX = x;
+                activeFigureY = y;
+
+            }
+            stateLegalMoves = true;
+        }
     }
 }

@@ -18,16 +18,8 @@ public class GameState {
         return state[x][y];
     }
 
-    public void drawState() {
-        for (byte i = 0; i < 8; i++) {
-            for (byte j = 0; j < 8; j++) {
-                if (state[j][i] == null)
-                    System.out.print(" ");
-//                else
-//                    System.out.print(state[j][i].getName());
-            }
-            System.out.print("\n");
-        }
+    public Piece[][] getState() {
+        return state;
     }
 
     public void setNewStateStandardWhiteFiguresCloser() {
@@ -54,6 +46,8 @@ public class GameState {
         state[5][0] = new Bishop( true);
         state[3][0] = new Queen(true);
         state[4][0] = new King( true);
+
+        state[4][3] = new Knight( true);
     }
 }
 
