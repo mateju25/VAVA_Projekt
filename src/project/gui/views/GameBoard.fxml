@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
@@ -30,11 +30,6 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Button>
-            <Label layoutX="108.0" layoutY="43.0" text="☎ Email: ______________" textFill="WHITE">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </top>
@@ -56,55 +51,27 @@
                   </ImageView>
                </children>
             </HBox>
-            <TableView layoutX="108.0" layoutY="93.0" prefHeight="92.0" prefWidth="303.0" style="-fx-background-color: red; -fx-background-radius: 5;" AnchorPane.leftAnchor="108.0">
-              <columns>
-                <TableColumn prefWidth="164.0" text="Meno" />
-                <TableColumn prefWidth="45.0" text="Výhry" />
-                  <TableColumn prefWidth="42.0" text="Prehry" />
-                  <TableColumn prefWidth="49.0" text="Remízy" />
-              </columns>
-            </TableView>
-            <ImageView fitHeight="515.0" fitWidth="235.0" layoutX="1413.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="158.30999755859375">
-               <image>
-                  <Image url="@../resources/pictures/bishop.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="515.0" fitWidth="235.0" layoutX="139.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="1427.0">
+            <ImageView fitHeight="340.0" fitWidth="181.0" layoutX="171.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="1449.0">
                <image>
                   <Image url="@../resources/pictures/knight.png" />
                </image>
             </ImageView>
-            <Button layoutX="1281.0" layoutY="271.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="168.0" style="-fx-background-color: red; -fx-background-radius: 5;" text="Odveta" textFill="#0d0d0d" AnchorPane.leftAnchor="1450.0">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <Button layoutX="1394.0" layoutY="271.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" text="Vzdať sa" textFill="#0d0d0d" AnchorPane.rightAnchor="95.0">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
             <TextArea layoutX="1447.0" layoutY="93.0" prefHeight="161.0" prefWidth="256.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="95.0" />
             <Text fill="WHITE" layoutX="1280.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postupnosť ťahov" underline="true" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="129.2001953125">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Label layoutX="108.0" layoutY="247.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
+            <Label layoutX="187.0" layoutY="88.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
                <font>
                   <Font size="63.0" />
                </font>
             </Label>
-            <Label layoutX="261.0" layoutY="247.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
+            <Label layoutX="187.0" layoutY="730.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
                <font>
                   <Font size="63.0" />
                </font>
             </Label>
-            <Text fill="WHITE" layoutX="112.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Čas">
-               <font>
-                  <Font size="39.0" />
-               </font>
-            </Text>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="25.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/dec2.png" />
@@ -125,6 +92,28 @@
                   <Image url="@../resources/pictures/dec2.png" />
                </image>
             </ImageView>
+            <HBox alignment="CENTER" layoutX="1449.0" layoutY="265.0" prefHeight="59.0" prefWidth="285.0" spacing="10.0" AnchorPane.leftAnchor="1449.0" AnchorPane.rightAnchor="93.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="164.0" style="-fx-background-color: red; -fx-background-radius: 5;" text="Odveta" textFill="#0d0d0d">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" text="Vzdať sa" textFill="#0d0d0d">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <TableView layoutX="1451.0" layoutY="684.0" prefHeight="92.0" prefWidth="256.0" style="-fx-background-color: red; -fx-background-radius: 5;" AnchorPane.leftAnchor="1451.0" AnchorPane.rightAnchor="94.0">
+              <columns>
+                <TableColumn prefWidth="111.0" text="Meno" />
+                <TableColumn prefWidth="42.0" text="Výhry" />
+                  <TableColumn prefWidth="54.0" text="Prehry" />
+                  <TableColumn prefWidth="63.0" text="Remízy" />
+              </columns>
+            </TableView>
          </children>
          <BorderPane.margin>
             <Insets />
