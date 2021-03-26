@@ -1,13 +1,18 @@
 package project.model.gameChess.pieces;
 
+import javafx.scene.image.Image;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 
 import java.util.ArrayList;
 
 public class King extends Piece{
-    public King(Boolean black, String name) {
-        super(black, name);
+    public King(Boolean black) {
+        super(black);
+        if (black)
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackKing.png"));
+        else
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteKing.png"));
     }
 
     @Override
