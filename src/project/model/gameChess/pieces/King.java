@@ -16,43 +16,16 @@ public class King extends Piece{
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteKing.png"));
     }
 
-    private boolean isSquareNotAttacked(GameState state, int x, int y, boolean black) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (state.getPieceOnPlace(i, j) != null) {
-                    if (state.getPieceOnPlace(i, j).getBlack() != black && !(state.getPieceOnPlace(i, j) instanceof King)) {
-                        for (Coordinates coor : state.getPieceOnPlace(i, j).getLegalMoves(state, i, j)) {
-                            if (coor.getX() == x && coor.getY() == y)
-                                return false;
-                        }
-                    }
-                }
-
-            }
-        }
-        return true;
+    public boolean isMoved() {
+        return isMoved;
     }
 
-    private boolean isPossibleShortCastle(GameState state, int x, int y) {
-        if (!isMoved && state.getPieceOnPlace(x+1, y) == null && state.getPieceOnPlace(x+2, y) == null && state.getPieceOnPlace(x+3, y) instanceof Rook) {
-            return isSquareNotAttacked(state, x + 1, y, this.black) && isSquareNotAttacked(state, x + 2, y, this.black) && state.isChecked(state) == null;
-        }
-        return false;
-    }
-
-    private boolean isPossibleLongCastle(GameState state, int x, int y) {
-        if (!isMoved && state.getPieceOnPlace(x-1, y) == null && state.getPieceOnPlace(x-2, y) == null && state.getPieceOnPlace(x-3, y) == null && state.getPieceOnPlace(x-4, y) instanceof Rook) {
-            return isSquareNotAttacked(state, x -1, y, this.black) && isSquareNotAttacked(state, x - 2, y, this.black) && isSquareNotAttacked(state, x - 3, y, this.black) && state.isChecked(state) == null;
-        }
-        return false;
+    public void setMoved(boolean moved) {
+        isMoved = moved;
     }
 
     private ArrayList<Coordinates> movesOfKing(GameState state, int x, int y) {
         ArrayList<Coordinates> result = new ArrayList<>();
-//        if (isPossibleShortCastle(state, x, y))
-//            insertMove(result, state, x+2, y);
-//        if (isPossibleLongCastle(state, x, y))
-//            insertMove(result, state, x-3, y);
         if (x+1 <= 7 && x >= 0 && y <= 7 && y >=0)
             insertMove(result, state, x+1, y);
         if (x+1 <= 7 && x >= 0 && y+1 <= 7 && y >=0)

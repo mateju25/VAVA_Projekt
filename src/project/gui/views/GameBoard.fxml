@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
    <top>
       <AnchorPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
@@ -37,7 +37,7 @@
                   <Canvas fx:id="canvas" height="800.0" onMouseClicked="#onClick" width="800.0" />
                </children>
             </HBox>
-            <TextArea layoutX="1450.0" layoutY="370.0" prefHeight="160.0" prefWidth="256.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="95.0" />
+            <TextArea fx:id="textMoves" layoutX="1450.0" layoutY="370.0" prefHeight="160.0" prefWidth="256.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="95.0" />
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="26.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/dec2.png" />

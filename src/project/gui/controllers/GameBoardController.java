@@ -1,12 +1,10 @@
 package project.gui.controllers;
 
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import project.gui.Main;
 import project.model.gameChess.Chessboard;
@@ -14,7 +12,6 @@ import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 import project.model.gameChess.pieces.Piece;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -25,6 +22,7 @@ public class GameBoardController implements Initializable {
 
 
     public Canvas canvas;
+    public TextArea textMoves;
     private int sizeOfSquare;
     private Chessboard board = null;
 
@@ -47,11 +45,15 @@ public class GameBoardController implements Initializable {
 
     public void refreshBoard() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(new Image("/project/gui/resources/pictures/newBoard1.png"),0,0,canvas.getWidth(),canvas.getHeight());
+        if (board.getState().isBlackCloser())
+            gc.drawImage(new Image("/project/gui/resources/pictures/BlackBoard.png"),0,0,canvas.getWidth(),canvas.getHeight());
+        else
+            gc.drawImage(new Image("/project/gui/resources/pictures/WhiteBoard.png"),0,0,canvas.getWidth(),canvas.getHeight());
+        GameState temp = board.getState();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board.getState().getPieceOnPlace(i,j) != null)
-                    drawPiece(i, j, board.getState().getPieceOnPlace(i,j));
+                if (temp.getPieceOnPlace(i,j) != null)
+                    drawPiece(i, j, temp.getPieceOnPlace(i,j));
             }
         }
     }
@@ -60,8 +62,7 @@ public class GameBoardController implements Initializable {
         Main.primaryStage.setMaximized(true);
 
         sizeOfSquare = (int) ((canvas.getWidth()) / 8);
-        board = new Chessboard(new GameState());
-        board.getState().setNewStateStandardWhiteFiguresCloser();
+        board = new Chessboard(false);
         refreshBoard();
     }
 
@@ -85,8 +86,15 @@ public class GameBoardController implements Initializable {
             }
 
 
-            if (isThere)
+            if (isThere) {
                 board.makeMove(activeFigureX, activeFigureY, x, y);
+                String moves = new String();
+                for (String str :
+                        board.getAllMoves()) {
+                    moves += str + "\n";
+                }
+                textMoves.setText(moves);
+            }
             refreshBoard();
         } else {
             refreshBoard();
