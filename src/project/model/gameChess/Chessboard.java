@@ -1,9 +1,5 @@
 package project.model.gameChess;
 
-import project.model.gameChess.pieces.King;
-import project.model.gameChess.pieces.Pawn;
-import project.model.gameChess.pieces.Piece;
-
 import java.util.ArrayList;
 
 public class Chessboard {
@@ -16,6 +12,10 @@ public class Chessboard {
 
     public GameState getState() {
         return state;
+    }
+
+    public boolean isBlackTurn() {
+        return blackTurn;
     }
 
     public ArrayList<Coordinates> getLegalMoves(int x, int y) {
@@ -33,7 +33,6 @@ public class Chessboard {
             return;
         if (state.getPieceOnPlace(startX,startY).getBlack() && !blackTurn)
             return;
-
         if (!state.getPieceOnPlace(startX,startY).getBlack() && blackTurn)
             return;
 

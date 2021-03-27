@@ -40,9 +40,11 @@ public class GameState {
             legalMoves = getPieceOnPlace(x,y).getLegalMoves(this, x, y);
 
         if (isChecked(this) != null) {
+            if (isChecked(this).getBlack() != getPieceOnPlace(x,y).getBlack())
+                return legalMoves;
             ArrayList<Coordinates> newlegalMoves =  new ArrayList<>();
             if (legalMoves.size() == 0)
-                return null;
+                return legalMoves;
             else {
 
                 for (Coordinates coor :
@@ -77,7 +79,7 @@ public class GameState {
         return state;
     }
 
-   public void setNewStateStandardWhiteFiguresCloser() {
+    public void setNewStateStandardWhiteFiguresCloser() {
         //white
         for (byte i = 0; i < 8; i++)
             state[i][6] = new Pawn(false);
@@ -102,7 +104,6 @@ public class GameState {
         state[3][0] = new Queen(true);
         state[4][0] = new King( true);
     }
-
 
     public Piece isChecked(GameState state) {
         Coordinates whiteKing = null;
@@ -150,14 +151,33 @@ public class GameState {
                         }
                 }
             }
-            if (state.getLegalMoves(whiteKing.getX(), whiteKing.getY()) == null)
-                return state.getPieceOnPlace(whiteKing.getX(), whiteKing.getY());
-            if (state.getLegalMoves(blackKing.getX(), blackKing.getY()) == null)
-                return state.getPieceOnPlace(blackKing.getX(), blackKing.getY());
+            if (state.getLegalMoves(whiteKing.getX(), whiteKing.getY()).size() == 0) {
+                if (!isAnyThereLegalMove(state))
+                    return state.getPieceOnPlace(whiteKing.getX(), whiteKing.getY());
+            }
+
+            if (state.getLegalMoves(blackKing.getX(), blackKing.getY()).size() == 0)
+                if (!isAnyThereLegalMove(state))
+                    return state.getPieceOnPlace(blackKing.getX(), blackKing.getY());
         }
         return null;
     }
 
+    public boolean isAnyThereLegalMove(GameState state) {
+        ArrayList<Coordinates> legalMoves =  new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (state.getPieceOnPlace(i, j) != null) {
+                    legalMoves.addAll(state.getLegalMoves(i, j));
+                }
+            }
+        }
+        if (legalMoves.size() == 0)
+            return false;
+        else {
+            return true;
+        }
+    }
 
 }
 

@@ -92,6 +92,10 @@ public class GameBoardController implements Initializable {
             refreshBoard();
             if (board.getState().getPieceOnPlace(x, y) == null)
                 return;
+            if (board.getState().getPieceOnPlace(x, y).getBlack() && !board.isBlackTurn())
+                return;
+            if (!board.getState().getPieceOnPlace(x, y).getBlack() && board.isBlackTurn())
+                return;
             ArrayList<Coordinates> legalMoves = board.getLegalMoves(x, y);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setStroke(rgb(34, 34, 34));
