@@ -59,7 +59,7 @@ public class Chessboard {
         if (state.isCheckMated(state) != null)
             System.out.println("MAT");
 
-        allMoves.add(String.valueOf((char) ((char) startX + 97)) + String.valueOf(startY) + String.valueOf((char) ((char) finishX + 97)) + String.valueOf(finishY));
+        allMoves.add(String.valueOf((char) ((char) startX + 97)) + String.valueOf(startY+1) + String.valueOf((char) ((char) finishX + 97)) + String.valueOf(finishY+1));
     }
 
 }
