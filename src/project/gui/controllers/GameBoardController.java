@@ -125,7 +125,7 @@ public class GameBoardController implements Initializable {
             gc.setStroke(rgb(128, 255, 255));
             gc.setLineWidth(5);
             gc.strokeRect(x * (sizeOfSquare), y * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
-            if (legalMoves.size() != 0) {
+            if (legalMoves != null) {
                 for (Coordinates coors :
                         legalMoves) {
                     drawLegalMovePoint(coors.getX(), coors.getY());

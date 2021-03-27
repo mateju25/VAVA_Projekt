@@ -31,10 +31,10 @@ public class Pawn extends Piece{
         state.getState()[startX][startY] = null;
 
         if (black) {
-            if (state.getPieceOnPlace(finishX, finishY-1) instanceof Pawn)
+            if (state.getPieceOnPlace(finishX, finishY-1) instanceof Pawn && ((Pawn) state.getPieceOnPlace(finishX, finishY-1)).enPasant && state.getPieceOnPlace(finishX, finishY-1).getBlack() != black)
                 state.getState()[finishX][finishY -1] = null;
         } else {
-            if (state.getPieceOnPlace(finishX, finishY+1) instanceof Pawn)
+            if (state.getPieceOnPlace(finishX, finishY+1) instanceof Pawn && ((Pawn) state.getPieceOnPlace(finishX, finishY+1)).enPasant && state.getPieceOnPlace(finishX, finishY+1).getBlack() != black)
                 state.getState()[finishX][finishY +1] = null;
         }
 
