@@ -7,12 +7,21 @@ import project.model.gameChess.GameState;
 import java.util.ArrayList;
 
 public class Rook extends Piece{
+    private boolean isMoved = false;
     public Rook(Boolean black)  {
         super(black);
         if (black)
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackRook.png"));
         else
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteRook.png"));
+    }
+
+    public boolean isMoved() {
+        return isMoved;
+    }
+
+    public void setMoved(boolean moved) {
+        isMoved = moved;
     }
 
     @Override
