@@ -10,9 +10,12 @@ import project.gui.Main;
 import project.model.gameChess.Chessboard;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
+import project.model.gameChess.Signalization;
 import project.model.gameChess.pieces.Piece;
+import project.model.stockfishApi.Stockfish;
 
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -31,6 +34,8 @@ public class GameBoardController implements Initializable {
     private int activeFigureX;
     private int activeFigureY;
     private ArrayList<Coordinates> legalMovesOfFigure;
+
+    private Stockfish computer = Stockfish.getInstance();
 
     public void drawPiece(int x, int y, Piece piece) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -85,17 +90,26 @@ public class GameBoardController implements Initializable {
                 }
             }
 
-
-            if (isThere) {
-                board.makeMove(activeFigureX, activeFigureY, x, y);
-                String moves = new String();
-                for (String str :
-                        board.getAllMoves()) {
-                    moves += str + "\n";
-                }
-                textMoves.setText(moves);
-            }
             refreshBoard();
+            if (isThere) {
+                Signalization result = board.makeMove(activeFigureX, activeFigureY, x, y, null);
+                refreshBoard();
+                switch (result) {
+                    case CHECK:  GraphicsContext gc = canvas.getGraphicsContext2D();
+                                Coordinates king = board.getState().whereIsThis(board.getState().isChecked(board.getState()));
+                                gc.setStroke(rgb(250, 0, 0));
+                                gc.setLineWidth(5);
+                                gc.strokeRect(king.getX() * (sizeOfSquare), king.getY() * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
+                                break;
+                    case CHECKMATE:
+                }
+                textMoves.setText(textMoves.getText() + board.getAllMoves().getLast()  + ", " );
+                String newMove = computer.getBestMove(board.getAllMoves().getLast());
+//                board.makeMove(newMove);
+//                textMoves.setText(textMoves.getText() + "\n" + newMove);
+//                refreshBoard();
+            }
+
         } else {
             refreshBoard();
             if (board.getState().getPieceOnPlace(x, y) == null)

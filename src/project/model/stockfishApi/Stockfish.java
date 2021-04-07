@@ -36,7 +36,7 @@ public class Stockfish {
         try {
             input.write("position startpos moves " + buildMovesString() + "\n");
             input.flush();
-            input.write("go movetime 100" + "\n");
+            input.write("go depth 1" + "\n");
             input.flush();
 
             while(true) {
