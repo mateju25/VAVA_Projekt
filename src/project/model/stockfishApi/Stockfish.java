@@ -10,8 +10,10 @@ public class Stockfish {
     private BufferedReader output = null;
     private BufferedWriter input = null;
     private ArrayList<String> moves = null;
+    private int level = 1;
 
-    private Stockfish() {
+    private Stockfish(int level) {
+        this.level = level;
         try {
             ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.dir").replace('\\','/') + "/src/" + "project/model/stockfishApi/resources/stockfish_13_win_x64.exe");
             myProcess = pb.start();
@@ -36,7 +38,7 @@ public class Stockfish {
         try {
             input.write("position startpos moves " + buildMovesString() + "\n");
             input.flush();
-            input.write("go depth 1" + "\n");
+            input.write("go depth " + this.level + "\n");
             input.flush();
 
             while(true) {
@@ -54,8 +56,8 @@ public class Stockfish {
     //endregion Private
 
     //region Public
-    public static Stockfish getInstance() {
-        return new Stockfish();
+    public static Stockfish getInstance(int level) {
+        return new Stockfish(level);
     }
 
     public ArrayList<String> getMoves() {
@@ -93,12 +95,4 @@ public class Stockfish {
     }
 
     //endregion
-
-    public static void main(String[] args) {
-        Stockfish stockfish = Stockfish.getInstance();
-        Scanner in = new Scanner(System.in);
-        for (int i = 0; i < 100; i++) {
-            System.out.println(stockfish.getBestMove(in.nextLine()));
-        }
-    }
 }

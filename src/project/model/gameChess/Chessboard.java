@@ -54,6 +54,10 @@ public class Chessboard {
         if (!state.getPieceOnPlace(startX,startY).getBlack() && blackTurn)
             return Signalization.NOPIECE;
 
+        if (getLegalMoves(startX, startY).stream().noneMatch(coordinates -> coordinates.getX() == finishX && coordinates.getY() == finishY)) {
+            return Signalization.NOPIECE;
+        }
+
         state.setPromotion(promotion);
         state.makeMove(state, startX, startY, finishX, finishY);
 
@@ -76,9 +80,9 @@ public class Chessboard {
         else
             allMoves.add(String.valueOf((char) ((char) startX + 97)) + (7 - startY + 1) + (char) ((char) finishX + 97) + (7 - finishY + 1));
 
-        if (state.isCheckMated(state) != null)
+        if (state.isCheckMated(state, !state.getPieceOnPlace(finishX,finishY).getBlack()) != null)
             return Signalization.CHECKMATE;
-        if (state.isChecked(state) != null)
+        if (state.isChecked(state, !state.getPieceOnPlace(finishX,finishY).getBlack()) != null)
             return Signalization.CHECK;
 
         return Signalization.NORMAL;

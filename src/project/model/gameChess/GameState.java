@@ -54,7 +54,7 @@ public class GameState {
             legalMoves = getPieceOnPlace(x,y).getLegalMoves(this, x, y);
 
         if (getPieceOnPlace(x,y) instanceof King && !((King) getPieceOnPlace(x,y)).isMoved()) {
-            if (isChecked(this) == null &&
+            if (isChecked(this, getPieceOnPlace(x,y).getBlack()) == null &&
                     getPieceOnPlace(x+1,y) == null &&
                     getPieceOnPlace(x+2,y) == null &&
                     getPieceOnPlace(x+3,y) instanceof Rook &&
@@ -63,7 +63,7 @@ public class GameState {
                     !isSquareAttacked(this, x + 1, y, getPieceOnPlace(x, y).getBlack()) &&
                     !isSquareAttacked(this, x + 2, y, getPieceOnPlace(x, y).getBlack()))
                 legalMoves.add(new Coordinates(x+2, y));
-            if (isChecked(this) == null &&
+            if (isChecked(this, getPieceOnPlace(x,y).getBlack()) == null &&
                     getPieceOnPlace(x-1,y) == null &&
                     getPieceOnPlace(x-2,y) == null &&
                     getPieceOnPlace(x-3,y) == null &&
@@ -76,7 +76,7 @@ public class GameState {
                 legalMoves.add(new Coordinates(x-2, y));
         }
 
-        if ((isChecked(this) != null) && (isChecked(this).getBlack() != getPieceOnPlace(x,y).getBlack()))
+        if ((isChecked(this, getPieceOnPlace(x,y).getBlack()) != null) && (isChecked(this, getPieceOnPlace(x,y).getBlack()).getBlack() != getPieceOnPlace(x,y).getBlack()))
             return legalMoves;
         ArrayList<Coordinates> newlegalMoves =  new ArrayList<>();
         if (legalMoves.size() == 0)
@@ -87,7 +87,7 @@ public class GameState {
                     legalMoves) {
                 GameState temp = makeCopyFromActualGame();
                 makeMove(temp, x, y, coor.getX(), coor.getY());
-                Piece checking = isChecked(temp);
+                Piece checking = isChecked(temp, getPieceOnPlace(x,y).getBlack());
                 if (checking == null || checking.getBlack() != getPieceOnPlace(x,y).getBlack())
                     newlegalMoves.add(coor);
             }
@@ -194,7 +194,7 @@ public class GameState {
         return null;
     }
 
-    public Piece isChecked(GameState state) {
+    public Piece isChecked(GameState state, boolean black) {
         Coordinates whiteKing = null;
         Coordinates blackKing = null;
         for (int i = 0; i < 8; i++) {
@@ -214,9 +214,9 @@ public class GameState {
                     ArrayList<Coordinates> coors = state.getPieceOnPlace(i, j).getLegalMoves(state, i, j);
                     for (Coordinates coor:
                             coors) {
-                        if (coor.getY() == whiteKing.getY() && coor.getX() == whiteKing.getX())
+                        if (coor.getY() == whiteKing.getY() && coor.getX() == whiteKing.getX() && !black)
                             return state.getPieceOnPlace(whiteKing.getX(), whiteKing.getY());
-                        if (coor.getY() == blackKing.getY() && coor.getX() == blackKing.getX())
+                        if (coor.getY() == blackKing.getY() && coor.getX() == blackKing.getX() && black)
                             return state.getPieceOnPlace(blackKing.getX(), blackKing.getY());
                     }
                 }
@@ -225,8 +225,8 @@ public class GameState {
         return null;
     }
 
-    public Piece isCheckMated(GameState state) {
-        if (isChecked(state) != null) {
+    public Piece isCheckMated(GameState state, boolean black) {
+        if (isChecked(state, black) != null) {
             Coordinates whiteKing = null;
             Coordinates blackKing = null;
             for (int i = 0; i < 8; i++) {
