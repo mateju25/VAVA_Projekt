@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 
 
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import project.gui.Main;
@@ -23,7 +24,7 @@ public class LoginSceneController {
     @FXML
     private TextField name;
     @FXML
-    private TextField password;
+    private PasswordField password;
     @FXML
     private Label warning;
 
@@ -34,7 +35,7 @@ public class LoginSceneController {
     }
 
     @FXML
-    private void changeSceneMenu() throws IOException {
+    private void changeSceneGameBoard() throws IOException {
 //        warning.setText("");
 //        String name = this.name.getText();
 //        String password= this.password.getText();
@@ -48,18 +49,24 @@ public class LoginSceneController {
 //            warning.setText("Nepodarilo sa prihlasit");
 //            return;
 //        }
-//        PlayerDatabase.getInstance().setActivePlayer(new ChessPlayer(name));
+//-------------------------------------------------------------------------------------
+//        Main.primaryStage.setResizable(true);
+//        Screen screen = Screen.getPrimary();
+//        Rectangle2D bounds = screen.getVisualBounds();
+//
+//        Main.primaryStage.setX(bounds.getMinX());
+//        Main.primaryStage.setY(bounds.getMinY());
+//        Main.primaryStage.setWidth(bounds.getWidth());
+//        Main.primaryStage.setHeight(bounds.getHeight());
+//
+//        Main.primaryStage.setMaximized(true);
+//        switchScene("/project/gui/views/GameBoard.fxml");
         Main.primaryStage.setResizable(true);
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
-        Main.primaryStage.setX(bounds.getMinX());
-        Main.primaryStage.setY(bounds.getMinY());
-        Main.primaryStage.setWidth(bounds.getWidth());
-        Main.primaryStage.setHeight(bounds.getHeight());
 
-        Main.primaryStage.setMaximized(true);
-        switchScene("/project/gui/views/GameBoard.fxml");
+        switchScene("/project/gui/views/MenuScene.fxml");
 
 
     }

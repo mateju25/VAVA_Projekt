@@ -6,7 +6,7 @@ import project.model.gameChess.GameState;
 
 import java.util.ArrayList;
 
-public abstract class Piece {
+public abstract class Piece implements Cloneable{
     protected Boolean black;
     protected Image pic;
 
@@ -17,13 +17,6 @@ public abstract class Piece {
     public void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
         state.getState()[finishX][finishY] = state.getPieceOnPlace(startX, startY);
         state.getState()[startX][startY] = null;
-
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (state.getPieceOnPlace(i, j) instanceof Pawn)
-                    ((Pawn) state.getPieceOnPlace(i, j)).setEnPasant(false);
-            }
-        }
     }
 
     public abstract ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y);
@@ -45,6 +38,11 @@ public abstract class Piece {
             return false;
         }
         return true;
+    }
+
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 
 }
