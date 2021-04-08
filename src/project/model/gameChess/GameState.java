@@ -96,13 +96,13 @@ public class GameState {
     }
 
     void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
-        if (promotion == null) {
-            if (finishY == 0 || finishY == 7) {
-                if (state.getPieceOnPlace(startX, startY) instanceof Pawn) {
-                    promotion = new String("-1");
-                }
-            }
-        }
+//        if (promotion == null) {
+//            if (finishY == 0 || finishY == 7) {
+//                if (state.getPieceOnPlace(startX, startY) instanceof Pawn) {
+//                    promotion = new String("-1");
+//                }
+//            }
+//        }
         state.getPieceOnPlace(startX, startY).makeMove(state, startX, startY, finishX, finishY);
         if (state.getPieceOnPlace(finishX, finishY) instanceof King) {
             ((King) state.getPieceOnPlace(finishX, finishY)).setMoved(true);

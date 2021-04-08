@@ -67,12 +67,12 @@
                   </Button>
                </children>
             </HBox>
-            <Label layoutX="1451.0" layoutY="287.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
+            <Label fx:id="topTimerText" layoutX="1451.0" layoutY="287.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
                <font>
                   <Font size="46.0" />
                </font>
             </Label>
-            <Label layoutX="1451.0" layoutY="545.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
+            <Label fx:id="botTimerText" layoutX="1451.0" layoutY="545.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
                <font>
                   <Font size="46.0" />
                </font>
