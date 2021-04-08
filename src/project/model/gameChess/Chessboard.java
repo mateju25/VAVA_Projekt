@@ -101,6 +101,11 @@ public class Chessboard {
         }
         if (state.isChecked(state, !state.getPieceOnPlace(finishX, finishY).getBlack()) != null) {
             lastSignal = Signalization.CHECK;
+            return;
+        }
+        if (!state.isAnyThereLegalMove(state, !state.getPieceOnPlace(finishX, finishY).getBlack())) {
+            lastSignal = Signalization.STALEMATE;
+            return;
         }
 
         lastSignal =  Signalization.NORMAL;

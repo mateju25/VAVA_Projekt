@@ -46,9 +46,10 @@ public class GameBoardController implements Initializable {
 
     private DrawingFunctions drawingFunctions = null;
     private Chessboard board = null;
+    private ArrayList<Coordinates> legalMoves;
 
     private Coordinates activeFigure = null;
-    private Stockfish computer = Stockfish.getInstance(1);
+    private Stockfish computer = Stockfish.getInstance(10);
 
 
     @Deprecated
@@ -97,7 +98,7 @@ public class GameBoardController implements Initializable {
             @Override
             public void run() {
                 String lastMove = board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast();
-                while (board.getLastSignal() != Signalization.CHECKMATE) {
+                while (board.getLastSignal() != Signalization.CHECKMATE && board.getLastSignal() != Signalization.STALEMATE) {
                     while (lastMove.equals( board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast())) {
                         try {
                             Thread.sleep(500);
@@ -110,16 +111,14 @@ public class GameBoardController implements Initializable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    String newMove = computer.getBestMove(board.getAllMoves().getLast());
-                    if (!computer.isCheckmate()) {
-                        board.makeMove(newMove);
+                    synchronized (this) {
+                        String newMove = computer.getBestMove(board.getAllMoves().getLast());
+                        if (!newMove.contains("none"))
+                            board.makeMove(newMove);
                         lastMove = board.getAllMoves().getLast();
                         textMoves.setText(textMoves.getText() + newMove + " ");
-                    } else {
-                        board.setLastSignal(Signalization.CHECKMATE);
+                        drawingFunctions.refreshBoard();
                     }
-                    drawingFunctions.refreshBoard();
                     Platform.runLater(() -> {
                         switch (board.getLastSignal()) {
                             case CHECK:
@@ -133,6 +132,15 @@ public class GameBoardController implements Initializable {
                                 alert.setHeaderText(null);
                                 alert.setContentText("MAT");
                                 alert.showAndWait();
+                                break;
+                            case STALEMATE:
+                                stop = true;
+                                canvas.setDisable(true);
+                                alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Information Dialog");
+                                alert.setHeaderText(null);
+                                alert.setContentText("PAT");
+                                alert.showAndWait();
                         }
                     });
                 }
@@ -140,9 +148,8 @@ public class GameBoardController implements Initializable {
             }
         });
 
-
-//        makeMoves("e2e4 e7e5 g1f3 d7d5 d2d3 b8c6 f1e2 d5e4 d3e4 d8d1 e2d1 g8e7 e1g1 e7g6 a2a3 f7f6 c2c3 c8e6 b1d2 c6a5 b2b4 a5c4 d2c4 e6c4 f1e1 b7b5 a3a4 g6f4 a4b5 a8d8 c1d2 c4b5 a1a7 g7g5 a7c7 h7h6 d2f4 f8b4 f4d2 b4d6 c7b7 g5g4 f3h4 b5c6 b7b6 f6f5 h4f5 e8d7 c3c4 d6c5 b6a6 h6h5 d1a4 c6a4 a6a4 h5h4 d2g5 d8a8 a4a8 h8a8 g5h4 d7c6 h2h3 g4h3 g2h3 c6c7 h4g3 a8g8 g1h2 g8e8 e1d1 e8e6 f5g7 e6e7 g7f5 e7e8 h3h4 e8e6 h4h5 e6e8 h5h6 c7c6 h6h7 c5f2 g3f2 e8a8 f5e7 c6c7 e7g6 a8a2 h2g2 a2f2 g2f2 c7c8 ");
-//        computer.setMoves(new LinkedList<>(board.getAllMoves()));
+        makeMoves("e2e4 e7e5 g1f3 d7d5 d1e2 d5e4 e2e4 b8c6 f3e5 d8e7 d2d3 c6e5 f1e2 e5g6 e4e7 f8e7 e1g1 c8d7 f1e1 e8d8 b1c3 c7c6 a2a3 e7f6 c3e4 f6e7 b2b3 f7f5 e4g5 e7g5 c1g5 g8f6 e2h5 b7b6 h5g6 h7g6 c2c4 a8b8 b3b4 h8e8 e1e8 d8e8 a1e1 e8f7 h2h3 b8b7 f2f4 b6b5 c4c5 a7a6 d3d4 d7c8 g5f6 g7f6 g2g4 b7d7 e1d1 d7d8 g4g5 d8g8 h3h4 f6g5 h4g5 g8h8 g1f2 h8h3 d1a1 c8e6 f2g2 e6c4 g2h3 c4e2 h3g3 f7f8 g3f2 e2c4 a3a4 b5a4 a1a4 c4b5 a4a5 f8e7 f2e3 e7d7 a5a1 d7d8 a1h1 b5c4 h1h7 a6a5 b4a5 d8c8 e3d2 c4b5 d2c3 c8b8 c3b4 b5d3 a5a6 d3a6 b4a5 a6e2 a5b6 e2a6 b6a6 b8c8 a6b6 c8d8 b6c6 d8e8 c6d6 e8f8 d6e6 f8g8 h7a7 g8f8 d4d5 f8g8 e6f6 g8h8 ");
+        computer.setMoves(new LinkedList<>(board.getAllMoves()));
         stockfishThread.start();
         drawingFunctions.refreshBoard();
     }
@@ -175,30 +182,32 @@ public class GameBoardController implements Initializable {
         int y = (int) ((mouseEvent.getY()) / (int) ((canvas.getWidth()) / 8));
 
         if (activeFigure != null) {
-            Signalization signal = board.getLastSignal();
-            String tmp = null;
-            if ((y == 0 || y == 7) && board.getState().getPieceOnPlace(activeFigure.getX(), activeFigure.getY()) instanceof Pawn) {
-                tmp = choosePromotion();
-            }
-            board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, tmp);
-            activeFigure = null;
-            if (board.getLastSignal() == Signalization.NOPIECE) {
-                board.setLastSignal(signal);
+            synchronized (this) {
+                Signalization signal = board.getLastSignal();
+                String tmp = null;
+                if ((y == 0 || y == 7) && board.getState().getPieceOnPlace(activeFigure.getX(), activeFigure.getY()) instanceof Pawn) {
+                    if (legalMoves.stream().anyMatch(coordinates -> coordinates.getX() == x && coordinates.getY() == y))
+                        tmp = choosePromotion();
+                }
+                board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, tmp);
+                activeFigure = null;
+                if (board.getLastSignal() == Signalization.NOPIECE) {
+                    board.setLastSignal(signal);
+                    drawingFunctions.refreshBoard();
+                    return;
+                }
+
+                if (timer == null) {
+                    setTimer();
+                }
+
+
+                textMoves.setText(textMoves.getText() + board.getAllMoves().getLast() + " ");
                 drawingFunctions.refreshBoard();
-                return;
             }
-
-            if (timer == null) {
-                setTimer();
-            }
-
-
-
-            textMoves.setText(textMoves.getText() + board.getAllMoves().getLast()  + " " );
-            drawingFunctions.refreshBoard();
         } else {
             drawingFunctions.refreshBoard();
-            ArrayList<Coordinates> legalMoves = board.getLegalMoves(x, y);
+            legalMoves = board.getLegalMoves(x, y);
             if (legalMoves == null)
                 return;
             drawingFunctions.drawSelectRenctangle(x, y);

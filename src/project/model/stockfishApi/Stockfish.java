@@ -39,7 +39,7 @@ public class Stockfish implements Runnable{
         try {
             input.write("position startpos moves " + buildMovesString() + "\n");
             input.flush();
-            input.write("go depth " + this.level + "\n");
+            input.write("go nodes " + this.level + "\n");
             input.flush();
 
             while(true) {
