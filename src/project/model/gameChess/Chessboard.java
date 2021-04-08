@@ -88,7 +88,7 @@ public class Chessboard {
         return Signalization.NORMAL;
     }
 
-    public void makeMove(String move) {
+    public Signalization makeMove(String move) {
         int startX = move.charAt(0) - 97;
         int startY = 7- Integer.parseInt(String.valueOf(move.charAt(1))) + 1;
         int finishX = move.charAt(2) - 97;
@@ -97,7 +97,7 @@ public class Chessboard {
         if (move.length() == 5)
             promotion = String.valueOf(move.charAt(4));
 
-        makeMove(startX, startY, finishX, finishY, promotion);
+        return makeMove(startX, startY, finishX, finishY, promotion);
     }
 
 }

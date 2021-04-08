@@ -7,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +43,7 @@ public class GameBoardController implements Initializable {
 
     private Coordinates activeFigure = null;
     private Stockfish computer = Stockfish.getInstance(1);
+    private Signalization lastSignal = Signalization.NORMAL;
 
     public void drawPiece(int x, int y, Piece piece) {
         gc.drawImage(piece.getPic(),x*(sizeOfSquare),y*(sizeOfSquare), sizeOfSquare, sizeOfSquare);
@@ -75,6 +79,8 @@ public class GameBoardController implements Initializable {
                     drawPiece(i, j, temp.getPieceOnPlace(i,j));
             }
         }
+        if (lastSignal == Signalization.CHECK)
+            drawCheckRectangle();
     }
     
     public void makeMoves(String moves) {
@@ -124,9 +130,11 @@ public class GameBoardController implements Initializable {
         int y = (int) ((mouseEvent.getY()) / sizeOfSquare);
 
         if (activeFigure != null) {
-            Signalization result = board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, null);
+            Signalization signal = lastSignal;
+            lastSignal = board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, null);
             activeFigure = null;
-            if (result == Signalization.NOPIECE) {
+            if (lastSignal == Signalization.NOPIECE) {
+                lastSignal = signal;
                 refreshBoard();
                 return;
             }
@@ -136,22 +144,25 @@ public class GameBoardController implements Initializable {
                 board.getState().getState()[x][y] = tmp == null ? new Queen(!board.isBlackTurn()) : tmp;
             }
 
-            refreshBoard();
-            switch (result) {
-                case CHECK: drawCheckRectangle();
-                            break;
-                case CHECKMATE:
-                    System.out.println("MAT");
-            }
             textMoves.setText(textMoves.getText() + board.getAllMoves().getLast()  + " " );
             String newMove = computer.getBestMove(board.getAllMoves().getLast());
-            board.makeMove(newMove);
+            lastSignal = board.makeMove(newMove);
             textMoves.setText(textMoves.getText() + newMove + " " );
             refreshBoard();
 
+            switch (lastSignal) {
+                case CHECK: drawCheckRectangle();
+                    break;
+                case CHECKMATE:
+                    canvas.setDisable(true);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("MAT");
+                    alert.showAndWait();
+            }
         } else {
             refreshBoard();
-
             ArrayList<Coordinates> legalMoves = board.getLegalMoves(x, y);
             if (legalMoves == null)
                 return;
