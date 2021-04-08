@@ -8,6 +8,8 @@ import project.model.gameChess.pieces.Queen;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import static javafx.scene.paint.Color.rgb;
+
 public class Chessboard {
     private GameState state;
     private LinkedList<String> allMoves = new LinkedList<>();
