@@ -10,4 +10,9 @@ public class MenuController {
         LoginSceneController.switchScene("/project/gui/views/SingleplayerScene.fxml");
 
     }
+    @FXML
+    private void changeSceneMultiplayer() throws IOException {
+        LoginSceneController.switchScene("/project/gui/views/MultiplayerScene.fxml");
+
+    }
 }

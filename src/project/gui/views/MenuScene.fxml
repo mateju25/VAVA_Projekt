@@ -7,12 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.MenuController">
    <center>
       <AnchorPane prefHeight="550.0" prefWidth="737.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" layoutX="75.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="220.0" prefWidth="220.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="75.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="122.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -21,7 +22,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="674.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="220.0" prefWidth="220.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
+            <Button alignment="CENTER" layoutX="674.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -30,7 +31,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="390.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="220.0" prefWidth="220.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="390.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -39,7 +40,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="75.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="220.0" prefWidth="220.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="75.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneMultiplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -48,7 +49,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="674.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="220.0" prefWidth="220.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
+            <Button alignment="CENTER" layoutX="674.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -57,7 +58,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="390.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="220.0" prefWidth="220.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="390.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="172.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -66,6 +67,36 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Text fill="WHITE" layoutX="94.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Singleplayer">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="438.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turnaje">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="796.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profil">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="99.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Multiplayer">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="425.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Void klub">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="754.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Holy kokot">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Text>
          </children></AnchorPane>
    </center>
    <top>

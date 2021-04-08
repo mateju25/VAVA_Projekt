@@ -37,7 +37,7 @@
                   <Canvas fx:id="canvas" height="800.0" onMouseClicked="#onClick" width="800.0" />
                </children>
             </HBox>
-            <TextArea fx:id="textMoves" layoutX="1450.0" layoutY="370.0" prefHeight="160.0" prefWidth="256.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="95.0" />
+            <TextArea fx:id="textMoves" layoutX="1450.0" layoutY="370.0" prefHeight="160.0" prefWidth="161.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="94.0" />
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="26.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/dec2.png" />
