@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 
 
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import project.gui.Main;
@@ -23,7 +24,7 @@ public class LoginSceneController {
     @FXML
     private TextField name;
     @FXML
-    private TextField password;
+    private PasswordField password;
     @FXML
     private Label warning;
 
@@ -48,7 +49,6 @@ public class LoginSceneController {
 //            warning.setText("Nepodarilo sa prihlasit");
 //            return;
 //        }
-//        PlayerDatabase.getInstance().setActivePlayer(new ChessPlayer(name));
 //-------------------------------------------------------------------------------------
 //        Main.primaryStage.setResizable(true);
 //        Screen screen = Screen.getPrimary();
@@ -61,6 +61,9 @@ public class LoginSceneController {
 //
 //        Main.primaryStage.setMaximized(true);
 //        switchScene("/project/gui/views/GameBoard.fxml");
+        Main.primaryStage.setResizable(true);
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
 
 
         switchScene("/project/gui/views/MenuScene.fxml");
