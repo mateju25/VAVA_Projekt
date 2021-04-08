@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../resources/css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.LoginSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../resources/css/BackgroundStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.LoginSceneController">
    <left>
       <AnchorPane prefHeight="700.0" prefWidth="335.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
@@ -40,7 +40,7 @@
                   <Image url="@../resources/pictures/dec2.png" />
                </image>
             </ImageView>
-            <Button layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
+            <Button layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneGameBoard" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

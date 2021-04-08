@@ -29,5 +29,19 @@
     -fx-text-fill: white;
     -fx-background-insets: -3;
 }
+.buttonBar{
+    -fx-font-weight:bold;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+}
+.buttonBar:hover{
+    -fx-font-weight:bold;
+    -fx-background-color: red;
+    -fx-background-radius: 0;
+    -fx-font-size: 20;
+    -fx-text-fill: black;
+}
 
 

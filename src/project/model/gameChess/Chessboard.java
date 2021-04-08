@@ -1,6 +1,10 @@
 package project.model.gameChess;
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.ArrayList;
+
+import static javafx.scene.paint.Color.rgb;
 
 public class Chessboard {
     private GameState state;
