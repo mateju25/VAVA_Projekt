@@ -3,6 +3,7 @@ package project.gui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import project.gui.Main;
 import project.model.gameChess.Chessboard;
@@ -170,5 +172,18 @@ public class GameBoardController implements Initializable {
             legalMoves.forEach(coordinates -> drawLegalMovePoint(coordinates.getX(), coordinates.getY()));
             activeFigure = new Coordinates(x, y);
         }
+    }
+    @FXML
+    private void changeSceneMenu() throws IOException {
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        Main.primaryStage.setX((bounds.getMaxX()-1000)/2);
+        Main.primaryStage.setY((bounds.getMaxY()-700)/2);
+        Main.primaryStage.setWidth(1000);
+        Main.primaryStage.setHeight(700);
+
+        
+        LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
+
     }
 }

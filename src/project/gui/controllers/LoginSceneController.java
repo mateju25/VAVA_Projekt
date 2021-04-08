@@ -35,7 +35,7 @@ public class LoginSceneController {
     }
 
     @FXML
-    private void changeSceneGameBoard() throws IOException {
+    private void changeSceneMenu() throws IOException {
 //        warning.setText("");
 //        String name = this.name.getText();
 //        String password= this.password.getText();
@@ -49,26 +49,10 @@ public class LoginSceneController {
 //            warning.setText("Nepodarilo sa prihlasit");
 //            return;
 //        }
-//-------------------------------------------------------------------------------------
-//        Main.primaryStage.setResizable(true);
-//        Screen screen = Screen.getPrimary();
-//        Rectangle2D bounds = screen.getVisualBounds();
-//
-//        Main.primaryStage.setX(bounds.getMinX());
-//        Main.primaryStage.setY(bounds.getMinY());
-//        Main.primaryStage.setWidth(bounds.getWidth());
-//        Main.primaryStage.setHeight(bounds.getHeight());
-//
-//        Main.primaryStage.setMaximized(true);
-//        switchScene("/project/gui/views/GameBoard.fxml");
-        Main.primaryStage.setResizable(true);
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
+
 
 
         switchScene("/project/gui/views/MenuScene.fxml");
-
-
     }
 
     @FXML

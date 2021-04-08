@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
    <top>
       <AnchorPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
@@ -21,7 +21,7 @@
                   <Font name="System Bold" size="47.0" />
                </font>
             </Label>
-            <Button layoutX="1580.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Menu" textFill="#0d0d0d" AnchorPane.rightAnchor="35.0">
+            <Button layoutX="1580.0" layoutY="27.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Menu" textFill="#0d0d0d" AnchorPane.rightAnchor="35.0">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>

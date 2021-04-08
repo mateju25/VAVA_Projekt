@@ -40,7 +40,7 @@
                   <Image url="@../resources/pictures/dec2.png" />
                </image>
             </ImageView>
-            <Button layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneGameBoard" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
+            <Button layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

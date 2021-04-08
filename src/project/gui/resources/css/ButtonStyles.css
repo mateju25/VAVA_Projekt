@@ -39,9 +39,27 @@
 .buttonBar:hover{
     -fx-font-weight:bold;
     -fx-background-color: red;
-    -fx-background-radius: 0;
+    -fx-background-radius: 5;
     -fx-font-size: 20;
     -fx-text-fill: black;
+}
+.buttonChoose{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+}
+.buttonChoose:hover{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-background-insets: -2;
+}
+.buttonChoose:pressed{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+    -fx-border-color:red;
 }
 
 
