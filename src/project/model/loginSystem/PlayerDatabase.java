@@ -2,7 +2,9 @@ package project.model.loginSystem;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Properties;
 
@@ -33,53 +35,56 @@ public class PlayerDatabase {
 
     public boolean existsUserName(String name, String email) {
         ResultSet resultSet = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
 
         boolean result = true;
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM users WHERE username='" + name +"' or email='" + email + "';");
-            if (resultSet.next()) {
-                result = true;
-            } else {
+            statement = connection.prepareStatement("SELECT * FROM users WHERE username = ? or email = ?;");
+            statement.setString(1, name);
+            statement.setString(2, email);
+            resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
                 result = false;
             }
             connection.close();
-        } catch (SQLException a) {
-            result = true;
-        }
+        } catch (SQLException a) {}
         return result;
     }
 
     public boolean loginUser(String name, String password) {
         ResultSet resultSet = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
 
         boolean result = true;
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM users WHERE username='" + name +"' and password='" + password + "';");
-            if (resultSet.next()) {
-                result = true;
-            } else {
+            statement = connection.prepareStatement("SELECT * FROM users WHERE username= ? and password= ?;");
+            statement.setString(1, name);
+            statement.setString(2,  hashPass(password));
+            resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
                 result = false;
+            } else {
+                setActivePlayer(new ChessPlayer(resultSet.getString(1), resultSet.getBoolean(4)));
             }
             connection.close();
         } catch (SQLException a) {
-            result = true;
+            result = false;
         }
         return result;
     }
 
     public void registrationUser(String name, String password, String email) {
-        Statement statement = null;
+        PreparedStatement statement = null;
 
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO users VALUES ('" + name +"', '" + password + "', '" + email + "')");
+            statement = connection.prepareStatement("INSERT INTO users VALUES (? , ? , ?, 0)");
+            statement.setString(1, name);
+            statement.setString(2, hashPass(password));
+            statement.setString(3, email);
+            statement.executeUpdate();
             connection.close();
         } catch (SQLException a) {}
     }
@@ -115,5 +120,25 @@ public class PlayerDatabase {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
+    }
+
+    public String hashPass(String password) {
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder hexString = new StringBuilder(2 * encodedhash.length);
+        for (int i = 0; i < encodedhash.length; i++) {
+            String hex = Integer.toHexString(0xff & encodedhash[i]);
+            if(hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

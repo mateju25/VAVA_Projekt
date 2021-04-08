@@ -60,7 +60,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <PasswordField layoutX="41.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <PasswordField fx:id="password" layoutX="41.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
                <font>
                   <Font size="15.0" />
                </font>
