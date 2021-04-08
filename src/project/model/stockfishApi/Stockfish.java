@@ -2,14 +2,15 @@ package project.model.stockfishApi;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Stockfish {
+public class Stockfish implements Runnable{
     //region Private
     private Process myProcess =  null;
     private BufferedReader output = null;
     private BufferedWriter input = null;
-    private ArrayList<String> moves = null;
+    private LinkedList<String> moves = null;
     private int level = 1;
 
     private Stockfish(int level) {
@@ -19,7 +20,7 @@ public class Stockfish {
             myProcess = pb.start();
             output = new BufferedReader(new InputStreamReader(myProcess.getInputStream()));
             input = new BufferedWriter(new OutputStreamWriter(myProcess.getOutputStream()));
-            moves = new ArrayList<>();
+            moves = new LinkedList<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,8 +61,12 @@ public class Stockfish {
         return new Stockfish(level);
     }
 
-    public ArrayList<String> getMoves() {
+    public LinkedList<String> getMoves() {
         return this.moves;
+    }
+
+    public void setMoves(LinkedList<String> moves) {
+        this.moves = moves;
     }
 
     public void shutdownStockfish() {
@@ -79,7 +84,7 @@ public class Stockfish {
         if (lastLine == null)
             return null;
         else
-            return lastLine.contains("(None)");
+            return lastLine.contains("(none)");
     }
 
     public String getBestMove(String paMove) {
@@ -92,6 +97,11 @@ public class Stockfish {
             parts = lastLine.split(" ");
             moves.add(parts[1]);
             return parts[1];
+    }
+
+    @Override
+    public void run() {
+
     }
 
     //endregion

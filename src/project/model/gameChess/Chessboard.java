@@ -8,12 +8,11 @@ import project.model.gameChess.pieces.Queen;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import static javafx.scene.paint.Color.rgb;
-
 public class Chessboard {
     private GameState state;
     private LinkedList<String> allMoves = new LinkedList<>();
     private boolean blackTurn = false;
+    private Signalization lastSignal = Signalization.NORMAL;
 
     public Chessboard(boolean blackCloser) {
         this.state = new GameState();
@@ -32,6 +31,14 @@ public class Chessboard {
         return allMoves;
     }
 
+    public Signalization getLastSignal() {
+        return lastSignal;
+    }
+
+    public void setLastSignal(Signalization lastSignal) {
+        this.lastSignal = lastSignal;
+    }
+
     public boolean isBlackTurn() {
         return blackTurn;
     }
@@ -48,16 +55,23 @@ public class Chessboard {
         return state.getLegalMoves(x, y);
     }
 
-    public Signalization makeMove(int startX, int startY, int finishX, int finishY, String promotion) {
-        if (state.getPieceOnPlace(startX,startY) == null)
-            return Signalization.NOPIECE;
-        if (state.getPieceOnPlace(startX,startY).getBlack() && !blackTurn)
-            return Signalization.NOPIECE;
-        if (!state.getPieceOnPlace(startX,startY).getBlack() && blackTurn)
-            return Signalization.NOPIECE;
+    public void makeMove(int startX, int startY, int finishX, int finishY, String promotion) {
+        if (state.getPieceOnPlace(startX, startY) == null) {
+            lastSignal = Signalization.NOPIECE;
+            return;
+        }
+        if (state.getPieceOnPlace(startX, startY).getBlack() && !blackTurn) {
+            lastSignal = Signalization.NOPIECE;
+            return;
+        }
+        if (!state.getPieceOnPlace(startX, startY).getBlack() && blackTurn) {
+            lastSignal = Signalization.NOPIECE;
+            return;
+        }
 
         if (getLegalMoves(startX, startY).stream().noneMatch(coordinates -> coordinates.getX() == finishX && coordinates.getY() == finishY)) {
-            return Signalization.NOPIECE;
+            lastSignal = Signalization.NOPIECE;
+            return;
         }
 
         state.setPromotion(promotion);
@@ -78,19 +92,22 @@ public class Chessboard {
                 s = "r";
             }
             allMoves.add(String.valueOf((char) ((char) startX + 97)) + (7 - startY + 1) + (char) ((char) finishX + 97) + (7 - finishY + 1) + s);
-        }
-        else
+        } else
             allMoves.add(String.valueOf((char) ((char) startX + 97)) + (7 - startY + 1) + (char) ((char) finishX + 97) + (7 - finishY + 1));
 
-        if (state.isCheckMated(state, !state.getPieceOnPlace(finishX,finishY).getBlack()) != null)
-            return Signalization.CHECKMATE;
-        if (state.isChecked(state, !state.getPieceOnPlace(finishX,finishY).getBlack()) != null)
-            return Signalization.CHECK;
+        if (state.isCheckMated(state, !state.getPieceOnPlace(finishX, finishY).getBlack()) != null) {
+            lastSignal = Signalization.CHECKMATE;
+            return;
+        }
+        if (state.isChecked(state, !state.getPieceOnPlace(finishX, finishY).getBlack()) != null) {
+            lastSignal = Signalization.CHECK;
+        }
 
-        return Signalization.NORMAL;
+        lastSignal =  Signalization.NORMAL;
+        return;
     }
 
-    public Signalization makeMove(String move) {
+    public void makeMove(String move) {
         int startX = move.charAt(0) - 97;
         int startY = 7- Integer.parseInt(String.valueOf(move.charAt(1))) + 1;
         int finishX = move.charAt(2) - 97;
@@ -99,7 +116,7 @@ public class Chessboard {
         if (move.length() == 5)
             promotion = String.valueOf(move.charAt(4));
 
-        return makeMove(startX, startY, finishX, finishY, promotion);
+        makeMove(startX, startY, finishX, finishY, promotion);
     }
 
 }
