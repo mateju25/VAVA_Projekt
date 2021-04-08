@@ -1,4 +1,4 @@
-package project.model.gameChess;
+package project.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.scene.layout.Pane;

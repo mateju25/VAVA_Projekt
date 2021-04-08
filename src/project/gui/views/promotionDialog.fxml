@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.model.gameChess.PromotionController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.PromotionController">
    <children>
       <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseQueen" prefHeight="158.0" prefWidth="216.0">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../gui/resources/pictures/WhiteQueen.png" />
+                  <Image url="@../resources/pictures/WhiteQueen.png" />
                </image>
             </ImageView>
          </graphic>
@@ -21,7 +21,7 @@
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../gui/resources/pictures/WhiteBishop.png" />
+                  <Image url="@../resources/pictures/WhiteBishop.png" />
                </image>
             </ImageView>
          </graphic>
@@ -30,7 +30,7 @@
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../gui/resources/pictures/WhiteKnight.png" />
+                  <Image url="@../resources/pictures/WhiteKnight.png" />
                </image>
             </ImageView>
          </graphic>
@@ -39,7 +39,7 @@
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../gui/resources/pictures/WhiteRook.png" />
+                  <Image url="@../resources/pictures/WhiteRook.png" />
                </image>
             </ImageView>
          </graphic>

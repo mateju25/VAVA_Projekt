@@ -4,7 +4,6 @@ import project.model.gameChess.pieces.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class GameState {
     private Piece[][] state = new Piece[8][8];

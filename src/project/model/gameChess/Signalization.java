@@ -4,5 +4,6 @@ public enum Signalization {
     CHECKMATE,
     STALEMATE,
     CHECK,
-    NORMAL
+    NORMAL,
+    NOPIECE
 }

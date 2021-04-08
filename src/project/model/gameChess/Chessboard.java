@@ -22,10 +22,6 @@ public class Chessboard {
         this.state.setBlackCloser(blackCloser);
     }
 
-    public boolean isBlackCloser() {
-        return state.isBlackCloser();
-    }
-
     public GameState getState() {
         return state;
     }
@@ -39,6 +35,8 @@ public class Chessboard {
     }
 
     public ArrayList<Coordinates> getLegalMoves(int x, int y) {
+        if (state.getPieceOnPlace(x,y) == null)
+            return null;
         if (state.getPieceOnPlace(x,y).getBlack() && !blackTurn)
             return null;
 
@@ -50,11 +48,11 @@ public class Chessboard {
 
     public Signalization makeMove(int startX, int startY, int finishX, int finishY, String promotion) {
         if (state.getPieceOnPlace(startX,startY) == null)
-            return Signalization.NORMAL;
+            return Signalization.NOPIECE;
         if (state.getPieceOnPlace(startX,startY).getBlack() && !blackTurn)
-            return Signalization.NORMAL;
+            return Signalization.NOPIECE;
         if (!state.getPieceOnPlace(startX,startY).getBlack() && blackTurn)
-            return Signalization.NORMAL;
+            return Signalization.NOPIECE;
 
         state.setPromotion(promotion);
         state.makeMove(state, startX, startY, finishX, finishY);
@@ -94,8 +92,6 @@ public class Chessboard {
         String promotion = null;
         if (move.length() == 5)
             promotion = String.valueOf(move.charAt(4));
-
-//        blackTurn = !blackTurn;
 
         makeMove(startX, startY, finishX, finishY, promotion);
     }

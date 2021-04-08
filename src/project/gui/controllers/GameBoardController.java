@@ -1,19 +1,27 @@
 package project.gui.controllers;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import project.gui.Main;
 import project.model.gameChess.Chessboard;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 import project.model.gameChess.Signalization;
+import project.model.gameChess.pieces.Pawn;
 import project.model.gameChess.pieces.Piece;
+import project.model.gameChess.pieces.Queen;
 import project.model.stockfishApi.Stockfish;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -31,8 +39,7 @@ public class GameBoardController implements Initializable {
 
 
     private boolean stateLegalMoves = false;
-    private int activeFigureX;
-    private int activeFigureY;
+    private Coordinates activeFigure = null;
     private ArrayList<Coordinates> legalMovesOfFigure;
 
     private Stockfish computer = Stockfish.getInstance();
@@ -46,6 +53,21 @@ public class GameBoardController implements Initializable {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(rgb(170, 170, 170));
         gc.fillOval(x*(sizeOfSquare)+35, y*(sizeOfSquare)+35, sizeOfSquare-70, sizeOfSquare-70);
+    }
+
+    public void drawSelectRenctangle(int x, int y) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(rgb(34, 34, 34));
+        gc.setLineWidth(5);
+        gc.strokeRect(x * (sizeOfSquare), y * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
+    }
+
+    public void drawCheckRectangle() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Coordinates king = board.getState().whereIsThis(board.getState().isChecked(board.getState()));
+        gc.setStroke(rgb(250, 0, 0));
+        gc.setLineWidth(5);
+        gc.strokeRect(king.getX() * (sizeOfSquare), king.getY() * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
     }
 
     public void refreshBoard() {
@@ -71,68 +93,67 @@ public class GameBoardController implements Initializable {
         refreshBoard();
     }
 
+    public Piece choosePromotion() {
+        Parent root = null;
+        FXMLLoader loader = null;
+        try {
+            loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/project/gui/views/promotionDialog.fxml"));
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+
+        PromotionController controller = loader.getController();
+        controller.setBlack(!board.isBlackTurn());
+
+        Stage window = new Stage();
+        window.setResizable(false);
+        window.setAlwaysOnTop(true);
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setScene(scene);
+        window.showAndWait();
+        return controller.getChosedPiece();
+    }
+
     public void onClick(MouseEvent mouseEvent) {
         int x = (int) ((mouseEvent.getX()) / sizeOfSquare);
         int y = (int) ((mouseEvent.getY()) / sizeOfSquare);
 
         if (stateLegalMoves) {
             stateLegalMoves = false;
-            boolean isThere = false;
-            if (legalMovesOfFigure == null) {
-                refreshBoard();
+
+            Signalization result = board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, null);
+            if (result == Signalization.NOPIECE)
                 return;
-            }
-            for (Coordinates coors :
-                    legalMovesOfFigure) {
-                if (coors.getX() == x && coors.getY() == y) {
-                    isThere = true;
-                    break;
-                }
+
+            if ((y == 0 || y == 7) && board.getState().getPieceOnPlace(x, y) instanceof Pawn) {
+                Piece tmp = choosePromotion();
+                board.getState().getState()[x][y] = tmp == null ? new Queen(!board.isBlackTurn()) : tmp;
             }
 
             refreshBoard();
-            if (isThere) {
-                Signalization result = board.makeMove(activeFigureX, activeFigureY, x, y, null);
-                refreshBoard();
-                switch (result) {
-                    case CHECK:  GraphicsContext gc = canvas.getGraphicsContext2D();
-                                Coordinates king = board.getState().whereIsThis(board.getState().isChecked(board.getState()));
-                                gc.setStroke(rgb(250, 0, 0));
-                                gc.setLineWidth(5);
-                                gc.strokeRect(king.getX() * (sizeOfSquare), king.getY() * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
-                                break;
-                    case CHECKMATE:
-                }
-                textMoves.setText(textMoves.getText() + board.getAllMoves().getLast()  + ", " );
-                String newMove = computer.getBestMove(board.getAllMoves().getLast());
-//                board.makeMove(newMove);
-//                textMoves.setText(textMoves.getText() + "\n" + newMove);
-//                refreshBoard();
+            switch (result) {
+                case CHECK: drawCheckRectangle();
+                            break;
+                case CHECKMATE:
             }
+            textMoves.setText(textMoves.getText() + board.getAllMoves().getLast()  + ", " );
+            String newMove = computer.getBestMove(board.getAllMoves().getLast());
+            board.makeMove(newMove);
+            textMoves.setText(textMoves.getText() + "\n" + newMove);
+            refreshBoard();
 
         } else {
             refreshBoard();
-            if (board.getState().getPieceOnPlace(x, y) == null)
-                return;
-            if (board.getState().getPieceOnPlace(x, y).getBlack() && !board.isBlackTurn())
-                return;
-            if (!board.getState().getPieceOnPlace(x, y).getBlack() && board.isBlackTurn())
-                return;
-            ArrayList<Coordinates> legalMoves = board.getLegalMoves(x, y);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.setStroke(rgb(34, 34, 34));
-            gc.setLineWidth(5);
-            gc.strokeRect(x * (sizeOfSquare), y * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
-            if (legalMoves != null) {
-                for (Coordinates coors :
-                        legalMoves) {
-                    drawLegalMovePoint(coors.getX(), coors.getY());
-                }
-                legalMovesOfFigure = legalMoves;
-                activeFigureX = x;
-                activeFigureY = y;
 
-            }
+            ArrayList<Coordinates> legalMoves = board.getLegalMoves(x, y);
+            if (legalMoves == null)
+                return;
+            drawSelectRenctangle(x, y);
+            legalMoves.forEach(coordinates -> drawLegalMovePoint(coordinates.getX(), coordinates.getY()));
+            activeFigure = new Coordinates(x, y);
             stateLegalMoves = true;
         }
     }
