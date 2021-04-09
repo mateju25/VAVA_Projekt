@@ -45,12 +45,31 @@ public class DrawingFunctions {
         gc.strokeRect(king.getX() * (sizeOfSquare), king.getY() * (sizeOfSquare), sizeOfSquare, sizeOfSquare);
     }
 
+    public void drawTransparentRecntangle(int x, int y) {
+        gc.setFill(rgb(245, 95, 10, 0.75));
+        gc.fillRect(x * (sizeOfSquare)-1, y * (sizeOfSquare), sizeOfSquare+1, sizeOfSquare+1);
+    }
+
+
     public void refreshBoard() {
         if (board.getState().isBlackCloser())
             gc.drawImage(new Image("/project/gui/resources/pictures/BlackBoard.png"),0,0,canvas.getWidth(),canvas.getHeight());
         else
             gc.drawImage(new Image("/project/gui/resources/pictures/WhiteBoard.png"),0,0,canvas.getWidth(),canvas.getHeight());
         GameState temp = board.getState();
+
+        if (board.getAllMoves().size() != 0) {
+            int startX = board.getAllMoves().getLast().charAt(0) - 97;
+            int startY = 7 - Integer.parseInt(String.valueOf(board.getAllMoves().getLast().charAt(1))) + 1;
+            int finishX = board.getAllMoves().getLast().charAt(2) - 97;
+            int finishY = 7 - Integer.parseInt(String.valueOf(board.getAllMoves().getLast().charAt(3))) + 1;
+
+            drawTransparentRecntangle(startX, startY);
+            drawTransparentRecntangle(finishX, finishY);
+        }
+
+
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (temp.getPieceOnPlace(i,j) != null)
