@@ -27,13 +27,13 @@ public class Pawn extends Piece{
 
         int minus = 1;
         if (state.isBlackCloser())
-            minus = -1;
+            minus *= -1;
 
         if (black)
             minus *= -1;
 
-        if (state.getPieceOnPlace(finishX, finishY+minus) instanceof Pawn && ((Pawn) state.getPieceOnPlace(finishX, finishY+ minus)).enPasant && state.getPieceOnPlace(finishX, finishY+ minus).getBlack() != black)
-            state.getState()[finishX][finishY + minus] = null;
+        if (state.getPieceOnPlace(finishX, finishY-minus) instanceof Pawn && ((Pawn) state.getPieceOnPlace(finishX, finishY- minus)).enPasant && state.getPieceOnPlace(finishX, finishY- minus).getBlack() != black)
+            state.getState()[finishX][finishY - minus] = null;
 
         isMoved = true;
 
@@ -61,7 +61,7 @@ public class Pawn extends Piece{
             return result;
         int minus = 1;
         if (state.isBlackCloser())
-            minus = -1;
+            minus *= -1;
         if (!black)
             minus *= -1;
 
@@ -69,7 +69,7 @@ public class Pawn extends Piece{
         if (state.getPieceOnPlace(x, y+ minus) == null) {
             result.add(new Coordinates(x, y+ minus));
             if (!isMoved)
-                if (state.getPieceOnPlace(x, y+2*minus) == null)
+                if ((y+2*minus >= 0 && y+2*minus <= 7) && state.getPieceOnPlace(x, y+2*minus) == null)
                     result.add(new Coordinates(x, y+2*minus));
         }
         if (x-1 >=0 && (state.getPieceOnPlace(x-1, y+ minus) != null && state.getPieceOnPlace(x-1, y+ minus).getBlack() != black))
@@ -77,9 +77,9 @@ public class Pawn extends Piece{
         if (x+1 <=7 && (state.getPieceOnPlace(x+1, y+ minus) != null && state.getPieceOnPlace(x+1, y+ minus).getBlack() != black))
             result.add(new Coordinates(x+1, y+ minus));
 
-        if (x-1 >=0 && (state.getPieceOnPlace(x-1, y) instanceof Pawn && state.getPieceOnPlace(x-1, y).getBlack() != black && ((Pawn) state.getPieceOnPlace(x - 1, y)).enPasant))
+        if (x-1 >=0 && (y == 3 || y == 4) && (state.getPieceOnPlace(x-1, y) instanceof Pawn && state.getPieceOnPlace(x-1, y).getBlack() != black && ((Pawn) state.getPieceOnPlace(x - 1, y)).enPasant))
             result.add(new Coordinates(x-1, y+ minus));
-        if (x+1 <=7 && (state.getPieceOnPlace(x+1, y) instanceof Pawn && state.getPieceOnPlace(x+1, y).getBlack() != black  && ((Pawn) state.getPieceOnPlace(x + 1, y)).enPasant))
+        if (x+1 <=7 && (y == 3 || y == 4) && (state.getPieceOnPlace(x+1, y) instanceof Pawn && state.getPieceOnPlace(x+1, y).getBlack() != black  && ((Pawn) state.getPieceOnPlace(x + 1, y)).enPasant))
             result.add(new Coordinates(x+1, y+ minus));
 
         return result;

@@ -88,7 +88,8 @@ public class Stockfish implements Runnable{
     }
 
     public String getBestMove(String paMove) {
-        moves.add(paMove);
+        if (paMove != null)
+            moves.add(paMove);
         String lastLine = getLastLine();
         String[] parts = null;
         if (lastLine == null)

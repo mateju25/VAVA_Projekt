@@ -49,8 +49,7 @@ public class GameBoardController implements Initializable {
     private ArrayList<Coordinates> legalMoves;
 
     private Coordinates activeFigure = null;
-    private Stockfish computer = Stockfish.getInstance(10);
-
+    private Stockfish computer;
 
     @Deprecated
     public void makeMoves(String moves) {
@@ -68,9 +67,15 @@ public class GameBoardController implements Initializable {
                 if(!stop && topTime.isAfter(LocalTime.of(0, 0, 0)) && botTime.isAfter(LocalTime.of(0, 0, 0)))
                 {
                     if (board.isBlackTurn()) {
-                        topTime = topTime.minusSeconds(1);
+                        if (board.getState().isBlackCloser())
+                            botTime = botTime.minusSeconds(1);
+                        else
+                            topTime = topTime.minusSeconds(1);
                     } else {
-                        botTime = botTime.minusSeconds(1);
+                        if (board.getState().isBlackCloser())
+                            topTime = topTime.minusSeconds(1);
+                        else
+                            botTime = botTime.minusSeconds(1);
                     }
                     Platform.runLater(() -> {
                         topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
@@ -86,11 +91,13 @@ public class GameBoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Main.primaryStage.setMaximized(true);
 
-        board = new Chessboard(false);
+        board = new Chessboard(SingleplayerController.blackSide);
+        final boolean[] computerFirst = {SingleplayerController.blackSide};
+        computer = Stockfish.getInstance(SingleplayerController.level);
         drawingFunctions = new DrawingFunctions(canvas, board);
 
-        botTime = LocalTime.of(0, 5, 0);
-        topTime = LocalTime.of(0, 5, 0);
+        botTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
+        topTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
         topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
         botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
 
@@ -100,19 +107,24 @@ public class GameBoardController implements Initializable {
                 String lastMove = board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast();
                 while (board.getLastSignal() != Signalization.CHECKMATE && board.getLastSignal() != Signalization.STALEMATE) {
                     while (lastMove.equals( board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast())) {
+                        if (computerFirst[0]) {
+                            setTimer();
+                            break;
+                        }
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
+                    computerFirst[0] = false;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     synchronized (this) {
-                        String newMove = computer.getBestMove(board.getAllMoves().getLast());
+                        String newMove = computer.getBestMove(board.getAllMoves().size() == 0 ? null : board.getAllMoves().getLast());
                         if (!newMove.contains("none"))
                             board.makeMove(newMove);
                         lastMove = board.getAllMoves().getLast();
@@ -147,9 +159,9 @@ public class GameBoardController implements Initializable {
                 stop = true;
             }
         });
-
-        makeMoves("e2e4 e7e5 g1f3 d7d5 d1e2 d5e4 e2e4 b8c6 f3e5 d8e7 d2d3 c6e5 f1e2 e5g6 e4e7 f8e7 e1g1 c8d7 f1e1 e8d8 b1c3 c7c6 a2a3 e7f6 c3e4 f6e7 b2b3 f7f5 e4g5 e7g5 c1g5 g8f6 e2h5 b7b6 h5g6 h7g6 c2c4 a8b8 b3b4 h8e8 e1e8 d8e8 a1e1 e8f7 h2h3 b8b7 f2f4 b6b5 c4c5 a7a6 d3d4 d7c8 g5f6 g7f6 g2g4 b7d7 e1d1 d7d8 g4g5 d8g8 h3h4 f6g5 h4g5 g8h8 g1f2 h8h3 d1a1 c8e6 f2g2 e6c4 g2h3 c4e2 h3g3 f7f8 g3f2 e2c4 a3a4 b5a4 a1a4 c4b5 a4a5 f8e7 f2e3 e7d7 a5a1 d7d8 a1h1 b5c4 h1h7 a6a5 b4a5 d8c8 e3d2 c4b5 d2c3 c8b8 c3b4 b5d3 a5a6 d3a6 b4a5 a6e2 a5b6 e2a6 b6a6 b8c8 a6b6 c8d8 b6c6 d8e8 c6d6 e8f8 d6e6 f8g8 h7a7 g8f8 d4d5 f8g8 e6f6 g8h8 ");
-        computer.setMoves(new LinkedList<>(board.getAllMoves()));
+//
+//        makeMoves("d2d4 e7e5 d4e5 d7d6 e5d6 d8d6 d1d6 f8d6 g1f3 g8f6 e2e3 e8g8 c1d2 c8g4 h2h3 g4f3 g2f3 b8c6 a2a3 a7a6 h1g1 b7b5 f3f4 f6e4 f1g2 a8e8 g2e4 e8e4 b1c3 e4e8 c3e2 d6f4 e2f4 c6d4 e1c1 d4f3 d2b4 f3g1 d1g1 e8d8 h3h4 f8e8 h4h5 h7h6 f4d3 d8c8 b2b3 c7c5 b4a5 c5c4 b3c4 c8c4 a5b4 e8c8 c2c3 g8h7 c1d2 g7g6 f2f3 g6g5 e3e4 f7f6 g1e1 h7g7 e4e5 g7f7 e5f6 f7f6 a3a4 b5a4 d2c2 a4a3 c2b3 a6a5 b4a5 c4c5 d3c5 c8c5 a5b4 c5b5 b3a2 b5b8 e1c1 b8a8 b4d6 f6e6 d6b4 e6e5 c1a1 e5f4 a2b3 f4f3 c3c4 g5g4 c4c5 g4g3 c5c6 g3g2 b4c5 a8a6 c6c7 a6c6 c5d6 f3f2 d6h2 f2f3 ");
+//        computer.setMoves(new LinkedList<>(board.getAllMoves()));
         stockfishThread.start();
         drawingFunctions.refreshBoard();
     }
