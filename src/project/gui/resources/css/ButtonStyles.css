@@ -43,6 +43,26 @@
     -fx-font-size: 20;
     -fx-text-fill: black;
 }
+
+.toggle-button{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+}
+.toggle-button:hover{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+}
+.toggle-button:selected{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-border-width: 3;
+    -fx-border-radius: 9;
+    -fx-border-color:red;
+}
 .buttonChoose{
     -fx-background-color: #222222;
     -fx-background-radius: 15;
@@ -52,12 +72,13 @@
 .buttonChoose:hover{
     -fx-background-color: #222222;
     -fx-background-radius: 15;
-    -fx-background-insets: -2;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
 }
-.buttonChoose:pressed{
+.buttonChoose:selected{
     -fx-background-color: #222222;
     -fx-background-radius: 15;
-    -fx-border-width: 5;
+    -fx-border-width: 3;
     -fx-border-radius: 9;
     -fx-border-color:red;
 }
