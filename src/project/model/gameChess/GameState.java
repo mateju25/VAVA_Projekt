@@ -57,26 +57,27 @@ public class GameState {
 
         // rosada
         if (getPieceOnPlace(x,y) instanceof King && !((King) getPieceOnPlace(x,y)).isMoved()) {
+            int minus = isBlackCloser() ? -1 : 1;
             if (isChecked(this, getPieceOnPlace(x,y).getBlack()) == null &&
-                    getPieceOnPlace(x+1,y) == null &&
-                    getPieceOnPlace(x+2,y) == null &&
-                    getPieceOnPlace(x+3,y) instanceof Rook &&
-                    !((Rook) getPieceOnPlace(x+3,y)).isMoved() &&
-                    getPieceOnPlace(x+3, y).getBlack() == getPieceOnPlace(x,y).getBlack() &&
-                    !isSquareAttacked(this, x + 1, y, !getPieceOnPlace(x, y).getBlack()) &&
-                    !isSquareAttacked(this, x + 2, y, !getPieceOnPlace(x, y).getBlack()))
-                legalMoves.add(new Coordinates(x+2, y));
+                    getPieceOnPlace(x+1*minus,y) == null &&
+                    getPieceOnPlace(x+2*minus,y) == null &&
+                    getPieceOnPlace(x+3*minus,y) instanceof Rook &&
+                    !((Rook) getPieceOnPlace(x+3*minus,y)).isMoved() &&
+                    getPieceOnPlace(x+3*minus, y).getBlack() == getPieceOnPlace(x,y).getBlack() &&
+                    !isSquareAttacked(this, x + 1*minus, y, !getPieceOnPlace(x, y).getBlack()) &&
+                    !isSquareAttacked(this, x + 2*minus, y, !getPieceOnPlace(x, y).getBlack()))
+                legalMoves.add(new Coordinates(x+2*minus, y));
             if (isChecked(this, getPieceOnPlace(x,y).getBlack()) == null &&
-                    getPieceOnPlace(x-1,y) == null &&
-                    getPieceOnPlace(x-2,y) == null &&
-                    getPieceOnPlace(x-3,y) == null &&
-                    getPieceOnPlace(x-4,y) instanceof Rook &&
-                    !((Rook) getPieceOnPlace(x-4,y)).isMoved() &&
-                    getPieceOnPlace(x-4, y).getBlack() == getPieceOnPlace(x,y).getBlack() &&
-                    !isSquareAttacked(this, x - 1, y, !getPieceOnPlace(x, y).getBlack()) &&
-                    !isSquareAttacked(this, x - 2, y, !getPieceOnPlace(x, y).getBlack()) &&
-                    !isSquareAttacked(this, x - 3, y, !getPieceOnPlace(x, y).getBlack()))
-                legalMoves.add(new Coordinates(x-2, y));
+                    getPieceOnPlace(x-1*minus,y) == null &&
+                    getPieceOnPlace(x-2*minus,y) == null &&
+                    getPieceOnPlace(x-3*minus,y) == null &&
+                    getPieceOnPlace(x-4*minus,y) instanceof Rook &&
+                    !((Rook) getPieceOnPlace(x-4*minus,y)).isMoved() &&
+                    getPieceOnPlace(x-4*minus, y).getBlack() == getPieceOnPlace(x,y).getBlack() &&
+                    !isSquareAttacked(this, x - 1*minus, y, !getPieceOnPlace(x, y).getBlack()) &&
+                    !isSquareAttacked(this, x - 2*minus, y, !getPieceOnPlace(x, y).getBlack()) &&
+                    !isSquareAttacked(this, x - 3*minus, y, !getPieceOnPlace(x, y).getBlack()))
+                legalMoves.add(new Coordinates(x-2*minus, y));
         }
 
 //        if ((isChecked(this, getPieceOnPlace(x,y).getBlack()) != null) && (isChecked(this, getPieceOnPlace(x,y).getBlack()).getBlack() != getPieceOnPlace(x,y).getBlack()))
@@ -104,13 +105,16 @@ public class GameState {
         if (state.getPieceOnPlace(finishX, finishY) instanceof King) {
             //kral sa pohol
             ((King) state.getPieceOnPlace(finishX, finishY)).setMoved(true);
+            int minus = isBlackCloser() ? -1 : 1;
+//            if (state.getPieceOnPlace(finishX, finishY).getBlack())
+//                minus *= -1;
             // rosada velka
-            if (startX-finishX==2) {
-                state.getPieceOnPlace(startX-4, startY).makeMove(state, startX-4, startY, finishX+1, finishY);
+            if (startX-finishX==-2*minus) {
+                state.getPieceOnPlace(startX+3*minus, startY).makeMove(state, startX+3*minus, startY, finishX-1*minus, finishY);
             }
             //rosada mala
-            if (startX-finishX==-2) {
-                state.getPieceOnPlace(startX+3, startY).makeMove(state, startX+3, startY, finishX-1, finishY);
+            if (startX-finishX==2*minus) {
+                state.getPieceOnPlace(startX-4*minus, startY).makeMove(state, startX-4*minus, startY, finishX+1*minus, finishY);
             }
         }
         if (state.getPieceOnPlace(finishX, finishY) instanceof Rook) {
@@ -170,8 +174,8 @@ public class GameState {
         state[6][7] = new Knight(true);
         state[2][7] = new Bishop(true);
         state[5][7] = new Bishop(true);
-        state[3][7] = new Queen( true);
-        state[4][7] = new King(true);
+        state[4][7] = new Queen( true);
+        state[3][7] = new King(true);
 
         //black
         for (byte i = 0; i < 8; i++)
@@ -182,8 +186,8 @@ public class GameState {
         state[6][0] = new Knight(false);
         state[2][0] = new Bishop(false);
         state[5][0] = new Bishop( false);
-        state[3][0] = new Queen(false);
-        state[4][0] = new King( false);
+        state[4][0] = new Queen(false);
+        state[3][0] = new King( false);
     }
 
     public Coordinates whereIsThis(Piece piece) {

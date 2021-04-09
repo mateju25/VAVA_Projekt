@@ -97,7 +97,7 @@ public class Chessboard {
             }
         }
         if (state.isBlackCloser()) {
-            allMoves.add(String.valueOf((char) ((char) startX + 97)) + (startY + 1) + (char) ((char) finishX + 97) + (finishY + 1) + s);
+            allMoves.add(String.valueOf((char) ((char) 7-startX + 97)) + (startY + 1) + (char) ((char) 7-finishX + 97) + (finishY + 1) + s);
         } else {
             allMoves.add(String.valueOf((char) ((char) startX + 97)) + (7 - startY + 1) + (char) ((char) finishX + 97) + (7 - finishY + 1) + s);
         }
@@ -123,9 +123,9 @@ public class Chessboard {
     public void makeMove(String move) {
         int startX , startY , finishX , finishY;
         if (state.isBlackCloser()) {
-            startX = move.charAt(0) - 97;
+            startX = 7-(move.charAt(0) - 97);
             startY = Integer.parseInt(String.valueOf(move.charAt(1))) -1;
-            finishX = move.charAt(2) - 97;
+            finishX = 7-(move.charAt(2) - 97);
             finishY = Integer.parseInt(String.valueOf(move.charAt(3))) -1;
         } else {
             startX = move.charAt(0) - 97;

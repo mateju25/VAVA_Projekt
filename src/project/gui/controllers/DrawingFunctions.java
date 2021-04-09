@@ -61,9 +61,9 @@ public class DrawingFunctions {
         if (board.getAllMoves().size() != 0) {
             int startX , startY , finishX , finishY;
             if (board.getState().isBlackCloser()) {
-                startX = board.getAllMoves().getLast().charAt(0) - 97;
+                startX = 7-(board.getAllMoves().getLast().charAt(0) - 97);
                 startY = Integer.parseInt(String.valueOf(board.getAllMoves().getLast().charAt(1)))-1;
-                finishX = board.getAllMoves().getLast().charAt(2) - 97;
+                finishX = 7-(board.getAllMoves().getLast().charAt(2) - 97);
                 finishY = Integer.parseInt(String.valueOf(board.getAllMoves().getLast().charAt(3)))-1;
             } else {
                 startX = board.getAllMoves().getLast().charAt(0) - 97;

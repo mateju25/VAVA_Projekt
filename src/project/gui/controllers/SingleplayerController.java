@@ -55,11 +55,11 @@ public class SingleplayerController {
             if (easyLevelBtn.isSelected())
                 level = 1;
             if (mediumLevelBtn.isSelected())
-                level = 10;
+                level = 2;
             if (hardLevelBtn.isSelected())
-                level = 100;
+                level = 3;
             if (impossibleLevelBtn.isSelected())
-                level = 1000;
+                level = 10;
 
             minutes = Integer.parseInt(timeText.getText(0, 2));
             seconds = Integer.parseInt(timeText.getText(3, 5));
