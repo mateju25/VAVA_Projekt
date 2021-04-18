@@ -8,21 +8,18 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import project.gui.Main;
+import project.model.GameParticipant;
+import project.model.databaseSystem.MultiplayerConnection;
 import project.model.gameChess.Chessboard;
 import project.model.gameChess.Coordinates;
-import project.model.gameChess.GameState;
 import project.model.gameChess.Signalization;
 import project.model.gameChess.pieces.Pawn;
-import project.model.gameChess.pieces.Piece;
-import project.model.gameChess.pieces.Queen;
 import project.model.stockfishApi.Stockfish;
 
 import java.io.IOException;
@@ -49,7 +46,7 @@ public class GameBoardController implements Initializable {
     private ArrayList<Coordinates> legalMoves;
 
     private Coordinates activeFigure = null;
-    private Stockfish computer;
+    private GameParticipant secondPlayer;
 
     @Deprecated
     public void makeMoves(String moves) {
@@ -91,21 +88,41 @@ public class GameBoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Main.primaryStage.setMaximized(true);
 
-        board = new Chessboard(SingleplayerController.blackSide);
-        final boolean[] computerFirst = {SingleplayerController.blackSide};
-        computer = Stockfish.getInstance(SingleplayerController.level);
-        drawingFunctions = new DrawingFunctions(canvas, board);
+        final boolean[] computerFirst;
 
-        botTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
-        topTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
-        topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
-        botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
+        if (SingleplayerController.use) {
+            board = new Chessboard(SingleplayerController.blackSide);
+            computerFirst = new boolean[]{SingleplayerController.blackSide};
+            secondPlayer = Stockfish.getInstance(SingleplayerController.level);
+            drawingFunctions = new DrawingFunctions(canvas, board);
+
+            botTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
+            topTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
+            topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
+            botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
+        }
+        else
+            if (MultiplayerController.use) {
+                board = new Chessboard(MultiplayerController.blackSide);
+                computerFirst = new boolean[]{MultiplayerController.blackSide};
+                secondPlayer = MultiplayerConnection.getInstance();
+                drawingFunctions = new DrawingFunctions(canvas, board);
+
+                botTime = LocalTime.of(0, 5, 0);
+                topTime = LocalTime.of(0, 5, 0);
+                topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
+                botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
+            } else
+            {
+                computerFirst = new boolean[]{false};
+            }
 
         Thread stockfishThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 String lastMove = board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast();
                 while (board.getLastSignal() != Signalization.CHECKMATE && board.getLastSignal() != Signalization.STALEMATE) {
+                    // cakaj pokial aktualny hrac nezahra
                     while (lastMove.equals( board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast())) {
                         if (computerFirst[0]) {
                             setTimer();
@@ -124,12 +141,26 @@ public class GameBoardController implements Initializable {
                         e.printStackTrace();
                     }
                     synchronized (this) {
-                        String newMove = computer.getBestMove(board.getAllMoves().size() == 0 ? null : board.getAllMoves().getLast());
-                        if (!newMove.contains("none"))
-                            board.makeMove(newMove);
-                        lastMove = board.getAllMoves().getLast();
-                        textMoves.setText(textMoves.getText() + newMove + " ");
-                        drawingFunctions.refreshBoard();
+                        String newMove = lastMove;
+                        while (newMove.equals(lastMove)) {
+                            if (secondPlayer instanceof Stockfish) {
+                                newMove = secondPlayer.getLastMove();
+                            } else {
+                                newMove = secondPlayer.getLastMove();
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        if (!newMove.equals(board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast())) {
+                            if (!newMove.contains("none"))
+                                board.makeMove(newMove);
+                            lastMove = board.getAllMoves().getLast();
+                            textMoves.setText(textMoves.getText() + newMove + " ");
+                            drawingFunctions.refreshBoard();
+                        }
                     }
                     Platform.runLater(() -> {
                         switch (board.getLastSignal()) {
@@ -202,6 +233,11 @@ public class GameBoardController implements Initializable {
                         tmp = choosePromotion();
                 }
                 board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, tmp);
+                if (!(secondPlayer instanceof Stockfish))
+                    MultiplayerConnection.getInstance().makeMove(board.getAllMoves().getLast());
+                else
+                    ((Stockfish) secondPlayer).makeMove(board.getAllMoves().getLast());
+
                 activeFigure = null;
                 if (board.getLastSignal() == Signalization.NOPIECE) {
                     board.setLastSignal(signal);

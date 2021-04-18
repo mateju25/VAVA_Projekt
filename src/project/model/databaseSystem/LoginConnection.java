@@ -1,4 +1,4 @@
-package project.model.loginSystem;
+package project.model.databaseSystem;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -8,19 +8,19 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Properties;
 
-public class PlayerDatabase {
-    private static PlayerDatabase single_instance = null;
+public class LoginConnection {
+    private static LoginConnection single_instance = null;
     private ChessPlayer activePlayer = null;
 
     private final String connectionUrl = "jdbc:sqlserver://fiit-vava.database.windows.net:1433;database=fiit-vava-dbs;user=matej.delincak@fiit-vava;password=28qpj2C5zXTDmRn45x9wlkj;";
 
-    private PlayerDatabase() {
+    private LoginConnection() {
 
     }
 
-    public static PlayerDatabase getInstance() {
+    public static LoginConnection getInstance() {
         if (single_instance == null)
-            single_instance = new PlayerDatabase();
+            single_instance = new LoginConnection();
 
         return single_instance;
     }

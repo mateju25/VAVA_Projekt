@@ -35,6 +35,7 @@ public class SingleplayerController {
     public static int level = 1;
     public static int minutes = 5;
     public static int seconds = 0;
+    public static boolean use = false;
 
     public void initialize() throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("mm:ss");
@@ -60,6 +61,8 @@ public class SingleplayerController {
                 level = 3;
             if (impossibleLevelBtn.isSelected())
                 level = 10;
+
+            use = true;
 
             minutes = Integer.parseInt(timeText.getText(0, 2));
             seconds = Integer.parseInt(timeText.getText(3, 5));
@@ -89,6 +92,7 @@ public class SingleplayerController {
 
     @FXML
     private void changeSceneMenu() throws IOException {
+        use = false;
         LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
     }
 

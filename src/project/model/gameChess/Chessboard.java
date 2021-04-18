@@ -44,10 +44,6 @@ public class Chessboard {
         return blackTurn;
     }
 
-    public void setBlackTurn(boolean blackTurn) {
-        this.blackTurn = blackTurn;
-    }
-
     public ArrayList<Coordinates> getLegalMoves(int x, int y) {
         if (state.getPieceOnPlace(x,y) == null)
             return null;
