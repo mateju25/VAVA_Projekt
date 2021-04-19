@@ -17,12 +17,12 @@
                <graphic>
                   <ImageView fitHeight="122.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/pawnblack.png" />
+                        <Image url="@../resources/pictures/whitepawnp.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="674.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
+            <Button alignment="CENTER" layoutX="674.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSettings" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -31,7 +31,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="390.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="390.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneVoidClub" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="674.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
+            <Button alignment="CENTER" layoutX="674.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneProfile" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="390.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="390.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneTournament" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="172.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -92,7 +92,7 @@
                   <Font name="System Bold" size="26.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="754.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Holy kokot">
+            <Text fill="WHITE" layoutX="762.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nastavenia">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>

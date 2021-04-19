@@ -39,7 +39,9 @@
                   <Font size="20.0" />
                </font>
             </TextField>
+
             <Label fx:id="warningText" alignment="CENTER" layoutX="92.0" layoutY="406.0" prefHeight="50.0" prefWidth="233.0" text="WARNINGSWARNINGSWARNINNGS" textAlignment="CENTER" textFill="RED">
+
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -81,8 +83,10 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
+
             <Line endX="17.0" endY="425.0" layoutX="437.0" layoutY="87.0" startX="17.0" startY="-6.0" />
             <TextField fx:id="generateLinkText" alignment="CENTER" layoutX="203.0" layoutY="360.0" prefHeight="49.0" prefWidth="215.0" promptText="Link" style="-fx-background-color: red; -fx-background-radius: 10;">
+
                <font>
                   <Font size="20.0" />
                </font>
@@ -108,6 +112,7 @@
                </font>
             </Button>
             <Label fx:id="warningJoinText" alignment="CENTER" layoutX="505.0" layoutY="406.0" prefHeight="50.0" prefWidth="233.0" text="WARNINGSWARNINGSWARNINNGS" textAlignment="CENTER" textFill="RED">
+
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
