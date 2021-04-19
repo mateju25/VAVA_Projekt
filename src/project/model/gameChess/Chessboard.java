@@ -24,12 +24,18 @@ public class Chessboard {
         this.state.setBlackCloser(blackCloser);
     }
 
+
+
     public GameState getState() {
         return state;
     }
 
     public LinkedList<String> getAllMoves() {
         return allMoves;
+    }
+
+    public String getLastMove() {
+        return allMoves.size() == 0 ? "" : allMoves.getLast();
     }
 
     public Signalization getLastSignal() {

@@ -74,13 +74,33 @@ public class GameBoardController implements Initializable {
                         else
                             botTime = botTime.minusSeconds(1);
                     }
+                    if (MultiplayerController.use) {
+                        if (MultiplayerController.host) {
+                            MultiplayerConnection.getInstance().setTimers(botTime, topTime);
+                        } else {
+                            LocalTime[] times = MultiplayerConnection.getInstance().getTimes();
+                            topTime = times[0];
+                            botTime = times[1];
+                        }
+                    }
                     Platform.runLater(() -> {
                         topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
                         botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
                     });
                 }
-                else
+                else {
+                    board.setLastSignal(Signalization.NOTIME);
                     timer.cancel();
+                    stop = true;
+                    Platform.runLater(() -> {
+                        canvas.setDisable(true);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText(null);
+                        alert.setContentText("DOSIEL CAS");
+                        alert.showAndWait();
+                    });
+                }
             }
         }, 1000,1000);
     }
@@ -120,43 +140,51 @@ public class GameBoardController implements Initializable {
         Thread stockfishThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String lastMove = board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast();
-                while (board.getLastSignal() != Signalization.CHECKMATE && board.getLastSignal() != Signalization.STALEMATE) {
+                String lastMove = board.getLastMove();
+                OUTER:
+                while (board.getLastSignal() != Signalization.CHECKMATE
+                        && board.getLastSignal() != Signalization.STALEMATE
+                        && board.getLastSignal() != Signalization.NOTIME) {
                     // cakaj pokial aktualny hrac nezahra
-                    while (lastMove.equals( board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast())) {
+                    while (lastMove.equals(board.getLastMove())) {
                         if (computerFirst[0]) {
-                            setTimer();
                             break;
                         }
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(200);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                    computerFirst[0] = false;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+
                     synchronized (this) {
                         String newMove = lastMove;
                         while (newMove.equals(lastMove)) {
-                            if (secondPlayer instanceof Stockfish) {
-                                newMove = secondPlayer.getLastMove();
-                            } else {
-                                newMove = secondPlayer.getLastMove();
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                            if (board.getLastSignal() == Signalization.NOTIME)
+                                break OUTER;
+                            newMove = secondPlayer.getLastMove();
+                            if (computerFirst[0]) {
+                                if (secondPlayer instanceof  Stockfish) {
+                                    newMove = ((Stockfish) secondPlayer).makeBestMove();
+                                    break;
                                 }
                             }
                         }
-                        if (!newMove.equals(board.getAllMoves().size() == 0 ? "" : board.getAllMoves().getLast())) {
-                            if (!newMove.contains("none"))
+
+                        computerFirst[0] = false;
+                        if (secondPlayer instanceof  Stockfish || !newMove.equals(board.getLastMove())) {
+                            if (!newMove.contains("none")) {
                                 board.makeMove(newMove);
+                                if (timer == null) {
+                                    setTimer();
+                                }
+                            }
                             lastMove = board.getAllMoves().getLast();
                             textMoves.setText(textMoves.getText() + newMove + " ");
                             drawingFunctions.refreshBoard();
@@ -233,16 +261,19 @@ public class GameBoardController implements Initializable {
                         tmp = choosePromotion();
                 }
                 board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, tmp);
-                if (!(secondPlayer instanceof Stockfish))
-                    MultiplayerConnection.getInstance().makeMove(board.getAllMoves().getLast());
-                else
-                    ((Stockfish) secondPlayer).makeMove(board.getAllMoves().getLast());
 
                 activeFigure = null;
                 if (board.getLastSignal() == Signalization.NOPIECE) {
                     board.setLastSignal(signal);
                     drawingFunctions.refreshBoard();
                     return;
+                }
+
+                if (!(secondPlayer instanceof Stockfish))
+                    MultiplayerConnection.getInstance().makeMove(board.getAllMoves().getLast());
+                else {
+                    ((Stockfish) secondPlayer).makeMove(board.getAllMoves().getLast());
+                    ((Stockfish)secondPlayer).makeBestMove();
                 }
 
                 if (timer == null) {
@@ -254,13 +285,15 @@ public class GameBoardController implements Initializable {
                 drawingFunctions.refreshBoard();
             }
         } else {
-            drawingFunctions.refreshBoard();
-            legalMoves = board.getLegalMoves(x, y);
-            if (legalMoves == null)
-                return;
-            drawingFunctions.drawSelectRenctangle(x, y);
-            legalMoves.forEach(coordinates -> drawingFunctions.drawLegalMovePoint(coordinates.getX(), coordinates.getY()));
-            activeFigure = new Coordinates(x, y);
+            if (board.getState().getPieceOnPlace(x, y).getBlack() == board.getState().isBlackCloser()) {
+                drawingFunctions.refreshBoard();
+                legalMoves = board.getLegalMoves(x, y);
+                if (legalMoves == null)
+                    return;
+                drawingFunctions.drawSelectRenctangle(x, y);
+                legalMoves.forEach(coordinates -> drawingFunctions.drawLegalMovePoint(coordinates.getX(), coordinates.getY()));
+                activeFigure = new Coordinates(x, y);
+            }
         }
     }
     @FXML

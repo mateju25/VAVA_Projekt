@@ -15,6 +15,7 @@ import project.model.databaseSystem.MultiplayerConnection;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Random;
 
 public class MultiplayerController {
@@ -28,10 +29,10 @@ public class MultiplayerController {
     public Label warningJoinText;
 
     public static boolean blackSide = false;
-//    public static int level = 1;
-//    public static int minutes = 5;
-//    public static int seconds = 0;
+    public static int minutes = 5;
+    public static int seconds = 0;
     public static boolean use = false;
+    public static boolean host = false;
 
     public void initialize() throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("mm:ss");
@@ -53,6 +54,10 @@ public class MultiplayerController {
             blackSide = new Random().nextBoolean();
 
         use = true;
+        host = true;
+
+        minutes = Integer.parseInt(timeText.getText(0, 2));
+        seconds = Integer.parseInt(timeText.getText(3, 5));
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
@@ -80,16 +85,19 @@ public class MultiplayerController {
     }
 
     public void generateLink(ActionEvent actionEvent) {
+        minutes = Integer.parseInt(timeText.getText(0, 2));
+        seconds = Integer.parseInt(timeText.getText(3, 5));
+        host = false;
         if (whiteSideBtn.isSelected()) {
-            MultiplayerConnection.getInstance().createNewGame(false);
+            MultiplayerConnection.getInstance().createNewGame(false, LocalTime.of(0, minutes, seconds));
             generateLinkText.setText(String.valueOf(MultiplayerConnection.getInstance().getId()));
         }
         if (blackSideBtn.isSelected()){
-            MultiplayerConnection.getInstance().createNewGame(true);
+            MultiplayerConnection.getInstance().createNewGame(true, LocalTime.of(0, minutes, seconds));
             generateLinkText.setText(String.valueOf(MultiplayerConnection.getInstance().getId()));
         }
         if (randomSideBtn.isSelected()) {
-            MultiplayerConnection.getInstance().createNewGame(new Random().nextBoolean());
+            MultiplayerConnection.getInstance().createNewGame(new Random().nextBoolean(), LocalTime.of(0, minutes, seconds));
             generateLinkText.setText(String.valueOf(MultiplayerConnection.getInstance().getId()));
         }
     }

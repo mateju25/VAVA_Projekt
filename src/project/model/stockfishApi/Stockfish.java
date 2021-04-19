@@ -94,7 +94,7 @@ public class Stockfish implements GameParticipant {
             moves.add(paMove);
     }
 
-    public String getBestMove(String paMove) {
+    public String makeBestMove() {
         String lastLine = getLastLine();
         String[] parts = null;
         if (lastLine == null)
@@ -107,7 +107,7 @@ public class Stockfish implements GameParticipant {
 
     @Override
     public String getLastMove() {
-        return moves.getLast();
+        return moves.size() == 0 ? "" : moves.getLast();
     }
 
     //endregion
