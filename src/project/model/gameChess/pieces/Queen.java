@@ -17,9 +17,8 @@ public class Queen extends Piece{
 
     @Override
     public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
-        ArrayList<Coordinates> result = new ArrayList<>();
         Rook tempRook = new Rook(this.black);
-        result.addAll(tempRook.getLegalMoves(state, x, y));
+        ArrayList<Coordinates> result = new ArrayList<>(tempRook.getLegalMoves(state, x, y));
         Bishop tempBishop = new Bishop(this.black);
         result.addAll(tempBishop.getLegalMoves(state, x, y));
         return result;

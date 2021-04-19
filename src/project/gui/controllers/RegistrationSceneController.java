@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import project.model.loginSystem.PlayerDatabase;
+import project.model.databaseSystem.LoginConnection;
 
 import java.io.IOException;
 import java.util.Random;
@@ -44,7 +44,7 @@ public class RegistrationSceneController {
             warning.setText("Email v zlom tvare!");
             return;
         }
-        if (PlayerDatabase.getInstance().existsUserName(name, email)) {
+        if (LoginConnection.getInstance().existsUserName(name, email)) {
             warning.setText("Daný užívateľ už existuje!");
             return;
         }
@@ -53,7 +53,7 @@ public class RegistrationSceneController {
             return;
         }
 
-        PlayerDatabase.getInstance().registrationUser(name,password,email);
+        LoginConnection.getInstance().registrationUser(name,password,email);
 
         this.name.setText("");
         this.password.setText("");
@@ -74,6 +74,6 @@ public class RegistrationSceneController {
             warning.setText("Email v zlom tvare!");
             return;
         }
-        PlayerDatabase.getInstance().sendWelcomeEmail(email.getText(), generatedPin);
+        LoginConnection.getInstance().sendWelcomeEmail(email.getText(), generatedPin);
     }
 }

@@ -1,4 +1,4 @@
-package project.model.loginSystem;
+package project.model.databaseSystem;
 
 public class ChessPlayer {
     private String name;

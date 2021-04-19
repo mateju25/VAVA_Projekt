@@ -1,11 +1,13 @@
 package project.model.stockfishApi;
 
+import project.model.GameParticipant;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Stockfish implements Runnable{
+public class Stockfish implements GameParticipant {
     //region Private
     private Process myProcess =  null;
     private BufferedReader output = null;
@@ -39,7 +41,7 @@ public class Stockfish implements Runnable{
         try {
             input.write("position startpos moves " + buildMovesString() + "\n");
             input.flush();
-            input.write("go nodes " + this.level + "\n");
+            input.write("go depth " + this.level + "\n");
             input.flush();
 
             while(true) {
@@ -87,8 +89,12 @@ public class Stockfish implements Runnable{
             return lastLine.contains("(none)");
     }
 
-    public String getBestMove(String paMove) {
-        moves.add(paMove);
+    public void makeMove(String paMove) {
+        if (paMove != null)
+            moves.add(paMove);
+    }
+
+    public String makeBestMove() {
         String lastLine = getLastLine();
         String[] parts = null;
         if (lastLine == null)
@@ -100,8 +106,8 @@ public class Stockfish implements Runnable{
     }
 
     @Override
-    public void run() {
-
+    public String getLastMove() {
+        return moves.size() == 0 ? "" : moves.getLast();
     }
 
     //endregion

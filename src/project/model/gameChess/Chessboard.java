@@ -12,6 +12,7 @@ public class Chessboard {
     private GameState state;
     private LinkedList<String> allMoves = new LinkedList<>();
     private boolean blackTurn = false;
+    private boolean computerMove = false;
     private Signalization lastSignal = Signalization.NORMAL;
 
     public Chessboard(boolean blackCloser) {
@@ -23,12 +24,18 @@ public class Chessboard {
         this.state.setBlackCloser(blackCloser);
     }
 
+
+
     public GameState getState() {
         return state;
     }
 
     public LinkedList<String> getAllMoves() {
         return allMoves;
+    }
+
+    public String getLastMove() {
+        return allMoves.size() == 0 ? "" : allMoves.getLast();
     }
 
     public Signalization getLastSignal() {
@@ -48,7 +55,6 @@ public class Chessboard {
             return null;
         if (state.getPieceOnPlace(x,y).getBlack() && !blackTurn)
             return null;
-
         if (!state.getPieceOnPlace(x,y).getBlack() && blackTurn)
             return null;
 
@@ -79,9 +85,9 @@ public class Chessboard {
 
         blackTurn = !blackTurn;
 
+        String s = "";
         if (state.isPromotion() != null) {
             Piece temp = state.getPieceOnPlace(finishX, finishY);
-            String s;
             if (temp instanceof Queen) {
                 s = "q";
             } else if (temp instanceof Knight) {
@@ -91,9 +97,14 @@ public class Chessboard {
             } else {
                 s = "r";
             }
+        }
+        if (state.isBlackCloser()) {
+            allMoves.add(String.valueOf((char) ((char) 7-startX + 97)) + (startY + 1) + (char) ((char) 7-finishX + 97) + (finishY + 1) + s);
+        } else {
             allMoves.add(String.valueOf((char) ((char) startX + 97)) + (7 - startY + 1) + (char) ((char) finishX + 97) + (7 - finishY + 1) + s);
-        } else
-            allMoves.add(String.valueOf((char) ((char) startX + 97)) + (7 - startY + 1) + (char) ((char) finishX + 97) + (7 - finishY + 1));
+        }
+
+
 
         if (state.isCheckMated(state, !state.getPieceOnPlace(finishX, finishY).getBlack()) != null) {
             lastSignal = Signalization.CHECKMATE;
@@ -109,19 +120,28 @@ public class Chessboard {
         }
 
         lastSignal =  Signalization.NORMAL;
-        return;
     }
 
     public void makeMove(String move) {
-        int startX = move.charAt(0) - 97;
-        int startY = 7- Integer.parseInt(String.valueOf(move.charAt(1))) + 1;
-        int finishX = move.charAt(2) - 97;
-        int finishY = 7 -Integer.parseInt(String.valueOf(move.charAt(3))) + 1;
+        int startX , startY , finishX , finishY;
+        if (state.isBlackCloser()) {
+            startX = 7-(move.charAt(0) - 97);
+            startY = Integer.parseInt(String.valueOf(move.charAt(1))) -1;
+            finishX = 7-(move.charAt(2) - 97);
+            finishY = Integer.parseInt(String.valueOf(move.charAt(3))) -1;
+        } else {
+            startX = move.charAt(0) - 97;
+            startY = 7 - Integer.parseInt(String.valueOf(move.charAt(1))) + 1;
+            finishX = move.charAt(2) - 97;
+            finishY = 7 - Integer.parseInt(String.valueOf(move.charAt(3))) + 1;
+        }
         String promotion = null;
         if (move.length() == 5)
             promotion = String.valueOf(move.charAt(4));
 
+        computerMove = true;
         makeMove(startX, startY, finishX, finishY, promotion);
+        computerMove = false;
     }
 
 }
