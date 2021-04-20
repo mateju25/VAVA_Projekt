@@ -89,17 +89,19 @@ public class GameBoardController implements Initializable {
                     });
                 }
                 else {
-                    board.setLastSignal(Signalization.NOTIME);
-                    timer.cancel();
-                    stop = true;
-                    Platform.runLater(() -> {
-                        canvas.setDisable(true);
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Information Dialog");
-                        alert.setHeaderText(null);
-                        alert.setContentText("DOSIEL CAS");
-                        alert.showAndWait();
-                    });
+                    if (!stop) {
+                        board.setLastSignal(Signalization.NOTIME);
+                        timer.cancel();
+                        stop = true;
+                        Platform.runLater(() -> {
+                            canvas.setDisable(true);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Information Dialog");
+                            alert.setHeaderText(null);
+                            alert.setContentText("DOSIEL CAS");
+                            alert.showAndWait();
+                        });
+                    }
                 }
             }
         }, 1000,1000);
