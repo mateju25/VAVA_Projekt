@@ -4,13 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VoidClubController {
+public class VoidClubController implements Initializable{
 
     @FXML
     private TableView statistics;
@@ -27,12 +25,16 @@ public class VoidClubController {
     @FXML
     private TableColumn rankColumn;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
+    }
     @FXML
     private void changeSceneMenu() throws IOException {
         LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
 
     }
+
 
 
 }

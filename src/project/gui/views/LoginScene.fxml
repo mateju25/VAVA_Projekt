@@ -16,7 +16,7 @@
    <left>
       <AnchorPane prefHeight="700.0" prefWidth="335.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -60,7 +60,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <PasswordField fx:id="password" layoutX="41.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <PasswordField fx:id="password" layoutX="41.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;" styleClass="password-field" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
                </font>

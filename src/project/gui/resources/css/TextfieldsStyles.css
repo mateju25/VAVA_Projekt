@@ -1,0 +1,20 @@
+.text-fieldMenu{
+    -fx-background-color: red;
+    -fx-background-radius: 20;
+    -fx-font-size: 15px;
+    -fx-text-fill: #000001;
+    -fx-font-weight: bold;
+}
+.text-fieldDesign{
+    -fx-background-color: red;
+    -fx-font-size: 20px;
+    -fx-background-radius: 10;
+    -fx-text-fill: #000001;
+    -fx-font-weight: bold;
+}
+.password-field{
+    -fx-background-color: red;
+    -fx-background-radius: 20;
+    -fx-text-fill: #000001;
+    -fx-font-weight: bold;
+}

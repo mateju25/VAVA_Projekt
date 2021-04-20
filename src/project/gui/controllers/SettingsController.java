@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -16,15 +17,14 @@ public class SettingsController implements Initializable {
     private AnchorPane pane1;
     @FXML
     private AnchorPane pane2;
-    @FXML
-    private AnchorPane pane3;
     private int pos=0;
+
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         translateAnimation(pane1,0);
-        translateAnimation(pane3,0);
+        translateAnimation(pane2,0);
     }
 
     private void translateAnimation(Node node, double width) {
@@ -33,24 +33,24 @@ public class SettingsController implements Initializable {
         translateTransition.play();
     }
     @FXML
-    private void previousImage(){
+    private void nextImage(){
         if(pos==0){
             translateAnimation(pane1,334);
             pos++;
         }
         else if (pos==1){
-            translateAnimation(pane3,334);
+            translateAnimation(pane2,334);
             pos++;
         }
     }
     @FXML
-    private void nextImage(){
+    private void previousImage(){
         if(pos==1){
-            translateAnimation(pane1,334);
+            translateAnimation(pane1,-334);
             pos--;
         }
         else if (pos==2){
-            translateAnimation(pane3,334);
+            translateAnimation(pane2,-334);
             pos--;
         }
     }

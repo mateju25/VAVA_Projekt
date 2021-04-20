@@ -66,7 +66,7 @@ public class LoginConnection {
             if (!resultSet.next()) {
                 result = false;
             } else {
-                setActivePlayer(new ChessPlayer(resultSet.getString(1), resultSet.getBoolean(4)));
+                setActivePlayer(new ChessPlayer(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3), resultSet.getBoolean(4)));
             }
             connection.close();
         } catch (SQLException a) {

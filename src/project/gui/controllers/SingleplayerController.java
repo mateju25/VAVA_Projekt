@@ -86,7 +86,7 @@ public class SingleplayerController {
             Main.primaryStage.setScene(scene);
             Main.primaryStage.show();
         } else {
-            warningText.setText("Vyber spomedzi všetkých nastavení.");
+            warningText.setText("Vyberte farbu figúrok aj obtiažnosť!");
         }
     }
 
