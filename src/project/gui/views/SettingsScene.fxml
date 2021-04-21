@@ -56,20 +56,39 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="494.0" layoutY="82.0" prefHeight="335.0" prefWidth="335.0">
+            <AnchorPane layoutX="400.0" layoutY="73.0" prefHeight="353.0" prefWidth="357.0" style="-fx-background-color: #333;" />
+            <AnchorPane layoutX="594.0" layoutY="160.0">
                <children>
-                  <AnchorPane fx:id="pane21" prefHeight="335.0" prefWidth="335.0">
+                  <AnchorPane fx:id="pane6" style="-fx-background-color: #333333;">
                      <children>
-                        <ImageView fitHeight="90.0" fitWidth="43.0" layoutX="97.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/pictures/whiteKingo.png" />
+                              <Image url="@../resources/pictures/whitepawn2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="pane5" style="-fx-background-color: #333333;">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pictures/pawnwhite-new.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="pane4" style="-fx-background-color: #333333;">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pictures/WhitePawn.png" />
                            </image>
                         </ImageView>
                      </children>
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="400.0" layoutY="73.0" prefHeight="353.0" prefWidth="357.0" style="-fx-background-color: #333;" />
+            <AnchorPane layoutX="730.0" layoutY="160.0" prefHeight="151.0" prefWidth="150.0" style="-fx-background-color: #333;" />
             <Button layoutX="410.0" layoutY="207.0" mnemonicParsing="false" onAction="#nextImage" prefHeight="82.0" prefWidth="28.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&gt;" textFill="WHITE">
                <font>
                   <Font size="20.0" />
@@ -85,7 +104,17 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button layoutX="14.0" layoutY="209.0" mnemonicParsing="false" onAction="#previousImage" prefHeight="82.0" prefWidth="39.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&lt;" textFill="WHITE">
+            <Button layoutX="14.0" layoutY="207.0" mnemonicParsing="false" onAction="#previousImage" prefHeight="82.0" prefWidth="39.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&lt;" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="750.0" layoutY="207.0" mnemonicParsing="false" onAction="#nextImageFigure" prefHeight="82.0" prefWidth="28.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&gt;" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="545.0" layoutY="207.0" mnemonicParsing="false" onAction="#previousImageFigure" prefHeight="82.0" prefWidth="39.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&lt;" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>

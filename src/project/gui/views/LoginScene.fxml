@@ -25,7 +25,7 @@
                   <Font name="System Bold" size="29.0" />
                </font>
             </Text>
-            <Button layoutX="41.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneRegistration" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Registrácia" textFill="#0d0d0d">
+            <Button fx:id="regsitrationBtn" layoutX="41.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneRegistration" prefHeight="40.0" prefWidth="128.0" stylesheets="@../resources/css/ButtonStyles.css" text="Registrácia" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -40,7 +40,7 @@
                   <Image url="@../resources/pictures/dec2.png" />
                </image>
             </ImageView>
-            <Button layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
+            <Button fx:id="loginBtn" layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Image url="@../resources/pictures/dva.png" />
                </image>
             </ImageView>
-            <Button layoutX="41.0" layoutY="630.0" mnemonicParsing="false" onAction="#setCancelButton" prefHeight="40.0" prefWidth="254.0" stylesheets="@../resources/css/ButtonStyles.css" text="Exit" textFill="#0d0d0d">
+            <Button fx:id="exitBtn" layoutX="41.0" layoutY="630.0" mnemonicParsing="false" onAction="#setCancelButton" prefHeight="40.0" prefWidth="254.0" stylesheets="@../resources/css/ButtonStyles.css" text="Exit" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -71,6 +71,24 @@
    <center>
       <AnchorPane prefHeight="695.0" prefWidth="663.0" BorderPane.alignment="CENTER">
          <children>
+            <Button id="buttonInternationalization" layoutX="470.0" layoutY="615.0" mnemonicParsing="false" onAction="#changeToSlovak" prefHeight="41.0" prefWidth="31.0" stylesheets="@../resources/css/ButtonStyles.css">
+               <graphic>
+                  <ImageView id="buttonInternationalization" fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pictures/SKflag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="buttonInternationalization" layoutX="543.0" layoutY="615.0" mnemonicParsing="false" onAction="#changeToEnglish" prefHeight="41.0" prefWidth="31.0" stylesheets="@../resources/css/ButtonStyles.css">
+               <graphic>
+                  <ImageView fitHeight="84.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pictures/UKflag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <HBox alignment="CENTER" layoutY="37.0" prefHeight="103.0" prefWidth="666.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label style="-fx-background-color: #FF0000; -fx-background-radius: 20;" text=" ♟VOID CHESS  " textFill="#0d0d0d">

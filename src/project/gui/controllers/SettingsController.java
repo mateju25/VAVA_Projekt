@@ -17,7 +17,12 @@ public class SettingsController implements Initializable {
     private AnchorPane pane1;
     @FXML
     private AnchorPane pane2;
-    private int pos=0;
+    @FXML
+    private AnchorPane pane4;
+    @FXML
+    private AnchorPane pane5;
+    private int positionBoard=0;
+    private int positionFigure=0;
 
 
 
@@ -25,6 +30,8 @@ public class SettingsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         translateAnimation(pane1,0);
         translateAnimation(pane2,0);
+        translateAnimation(pane4,0);
+        translateAnimation(pane5,0);
     }
 
     private void translateAnimation(Node node, double width) {
@@ -34,24 +41,46 @@ public class SettingsController implements Initializable {
     }
     @FXML
     private void nextImage(){
-        if(pos==0){
+        if(positionBoard==0){
             translateAnimation(pane1,334);
-            pos++;
+            positionBoard++;
         }
-        else if (pos==1){
+        else if (positionBoard==1){
             translateAnimation(pane2,334);
-            pos++;
+            positionBoard++;
         }
     }
     @FXML
     private void previousImage(){
-        if(pos==1){
+        if(positionBoard==1){
             translateAnimation(pane1,-334);
-            pos--;
+            positionBoard--;
         }
-        else if (pos==2){
+        else if (positionBoard==2){
             translateAnimation(pane2,-334);
-            pos--;
+            positionBoard--;
+        }
+    }
+    @FXML
+    private void nextImageFigure(){
+        if(positionFigure==0){
+            translateAnimation(pane4,+130);
+            positionFigure++;
+        }
+        else if (positionFigure==1){
+            translateAnimation(pane5,+130);
+            positionFigure++;
+        }
+    }
+    @FXML
+    private void previousImageFigure(){
+        if(positionFigure==1){
+            translateAnimation(pane4,-130);
+            positionFigure--;
+        }
+        else if (positionFigure==2){
+            translateAnimation(pane5,-130);
+            positionFigure--;
         }
     }
 
