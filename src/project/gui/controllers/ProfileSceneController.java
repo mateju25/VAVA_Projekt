@@ -42,22 +42,20 @@ public class ProfileSceneController implements Initializable {
     private Label warning;
 
     private final Image defaultPhoto=new Image("/project/gui/resources/pictures/Profile-Avatar-PNG.png");
-    //getnem si ho
+    //getnem si ho toto je custom
     private final ChessPlayer activePlayer = new ChessPlayer("Cheffe","kkt","sda",true);
     private FileChooser fileChooser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //if uzivatel nema fotku set
-        photoContainer.setImage(defaultPhoto);
-        //uzivatelove meno heslo email, pocet hier proti pc pocet hier prot hracom,fotku zobraz z databazy
+
+        photoContainer.setImage(activePlayer.getPhoto());
         warning.setText("");
         name.setText(activePlayer.getName());
         password.setText(activePlayer.getPassword());
         email.setText(activePlayer.getEmail());
-        //dalsie dva gety
-        gamesWithPlayers.setText("0");
-        gamesWithPc.setText("0");
+        gamesWithPlayers.setText(String.valueOf(activePlayer.getGamesVsPlayer()));
+        gamesWithPc.setText(String.valueOf(activePlayer.getGamesVsPc()));
         name.setEditable(false);
         password.setEditable(false);
         email.setEditable(false);
@@ -70,6 +68,7 @@ public class ProfileSceneController implements Initializable {
 
     @FXML
     private void deletePhoto() {
+        warning.setText("");
         if(photoContainer.getImage().equals(defaultPhoto))
         {
             warning.setText("Nemáte nastavenú žiadnú fotku!");
@@ -82,10 +81,12 @@ public class ProfileSceneController implements Initializable {
 
     @FXML
     private void choosePhoto() {
+        warning.setText("");
         File file = fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
             Image photo = new Image(file.toURI().toString());
             photoContainer.setImage(photo);
+            activePlayer.setPhoto(photo);
             setImageToCenter(photoContainer);
         }
     }
@@ -105,6 +106,7 @@ public class ProfileSceneController implements Initializable {
     }
     @FXML
     private void changePassword(){
+        warning.setText("");
         newPassword.setVisible(true);
         oldPassword.setVisible(true);
         changeButton.setVisible(true);

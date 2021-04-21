@@ -28,13 +28,13 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Button layoutX="766.0" layoutY="470.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Button layoutX="766.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <ComboBox fx:id="participantsCount" layoutX="225.0" layoutY="468.0" prefHeight="42.0" prefWidth="56.0" style="-fx-background-color: red;" />
-            <Button fx:id="buttonCreate" layoutX="301.0" layoutY="470.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Vytvoriť turnaj">
+            <ComboBox fx:id="participantsCount" layoutX="225.0" layoutY="468.0" prefHeight="42.0" prefWidth="90.0" styleClass="combo-box" stylesheets="@../resources/css/TextfieldsStyles.css" />
+            <Button fx:id="buttonCreate" layoutX="340.0" layoutY="470.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Vytvoriť turnaj">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -44,17 +44,17 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <TextField fx:id="round" layoutX="225.0" layoutY="470.0" prefHeight="39.0" prefWidth="60.0" promptText="Kolo" style="-fx-background-color: red; -fx-background-radius: 10;">
+            <TextField fx:id="round" alignment="CENTER" layoutX="225.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Kolo" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="match" layoutX="288.0" layoutY="470.0" prefHeight="39.0" prefWidth="69.0" promptText="Zápas" style="-fx-background-color: red; -fx-background-radius: 10;">
+            <TextField fx:id="match" alignment="CENTER" layoutX="300.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Zápas" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="result" layoutX="386.0" layoutY="470.0" prefHeight="39.0" prefWidth="149.0" promptText="Výsledok" style="-fx-background-color: red; -fx-background-radius: 10;">
+            <TextField fx:id="result" alignment="CENTER" layoutX="375.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Víťaz" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>

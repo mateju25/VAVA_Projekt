@@ -38,7 +38,7 @@ public class TournamentController implements Initializable {
     private final ObservableList<Integer> counts = FXCollections.observableArrayList(4,8,12);
 
 
-
+    //si ho len getnem ten turnaj
     private final Tournament tournament = new Tournament();
     //getnem si active playera
     private final ChessPlayer activePlayer = new ChessPlayer("Cheffe","kkt","sda",true);
@@ -48,8 +48,7 @@ public class TournamentController implements Initializable {
 
 
 
-        activePlayer.setAdministrator(false);
-        tournament.setActive(true);
+        tournament.setActive(false);
 
 
 
@@ -75,7 +74,7 @@ public class TournamentController implements Initializable {
             result.setVisible(true);
             warning.setVisible(false);
             buttonCreate.setVisible(false);
-            buttonSave.setVisible(false);
+            buttonSave.setVisible(true);
             participantsCount.setVisible(false);
             description.setVisible(true);
             description.setText("Zapísať výsledok");
