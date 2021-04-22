@@ -12,9 +12,9 @@ public class Pawn extends Piece{
     public Pawn(Boolean black)  {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/blackpawn2.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set2/blackpawn2.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/whitepawn2.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set2/whitepawn2.png"));
     }
 
     public void setEnPasant(boolean enPasant) {

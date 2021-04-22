@@ -32,12 +32,12 @@
             </Button>
             <ImageView disable="true" fitHeight="198.0" fitWidth="232.0" layoutX="14.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <ImageView disable="true" fitHeight="198.0" fitWidth="232.0" layoutX="91.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <Button fx:id="loginBtn" layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="40.0" prefWidth="117.0" stylesheets="@../resources/css/ButtonStyles.css" text="Prihlásiť sa" textFill="#0d0d0d">
@@ -47,7 +47,7 @@
             </Button>
             <ImageView fitHeight="226.0" fitWidth="329.0" layoutX="3.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/dva.png" />
+                  <Image url="@../resources/pictures/graphics/dva.png" />
                </image>
             </ImageView>
             <Button fx:id="exitBtn" layoutX="41.0" layoutY="630.0" mnemonicParsing="false" onAction="#setCancelButton" prefHeight="40.0" prefWidth="254.0" stylesheets="@../resources/css/ButtonStyles.css" text="Exit" textFill="#0d0d0d">
@@ -75,7 +75,7 @@
                <graphic>
                   <ImageView id="buttonInternationalization" fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/SKflag.png" />
+                        <Image url="@../resources/pictures/graphics/SKflag.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -84,7 +84,7 @@
                <graphic>
                   <ImageView fitHeight="84.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/UKflag.png" />
+                        <Image url="@../resources/pictures/graphics/UKflag.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -11,9 +11,9 @@ public class King extends Piece{
     public King(Boolean black) {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackKing.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/BlackKing.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteKing.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/WhiteKing.png"));
     }
 
     public boolean isMoved() {

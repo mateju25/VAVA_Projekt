@@ -58,7 +58,7 @@
             </Label>
             <ImageView fx:id="photoContainer" fitHeight="254.0" fitWidth="227.0" layoutX="41.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/Profile-Avatar-PNG.png" />
+                  <Image url="@../resources/pictures/graphics/Profile-Avatar-PNG.png" />
                </image>
             </ImageView>
             <Button layoutX="751.0" layoutY="459.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
@@ -94,7 +94,7 @@
             </Label>
             <ImageView fitHeight="114.0" fitWidth="125.0" layoutX="81.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/settings.png" />
+                  <Image url="@../resources/pictures/graphics/settings.png" />
                </image>
             </ImageView>
          </children>

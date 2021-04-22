@@ -11,9 +11,9 @@ public class Bishop extends Piece{
     public Bishop(Boolean black) {
         super(black);
         if (black)
-             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackBishop.png"));
+             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/BlackBishop.png"));
         else
-             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteBishop.png"));
+             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/WhiteBishop.png"));
     }
 
     @Override

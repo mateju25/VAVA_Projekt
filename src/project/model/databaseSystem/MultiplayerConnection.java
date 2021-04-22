@@ -38,7 +38,7 @@ public class MultiplayerConnection implements GameParticipant {
 
             statement = connection.prepareStatement("UPDATE multiplayer SET lastmove = '', isOwnerBlack = ?,  ownerTime = ?, secondTime = ?, giveUp = 0 WHERE id = ?");
             statement.setInt(4, this.id);
-            statement.setInt(1, (black ? 1 : 0));
+            statement.setInt(1, (black ? 0 : 1));
             statement.setInt(2, time.toSecondOfDay());
             statement.setInt(3, time.toSecondOfDay());
             statement.executeUpdate();

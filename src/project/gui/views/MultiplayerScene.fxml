@@ -50,7 +50,7 @@
                <graphic>
                   <ImageView fitHeight="99.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/pawnblack.png" />
+                        <Image url="@../resources/pictures/graphics/pawnblack.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -59,7 +59,7 @@
                <graphic>
                   <ImageView fitHeight="99.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/whitepawnp.png" />
+                        <Image url="@../resources/pictures/graphics/whitepawnp.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -68,7 +68,7 @@
                <graphic>
                   <ImageView fitHeight="99.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/random1.png" />
+                        <Image url="@../resources/pictures/graphics/random1.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -131,7 +131,7 @@
             </Label>
             <ImageView fitHeight="120.0" fitWidth="183.0" layoutX="20.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/settings.png" />
+                  <Image url="@../resources/pictures/graphics/settings.png" />
                </image>
             </ImageView>
          </children>

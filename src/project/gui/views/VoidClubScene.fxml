@@ -48,7 +48,7 @@
                <children>
                   <ImageView fitHeight="110.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/Community-High-Quality-PNG.png" />
+                        <Image url="@../resources/pictures/graphics/Community-High-Quality-PNG.png" />
                      </image>
                   </ImageView>
                </children>

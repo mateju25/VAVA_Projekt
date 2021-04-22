@@ -53,22 +53,22 @@
                </font></TextArea>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="26.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="7.0" layoutY="643.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="1501.0" layoutY="655.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.rightAnchor="31.20001220703125">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="1520.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" AnchorPane.rightAnchor="12.20001220703125">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" layoutX="1613.0" layoutY="545.0" prefHeight="44.0" prefWidth="141.0" spacing="10.0" AnchorPane.leftAnchor="1613.0" AnchorPane.rightAnchor="47.0">
@@ -101,7 +101,7 @@
             </HBox>
             <ImageView fitHeight="577.0" fitWidth="214.0" layoutX="188.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="187.49017333984375" AnchorPane.topAnchor="188.0">
                <image>
-                  <Image url="@../resources/pictures/whiteKingo.png" />
+                  <Image url="@../resources/pictures/graphics/whiteKingo.png" />
                </image>
             </ImageView>
          </children>

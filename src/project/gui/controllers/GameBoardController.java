@@ -4,15 +4,12 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import project.gui.Main;
 import project.model.GameParticipant;
@@ -25,7 +22,6 @@ import project.model.gameChess.pieces.Pawn;
 import project.model.stockfishApi.Stockfish;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -50,8 +46,9 @@ public class GameBoardController {
     private ArrayList<Coordinates> legalMoves;
 
     private Coordinates activeFigure = null;
+    private boolean thisPlayerMoved = false;
     private GameParticipant secondPlayer;
-    private Thread stockfishThread;
+    private Thread secondPlayerThread;
 
     @Deprecated
     public void makeMoves(String moves) {
@@ -63,7 +60,11 @@ public class GameBoardController {
     }
 
     public void setTimer() {
-        timer = new Timer();
+        if (timer == null) {
+            timer = new Timer();
+        } else {
+            return;
+        }
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 if(!stop && topTime.isAfter(LocalTime.of(0, 0, 0)) && botTime.isAfter(LocalTime.of(0, 0, 0)))
@@ -95,9 +96,9 @@ public class GameBoardController {
                 }
                 else {
                     if (!stop) {
-                        board.setLastSignal(Signalization.NOTIME);
                         timer.cancel();
-                        Platform.runLater(() -> setResult());
+                        board.setLastSignal(Signalization.NOTIME);
+                        Platform.runLater(() -> handleSignalFromChessboard());
                     }
                 }
             }
@@ -107,7 +108,7 @@ public class GameBoardController {
     public void exitEverything() {
         stop = true;
         try {
-            stockfishThread.join();
+            secondPlayerThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -115,17 +116,13 @@ public class GameBoardController {
         canvas.setDisable(true);
     }
 
-    public synchronized void setResult() {
+    public synchronized void handleSignalFromChessboard() {
+        int addWin = 0;
+        int addLose = 0;
         switch (board.getLastSignal()) {
-            case CHECKMATE:
+            case CHECKMATE: {
                 exitEverything();
                 resultWarning.setVisible(true);
-                drawingFunctions.drawMateRecntangle(board.getState().whereIsThis(board.getState().isChecked(board.getState(), board.isBlackTurn())));
-
-                int addPC = SingleplayerController.use ? 1 : 0;
-                int addPlayer = MultiplayerController.use ? 1 : 0;
-                int addWin = 0;
-                int addLose = 0;
 
                 if (board.getState().isBlackCloser() && board.isWhiteCheckmated()) {
                     resultWarning.setText("MAT\nVíťaz čierny 1-0");
@@ -143,25 +140,24 @@ public class GameBoardController {
                     resultWarning.setText("MAT\nVíťaz čierny 0-1");
                     addLose = MultiplayerController.use ? 1 : 0;
                 }
-                LoginConnection.getInstance().addPoints(addPC, addPlayer, addWin, 0, addLose);
+
+                LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, addWin, 0, addLose);
                 LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
                 break;
-            case STALEMATE:
+            }
+
+            case STALEMATE: {
                 exitEverything();
                 resultWarning.setVisible(true);
                 resultWarning.setText("PAT\n Remíza 1/2-1/2 ");
                 LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, 0, 1, 0);
                 LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
                 break;
-            case NOTIME:
+            }
+
+            case NOTIME: {
                 exitEverything();
                 resultWarning.setVisible(true);
-
-                addPC = SingleplayerController.use ? 1 : 0;
-                addPlayer = MultiplayerController.use ? 1 : 0;
-                addWin = 0;
-                addLose = 0;
-
 
                 if (board.getState().isBlackCloser() && botTime.isAfter(LocalTime.of(0, 0, 0))) {
                     resultWarning.setText("Došiel čas\nVíťaz čierny 1-0");
@@ -179,44 +175,54 @@ public class GameBoardController {
                     resultWarning.setText("Došiel čas\nVíťaz biely 1-0");
                     addWin = MultiplayerController.use ? 1 : 0;
                 }
-                LoginConnection.getInstance().addPoints(addPC, addPlayer, addWin, 0, addLose);
+
+                LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, addWin, 0, addLose);
                 LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
                 break;
-            case GIVEUPME:
+            }
+
+            case GIVEUPME: {
                 exitEverything();
                 resultWarning.setVisible(true);
                 if (board.getState().isBlackCloser())
                     resultWarning.setText("Vzdal si sa\n Víťaz biely 0-1 ");
                 else
                     resultWarning.setText("Vzdal si sa\n Víťaz čierny 0-1 ");
+
                 LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, 0, 0, MultiplayerController.use ? 1 : 0);
                 LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
                 break;
-            case GIVEUPOTHER:
+            }
+
+            case GIVEUPOTHER: {
                 exitEverything();
                 resultWarning.setVisible(true);
                 if (board.getState().isBlackCloser())
                     resultWarning.setText("Vzdal sa súper\n Víťaz čierny 1-0 ");
                 else
                     resultWarning.setText("Vzdal sa súper\n Víťaz biely 1-0 ");
+
                 LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, 0, 0);
                 LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
                 break;
+            }
         }
     }
 
     public void initialize() {
+        timer = null;
+        textMoves.setText("");
         revenge.setVisible(false);
-        title.setText(LoginConnection.getInstance().getActivePlayer().getName()+ " vs Stockfish úrovne " + String.valueOf(SingleplayerController.level));
         Main.primaryStage.setMaximized(true);
         resultWarning.setVisible(false);
         canvas.setDisable(false);
 
-        final boolean[] computerFirst;
+        final boolean[] secondPLayerFirst;
 
         if (SingleplayerController.use) {
+            title.setText(LoginConnection.getInstance().getActivePlayer().getName()+ " vs Stockfish úrovne " + SingleplayerController.level);
             board = new Chessboard(SingleplayerController.blackSide);
-            computerFirst = new boolean[]{SingleplayerController.blackSide};
+            secondPLayerFirst = new boolean[]{SingleplayerController.blackSide};
             secondPlayer = Stockfish.getInstance(SingleplayerController.level);
             drawingFunctions = new DrawingFunctions(canvas, board);
 
@@ -224,14 +230,15 @@ public class GameBoardController {
             topTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
         }
         else {
-                board = new Chessboard(MultiplayerController.blackSide);
-                computerFirst = new boolean[]{MultiplayerController.blackSide};
-                secondPlayer = MultiplayerConnection.getInstance();
-                drawingFunctions = new DrawingFunctions(canvas, board);
+            title.setText("Multiplayer");
+            board = new Chessboard(MultiplayerController.blackSide);
+            secondPLayerFirst = new boolean[]{MultiplayerController.blackSide};
+            secondPlayer = MultiplayerConnection.getInstance();
+            drawingFunctions = new DrawingFunctions(canvas, board);
 
-                LocalTime[] times = MultiplayerConnection.getInstance().getTimes();
-                topTime = times[0];
-                botTime = times[1];
+            LocalTime[] times = MultiplayerConnection.getInstance().getTimes();
+            topTime = times[0];
+            botTime = times[1];
         }
 
         MultiplayerController.minutes = botTime.getMinute();
@@ -240,95 +247,85 @@ public class GameBoardController {
         topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
         botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
 
-        stockfishThread = new Thread(new Runnable() {
+        secondPlayerThread = new Thread(new Runnable() {
+            private void checkIfGiveUp() {
+                if (MultiplayerController.use && MultiplayerConnection.getInstance().isGiveUp()) {
+                    board.setLastSignal(Signalization.GIVEUPOTHER);
+                    Platform.runLater(() -> handleSignalFromChessboard());
+                }
+            }
+
+            private void sleepFor(int mil) {
+                try {
+                    Thread.sleep(mil);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
             @Override
             public void run() {
 
-                String lastMove = board.getLastMove();
                 OUTER:
-                while (!stop && board.getLastSignal() != Signalization.CHECKMATE
-                        && board.getLastSignal() != Signalization.STALEMATE
-                        && board.getLastSignal() != Signalization.NOTIME) {
+                while (!stop) {
+
                     // cakaj pokial aktualny hrac nezahra
-                    while (!stop && lastMove.equals(board.getLastMove())) {
-                        if (MultiplayerController.use && MultiplayerConnection.getInstance().isGiveUp()) {
-                            board.setLastSignal(Signalization.GIVEUPOTHER);
-                            Platform.runLater(() -> setResult());
-                            return;
-                        }
-                        if (computerFirst[0]) {
+                    while (!stop && !thisPlayerMoved) {
+                        if (secondPLayerFirst[0])
                             break;
-                        }
-                        try {
-                            Thread.sleep(300);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        checkIfGiveUp();
+                        sleepFor(500);
+
+                        if (stop)
+                            return;
                     }
-                    if (stop)
-                        return;
-                    try {
-                        Thread.sleep(1200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    thisPlayerMoved = false;
+                    String lastMove = board.getLastMove();
+
+                    if (secondPlayer instanceof Stockfish)
+                        sleepFor(1300);
 
 
                     synchronized (this) {
-                        String newMove = lastMove;
+                        String newMove = board.getLastMove();
                         while (!stop && newMove.equals(lastMove)) {
-                            if (MultiplayerController.use && MultiplayerConnection.getInstance().isGiveUp()) {
-                                board.setLastSignal(Signalization.GIVEUPOTHER);
-                                Platform.runLater(() -> setResult());
+
+                            checkIfGiveUp();
+
+                            if (stop)
                                 return;
-                            }
-                            if (board.getLastSignal() == Signalization.NOTIME)
-                                break OUTER;
+
                             newMove = secondPlayer.getLastMove();
-                            if (computerFirst[0]) {
-                                if (secondPlayer instanceof  Stockfish) {
-                                    newMove = ((Stockfish) secondPlayer).makeBestMove();
-                                    break;
-                                }
+
+                            if (secondPLayerFirst[0] && secondPlayer instanceof  Stockfish) {
+                                newMove = ((Stockfish) secondPlayer).makeBestMove();
+                                break;
                             }
-                            try {
-                                Thread.sleep(300);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+
+                            sleepFor(500);
+
+                            if (stop)
+                                return;
                         }
 
-                        computerFirst[0] = false;
-                        if (secondPlayer instanceof  Stockfish || !newMove.equals(board.getLastMove())) {
-                            if (!newMove.contains("none")) {
-                                if (stop)
-                                    return;
-                                board.makeMove(newMove);
-                                if (timer == null) {
-                                    setTimer();
-                                }
-                            }
-                            lastMove = board.getAllMoves().getLast();
+                        secondPLayerFirst[0] = false;
+
+                        if (!newMove.contains("none") && newMove.length() >= 4) {
+                            board.makeMove(newMove);
+                            setTimer();
                             textMoves.setText(textMoves.getText() + newMove + "  ");
-
-
                             drawingFunctions.refreshBoard();
                         }
                     }
-                    Platform.runLater(() -> {
-                        if (board.getLastSignal() == Signalization.CHECK)
-                            drawingFunctions.drawCheckRectangle(board.getState().whereIsThis(board.getState().isChecked(board.getState(), board.isBlackTurn())));
-                        else
-                            setResult();
-                    });
+                    Platform.runLater(() -> handleSignalFromChessboard());
                 }
                 stop = true;
             }
         });
 //
-//        makeMoves("d2d3 e7e5 c2c4 c7c6 b2b4 d7d5 c4d5 c6d5 c1a3 b8c6 b1c3 d5d4 c3e4 f7f5 e4d2 g8f6 d1b3 b7b5 g1f3 f6d5");
+//        makeMoves("d2d4 e7e6 e2e4 d7d5 e4e5 c7c5 c2c3 b8c6 c1e3 d8b6 a2a3 b6b2 b1d2 b2c3 f1b5 g8e7 a1b1 c3a3 d4c5 e7f5 b5c6 b7c6 d2b3 a3b4 d1d2 b4e4 b1c1 e4g2 b3d4 g2h1 e1f1 f5d4 d2d4 c8a6 f1e1 h1g1 e1d2 g1h2 d2c2 h2h5 c2b1 a8b8 b1a2 h5e2 e3d2 e2b5");
 //        ((Stockfish)secondPlayer).setMoves(new LinkedList<>(board.getAllMoves()));
-        stockfishThread.start();
+        secondPlayerThread.start();
         drawingFunctions.refreshBoard();
     }
 
@@ -383,10 +380,8 @@ public class GameBoardController {
                     ((Stockfish)secondPlayer).makeBestMove();
                 }
 
-                if (timer == null) {
-                    setTimer();
-                }
-
+                thisPlayerMoved = true;
+                setTimer();
 
                 textMoves.setText(textMoves.getText() + board.getAllMoves().getLast() + "  ");
                 drawingFunctions.refreshBoard();
@@ -414,11 +409,11 @@ public class GameBoardController {
     public void giveUp(ActionEvent actionEvent) {
         if (SingleplayerController.use) {
             board.setLastSignal(Signalization.GIVEUPME);
-            setResult();
+            handleSignalFromChessboard();
         }
         if (MultiplayerController.use) {
             board.setLastSignal(Signalization.GIVEUPME);
-            setResult();
+            handleSignalFromChessboard();
             MultiplayerConnection.getInstance().setGiveUp(true);
         }
     }
@@ -430,17 +425,17 @@ public class GameBoardController {
                 SingleplayerController.blackSide = !SingleplayerController.blackSide;
                 initialize();
             }
-            if (!MultiplayerConnection.getInstance().getLastMove().equals("")) {
-                if (MultiplayerController.use) {
+            if (MultiplayerController.use) {
+                if (!MultiplayerConnection.getInstance().getLastMove().equals("")) {
                     exitEverything();
                     MultiplayerController.blackSide = !MultiplayerController.blackSide;
                     MultiplayerConnection.getInstance().revengeGame(MultiplayerController.blackSide, LocalTime.of(0, MultiplayerController.minutes, MultiplayerController.seconds));
                     initialize();
+                } else {
+                    exitEverything();
+                    MultiplayerController.blackSide = !MultiplayerController.blackSide;
+                    initialize();
                 }
-            } else {
-                exitEverything();
-                MultiplayerController.blackSide = !MultiplayerController.blackSide;
-                initialize();
             }
         }
     }

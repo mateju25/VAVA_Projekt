@@ -30,7 +30,7 @@
                </font></TextField>
                 <ImageView disable="true" fitHeight="198.0" fitWidth="232.0" layoutX="14.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../resources/pictures/dec2.png" />
+                        <Image url="@../resources/pictures/graphics/dec2.png" />
                     </image>
                 </ImageView>
             <TextField fx:id="email" layoutX="41.0" layoutY="219.0" prefHeight="35.0" prefWidth="248.0" promptText="☎ Email" style="-fx-background-color: red; -fx-background-radius: 20;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
@@ -59,7 +59,7 @@
             </Button>
             <ImageView disable="true" fitHeight="198.0" fitWidth="232.0" layoutX="91.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <Label fx:id="warning" alignment="CENTER" layoutX="13.0" layoutY="446.0" prefHeight="25.0" prefWidth="309.0" textFill="RED">
@@ -86,7 +86,7 @@
                <graphic>
                   <ImageView fitHeight="84.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/UKflag.png" />
+                        <Image url="@../resources/pictures/graphics/UKflag.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -95,7 +95,7 @@
                <graphic>
                   <ImageView fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/SKflag.png" />
+                        <Image url="@../resources/pictures/graphics/SKflag.png" />
                      </image>
                   </ImageView>
                </graphic>

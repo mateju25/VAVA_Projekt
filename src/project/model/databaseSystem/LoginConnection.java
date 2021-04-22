@@ -119,6 +119,41 @@ public class LoginConnection {
         } catch (SQLException a) {}
     }
 
+    public int getFavouriteBoard() {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+
+        int result = 1;
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("SELECT board FROM users WHERE email = ?;");
+            statement.setString(1, activePlayer.getEmail());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException a) {
+        }
+        return result;
+    }
+
+    public void setFavouriteBoard(int board) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("UPDATE users SET board = ? WHERE email= ?;");
+            statement.setInt(1, board);
+            statement.setString(2,  activePlayer.getEmail());
+            statement.executeQuery();
+
+            connection.close();
+        } catch (SQLException a) {
+        }
+    }
+
     public void loadPlayers() {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
