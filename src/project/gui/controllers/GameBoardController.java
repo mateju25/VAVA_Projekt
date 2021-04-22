@@ -32,6 +32,7 @@ import java.util.*;
 
 
 public class GameBoardController {
+    public Button revenge;
     @FXML private Label title;
     @FXML private Label resultWarning;
     @FXML public Canvas canvas;
@@ -205,9 +206,11 @@ public class GameBoardController {
     }
 
     public void initialize() {
+        revenge.setVisible(false);
         title.setText(LoginConnection.getInstance().getActivePlayer().getName()+ " vs Stockfish úrovne " + String.valueOf(SingleplayerController.level));
         Main.primaryStage.setMaximized(true);
         resultWarning.setVisible(false);
+        canvas.setDisable(false);
 
         final boolean[] computerFirst;
 
@@ -219,24 +222,23 @@ public class GameBoardController {
 
             botTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
             topTime = LocalTime.of(0, SingleplayerController.minutes, SingleplayerController.seconds);
-            topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
-            botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
         }
-        else
-            if (MultiplayerController.use) {
+        else {
                 board = new Chessboard(MultiplayerController.blackSide);
                 computerFirst = new boolean[]{MultiplayerController.blackSide};
                 secondPlayer = MultiplayerConnection.getInstance();
                 drawingFunctions = new DrawingFunctions(canvas, board);
 
-                botTime = LocalTime.of(0, 5, 0);
-                topTime = LocalTime.of(0, 5, 0);
-                topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
-                botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
-            } else
-            {
-                computerFirst = new boolean[]{false};
-            }
+                LocalTime[] times = MultiplayerConnection.getInstance().getTimes();
+                topTime = times[0];
+                botTime = times[1];
+        }
+
+        MultiplayerController.minutes = botTime.getMinute();
+        MultiplayerController.seconds = botTime.getSecond();
+
+        topTimerText.setText(topTime.format(DateTimeFormatter.ofPattern("mm:ss")));
+        botTimerText.setText(botTime.format(DateTimeFormatter.ofPattern("mm:ss")));
 
         stockfishThread = new Thread(new Runnable() {
             @Override
@@ -422,10 +424,24 @@ public class GameBoardController {
     }
 
     public void revenge(ActionEvent actionEvent) {
-        if (SingleplayerController.use) {
-            exitEverything();
-            SingleplayerController.blackSide = !SingleplayerController.blackSide;
-            initialize();
+        if (stop) {
+            if (SingleplayerController.use) {
+                exitEverything();
+                SingleplayerController.blackSide = !SingleplayerController.blackSide;
+                initialize();
+            }
+            if (!MultiplayerConnection.getInstance().getLastMove().equals("")) {
+                if (MultiplayerController.use) {
+                    exitEverything();
+                    MultiplayerController.blackSide = !MultiplayerController.blackSide;
+                    MultiplayerConnection.getInstance().revengeGame(MultiplayerController.blackSide, LocalTime.of(0, MultiplayerController.minutes, MultiplayerController.seconds));
+                    initialize();
+                }
+            } else {
+                exitEverything();
+                MultiplayerController.blackSide = !MultiplayerController.blackSide;
+                initialize();
+            }
         }
     }
 }

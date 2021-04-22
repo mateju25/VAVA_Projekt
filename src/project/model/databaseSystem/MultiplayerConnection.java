@@ -29,6 +29,23 @@ public class MultiplayerConnection implements GameParticipant {
         return single_instance;
     }
 
+    public void revengeGame(boolean black, LocalTime time) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+
+            statement = connection.prepareStatement("UPDATE multiplayer SET lastmove = '', isOwnerBlack = ?,  ownerTime = ?, secondTime = ?, giveUp = 0 WHERE id = ?");
+            statement.setInt(4, this.id);
+            statement.setInt(1, (black ? 1 : 0));
+            statement.setInt(2, time.toSecondOfDay());
+            statement.setInt(3, time.toSecondOfDay());
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException a) {}
+    }
+
     public void createNewGame(boolean black, LocalTime time) {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -43,7 +60,7 @@ public class MultiplayerConnection implements GameParticipant {
 
             if (resultSet.next()) {
                 this.id = resultSet.getInt(1) + 1;
-                statement = connection.prepareStatement("INSERT INTO multiplayer VALUES (? , '', ?, ?, ?, 0)");
+                statement = connection.prepareStatement("INSERT INTO multiplayer VALUES (? , '', ?, ?, ?, 0, 0)");
                 statement.setInt(1, this.id);
                 statement.setInt(2, black ? 1 : 0);
                 statement.setInt(3, time.toSecondOfDay());

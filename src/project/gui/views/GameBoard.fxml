@@ -92,7 +92,7 @@
             </Label>
             <HBox alignment="CENTER" layoutX="1589.0" layoutY="309.0" prefHeight="47.0" prefWidth="165.0" AnchorPane.leftAnchor="1613.0" AnchorPane.rightAnchor="47.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#revenge" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Odveta" textFill="#0d0d0d">
+                  <Button fx:id="revenge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#revenge" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Odveta" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
