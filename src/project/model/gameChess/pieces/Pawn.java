@@ -33,7 +33,7 @@ public class Pawn extends Piece{
             minus *= -1;
 
         if (state.getPieceOnPlace(finishX, finishY+minus) instanceof Pawn && ((Pawn) state.getPieceOnPlace(finishX, finishY+minus)).enPasant && state.getPieceOnPlace(finishX, finishY+ minus).getBlack() != black)
-            state.getState()[finishX][finishY - minus] = null;
+            state.getState()[finishX][finishY + minus] = null;
 
         isMoved = true;
 

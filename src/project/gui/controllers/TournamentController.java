@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import project.model.databaseSystem.ChessPlayer;
+import project.model.databaseSystem.LoginConnection;
 import project.model.databaseSystem.Tournament;
 
 import java.io.IOException;
@@ -40,8 +41,7 @@ public class TournamentController implements Initializable {
 
     //si ho len getnem ten turnaj
     private final Tournament tournament = new Tournament();
-    //getnem si active playera
-    private final ChessPlayer activePlayer = new ChessPlayer("Cheffe","kkt","sda",true);
+    private final ChessPlayer activePlayer = LoginConnection.getInstance().getActivePlayer();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import project.gui.Main;
+import project.model.databaseSystem.LoginConnection;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -44,7 +45,7 @@ public class LoginSceneController {
 
     @FXML
     private void changeSceneMenu() throws IOException {
-//        warning.setText("");
+        warning.setText("");
 //        String name = this.name.getText();
 //        String password= this.password.getText();
 //
@@ -52,11 +53,11 @@ public class LoginSceneController {
 //            warning.setText("Vyplnťe všetky povinné polia!");
 //            return;
 //        }
-//
-//        if (!PlayerDatabase.getInstance().loginUser(name, password)) {
-//            warning.setText("Nepodarilo sa prihlasit");
-//            return;
-//        }
+
+        if (!LoginConnection.getInstance().loginUser("Morfex", "voidchess25")) {
+            warning.setText("Nepodarilo sa prihlasit");
+            return;
+        }
 
 
 

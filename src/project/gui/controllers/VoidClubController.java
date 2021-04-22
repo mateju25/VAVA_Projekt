@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import project.model.databaseSystem.ChessPlayer;
+import project.model.databaseSystem.LoginConnection;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,28 +32,20 @@ public class VoidClubController implements Initializable{
     @FXML
     private TableColumn<ChessPlayer,Short> matchesColumn;
 
-    private final ArrayList<ChessPlayer> playersList=new ArrayList<>();
-    //gett vsetkych gracov z databazy do arraylistu to sa upravi ptm
     private final ObservableList<ChessPlayer> allPlayers = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        LoginConnection.getInstance().loadPlayers();
 
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
-        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         matchesColumn.setCellValueFactory(new PropertyValueFactory<>("matches"));
         winsColumn.setCellValueFactory(new PropertyValueFactory<>("wins"));
         drawsColumn.setCellValueFactory(new PropertyValueFactory<>("draws"));
         losesColumn.setCellValueFactory(new PropertyValueFactory<>("loses"));
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
-        allPlayers.addAll(playersList);
+
+        allPlayers.setAll(LoginConnection.getInstance().getChessPlayerslist());
         statistics.getItems().setAll(allPlayers);
     }
     @FXML

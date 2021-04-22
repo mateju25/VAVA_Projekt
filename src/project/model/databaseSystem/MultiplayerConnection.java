@@ -43,7 +43,7 @@ public class MultiplayerConnection implements GameParticipant {
 
             if (resultSet.next()) {
                 this.id = resultSet.getInt(1) + 1;
-                statement = connection.prepareStatement("INSERT INTO multiplayer VALUES (? , '', ?, ?, ?)");
+                statement = connection.prepareStatement("INSERT INTO multiplayer VALUES (? , '', ?, ?, ?, 0)");
                 statement.setInt(1, this.id);
                 statement.setInt(2, black ? 1 : 0);
                 statement.setInt(3, time.toSecondOfDay());
@@ -90,6 +90,42 @@ public class MultiplayerConnection implements GameParticipant {
             connection.close();
         } catch (SQLException a) {}
         return result == 1;
+    }
+
+    public boolean isGiveUp() {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+
+            statement = connection.prepareStatement("SELECT giveUp FROM multiplayer WHERE id = ?;");
+            statement.setInt(1, this.id);
+            resultSet = statement.executeQuery();
+
+
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException a) {}
+        return result == 1;
+    }
+
+    public void setGiveUp(boolean giveUp) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+
+            statement = connection.prepareStatement("UPDATE multiplayer SET giveUp = ? WHERE id = ?");
+            statement.setInt(2, this.id);
+            statement.setInt(1, (giveUp ? 1 : 0));
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException a) {}
     }
 
     public LocalTime[] getTimes() {

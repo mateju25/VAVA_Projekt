@@ -21,8 +21,8 @@ public class SettingsController implements Initializable {
     private AnchorPane pane4;
     @FXML
     private AnchorPane pane5;
-    private int positionBoard=0;
-    private int positionFigure=0;
+    private int positionBoard = 0;
+    private int positionFigure = 0;
 
 
 

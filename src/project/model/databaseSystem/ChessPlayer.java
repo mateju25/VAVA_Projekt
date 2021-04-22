@@ -6,27 +6,27 @@ public class ChessPlayer {
     private final String name;
     private String password;
     private final String email;
-    private short matches;
-    private short gamesVsPc;
-    private short gamesVsPlayer;
-    private short wins;
-    private short draws;
-    private short loses;
-    private short points;
+    private int matches;
+    private int gamesVsPc;
+    private int gamesVsPlayer;
+    private int wins;
+    private int draws;
+    private int loses;
+    private double points;
     private Image photo;
     private boolean administrator;
 
-    public ChessPlayer(String name, String password, String email, boolean administrator) {
+    public ChessPlayer(String name, String password, String email, int gamesVsPc, int gamesVsPlayer, int wins, int draws, int loses, boolean administrator) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.matches = 0;
-        this.gamesVsPc = 0;
-        this.gamesVsPlayer = 0;
-        this.wins = 0;
-        this.draws = 0;
-        this.loses = 0;
-        this.points = 0;
+        this.matches = (short) (gamesVsPc + gamesVsPlayer);
+        this.gamesVsPc = gamesVsPc;
+        this.gamesVsPlayer = gamesVsPlayer;
+        this.wins = wins;
+        this.draws = draws;
+        this.loses = loses;
+        this.points = wins + draws*0.5;
         this.photo = new Image("/project/gui/resources/pictures/Profile-Avatar-PNG.png");
         this.administrator = administrator;
     }
@@ -47,55 +47,55 @@ public class ChessPlayer {
         return email;
     }
 
-    public short getMatches() {
+    public int getMatches() {
         return matches;
     }
 
-    public void setMatches(short matches) {
+    public void setMatches(int matches) {
         this.matches = matches;
     }
 
-    public short getGamesVsPc() {
+    public int getGamesVsPc() {
         return gamesVsPc;
     }
 
-    public void setGamesVsPc(short gamesVsPc) {
+    public void setGamesVsPc(int gamesVsPc) {
         this.gamesVsPc = gamesVsPc;
     }
 
-    public short getGamesVsPlayer() {
+    public int getGamesVsPlayer() {
         return gamesVsPlayer;
     }
 
-    public void setGamesVsPlayer(short gamesVsPlayer) {
+    public void setGamesVsPlayer(int gamesVsPlayer) {
         this.gamesVsPlayer = gamesVsPlayer;
     }
 
-    public short getWins() {
+    public int getWins() {
         return wins;
     }
 
-    public void setWins(short wins) {
+    public void setWins(int wins) {
         this.wins = wins;
     }
 
-    public short getDraws() {
+    public int getDraws() {
         return draws;
     }
 
-    public void setDraws(short draws) {
+    public void setDraws(int draws) {
         this.draws = draws;
     }
 
-    public short getLoses() {
+    public int getLoses() {
         return loses;
     }
 
-    public void setLoses(short loses) {
+    public void setLoses(int loses) {
         this.loses = loses;
     }
 
-    public short getPoints() {
+    public double getPoints() {
         return points;
     }
 

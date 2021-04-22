@@ -6,5 +6,7 @@ public enum Signalization {
     CHECK,
     NORMAL,
     NOPIECE,
-    NOTIME
+    NOTIME,
+    GIVEUPME,
+    GIVEUPOTHER
 }
