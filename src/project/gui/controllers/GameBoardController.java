@@ -90,14 +90,16 @@ public class GameBoardController implements Initializable {
                     });
                 }
                 else {
-                    board.setLastSignal(Signalization.NOTIME);
-                    timer.cancel();
-                    stop = true;
-                    Platform.runLater(() -> {
-                        canvas.setDisable(true);
-                        resultWarning.setVisible(true);
-                        resultWarning.setText("Došiel čas\n Vítaz farba 1-0 ");
-                    });
+                    if (!stop) {
+                        board.setLastSignal(Signalization.NOTIME);
+                        timer.cancel();
+                        stop = true;
+                        Platform.runLater(() -> {
+                            canvas.setDisable(true);
+                            resultWarning.setVisible(true);
+                            resultWarning.setText("Došiel čas\n Vítaz farba 1-0 ");
+                        });
+                    }
                 }
             }
         }, 1000,1000);

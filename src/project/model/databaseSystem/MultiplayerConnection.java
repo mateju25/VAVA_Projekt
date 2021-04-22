@@ -71,6 +71,27 @@ public class MultiplayerConnection implements GameParticipant {
         } catch (SQLException a) {}
     }
 
+    public boolean getColor() {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+
+            statement = connection.prepareStatement("SELECT isOwnerBlack FROM multiplayer WHERE id = ?;");
+            statement.setInt(1, this.id);
+            resultSet = statement.executeQuery();
+
+
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException a) {}
+        return result == 1;
+    }
+
     public LocalTime[] getTimes() {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

@@ -51,13 +51,6 @@ public class MultiplayerController {
     }
 
     @FXML
-    private void changeSceneMenu() throws IOException {
-        use = false;
-        LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
-
-    }
-
-    @FXML
     private void changeSceneGameBoard() throws IOException {
         joinLinkText.setText("");
         warningJoinText.setText("");
@@ -154,6 +147,8 @@ public class MultiplayerController {
         use = true;
 
         MultiplayerConnection.getInstance().setId(Integer.parseInt(joinLinkText.getText()));
+        blackSide = !MultiplayerConnection.getInstance().getColor();
+
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
         Main.primaryStage.setX(bounds.getMinX());
@@ -162,6 +157,10 @@ public class MultiplayerController {
         Main.primaryStage.setHeight(bounds.getHeight());
         Main.primaryStage.setMaximized(true);
         LoginSceneController.switchScene("/project/gui/views/GameBoard.fxml");
+    }
 
+    @FXML
+    private void changeSceneMenu() throws IOException {
+        LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
     }
 }
