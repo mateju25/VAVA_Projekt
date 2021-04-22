@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import project.model.databaseSystem.ChessPlayer;
+import project.model.databaseSystem.LoginConnection;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,8 +43,7 @@ public class ProfileSceneController implements Initializable {
     private Label warning;
 
     private final Image defaultPhoto=new Image("/project/gui/resources/pictures/Profile-Avatar-PNG.png");
-    //getnem si ho toto je custom
-    private final ChessPlayer activePlayer = new ChessPlayer("Cheffe","kkt","sda",true);
+    private final ChessPlayer activePlayer = LoginConnection.getInstance().getActivePlayer();
     private FileChooser fileChooser;
 
     @Override
@@ -115,12 +115,12 @@ public class ProfileSceneController implements Initializable {
     private void saveChangedPassword(){
         //niekde je prazdne
         if(newPassword.getText().equals("")||oldPassword.getText().equals("")){
-            warning.setText("niekde je nevyplnene policko");
+            warning.setText("Vyplň všetky polia!");
             return;
         }
         //prilis kratke
         if(newPassword.getText().length()<6){
-            warning.setText("prilis kratke!");
+            warning.setText("Príliš krátke!");
             return;
         }
         //stare heslo sa nezhoduje s naklikanym starym
@@ -134,14 +134,13 @@ public class ProfileSceneController implements Initializable {
         }
 
 
-            //uloz heslo do databazy
+        LoginConnection.getInstance().changePassword(newPassword.getText());
         activePlayer.setPassword(newPassword.getText());
+
         newPassword.setVisible(false);
         oldPassword.setVisible(false);
         changeButton.setVisible(false);
         password.setText(activePlayer.getPassword());
-
-
 
     }
 

@@ -46,6 +46,11 @@ public class RegistrationSceneController {
             return;
         }
 
+        if(password.length()<6){
+            warning.setText("Príliš krátke heslo - aspoň 6 znakov!");
+            return;
+        }
+
         Pattern p = Pattern.compile(".*@.*[.].*");
         Matcher m = p.matcher(email);
         if (!m.matches()) {

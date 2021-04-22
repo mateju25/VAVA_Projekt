@@ -14,12 +14,12 @@ import java.util.Properties;
 public class LoginConnection {
     private static LoginConnection single_instance = null;
     private ChessPlayer activePlayer = null;
+    private ArrayList<ChessPlayer> chessPlayerslist = new ArrayList<>();
+
 
     private final String connectionUrl = "jdbc:sqlserver://fiit-vava.database.windows.net:1433;database=fiit-vava-dbs;user=matej.delincak@fiit-vava;password=28qpj2C5zXTDmRn45x9wlkj;";
 
-    private LoginConnection() {
-
-    }
+    private LoginConnection() {}
 
     public static LoginConnection getInstance() {
         if (single_instance == null)
@@ -32,17 +32,26 @@ public class LoginConnection {
         return activePlayer;
     }
 
-    public void setActivePlayer(ChessPlayer activePlayer) {
-        this.activePlayer = activePlayer;
-    }
-/*pomocna lokalna databaza potom vymazeme ked tak*/
-    public static ArrayList<ChessPlayer> chessPlayerslist = new ArrayList<>();
-    public static void addNewChessplayer(String name, String password, String email, boolean admin) {
-        chessPlayerslist.add(new ChessPlayer(name,password,email,admin));
+    public ArrayList<ChessPlayer> getChessPlayerslist() {
+        return chessPlayerslist;
     }
 
-    public static ArrayList<ChessPlayer> getchessPlayerslist() {
-        return chessPlayerslist;
+    public void addPoints(int addGamePc, int addGamePlayer, int addWin, int addDraw, int addLose) {
+        PreparedStatement statement = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("UPDATE users SET gamesPC += ?, gamesPlayer += ?, wins += ?, draws += ?, loses += ? WHERE email= ?;");
+            statement.setInt(1, addGamePc);
+            statement.setInt(2, addGamePlayer);
+            statement.setInt(3, addWin);
+            statement.setInt(4, addDraw);
+            statement.setInt(5, addLose);
+            statement.setString(6, activePlayer.getEmail());
+            statement.executeQuery();
+
+            connection.close();
+        } catch (SQLException a) {}
     }
 
     public boolean existsUserName(String name, String email) {
@@ -63,7 +72,7 @@ public class LoginConnection {
         } catch (SQLException a) {}
         return result;
     }
-/*
+
     public boolean loginUser(String name, String password) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -78,7 +87,15 @@ public class LoginConnection {
             if (!resultSet.next()) {
                 result = false;
             } else {
-                setActivePlayer(new ChessPlayer(resultSet.getString(1), resultSet.getBoolean(4)));
+                this.activePlayer = new ChessPlayer(resultSet.getString("username"),
+                        password,
+                        resultSet.getString("email"),
+                        resultSet.getInt("gamesPC"),
+                        resultSet.getInt("gamesPlayer"),
+                        resultSet.getInt("wins"),
+                        resultSet.getInt("draws"),
+                        resultSet.getInt("loses"),
+                        resultSet.getBoolean("administrator"));
             }
             connection.close();
         } catch (SQLException a) {
@@ -86,13 +103,53 @@ public class LoginConnection {
         }
         return result;
     }
-*/
+
+    public void changePassword(String newPassword) {
+        PreparedStatement statement = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("UPDATE users SET password = ? WHERE email= ? and password= ?;");
+            statement.setString(1, hashPass(newPassword));
+            statement.setString(2,  activePlayer.getEmail());
+            statement.setString(3,  hashPass(activePlayer.getPassword()));
+            statement.executeQuery();
+
+            connection.close();
+        } catch (SQLException a) {}
+    }
+
+    public void loadPlayers() {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("SELECT * FROM users;");
+            resultSet = statement.executeQuery();
+            chessPlayerslist.clear();
+            while (resultSet.next()) {
+                this.chessPlayerslist.add(new ChessPlayer(resultSet.getString("username"),
+                        "unknown",
+                        resultSet.getString("email"),
+                        resultSet.getInt("gamesPC"),
+                        resultSet.getInt("gamesPlayer"),
+                        resultSet.getInt("wins"),
+                        resultSet.getInt("draws"),
+                        resultSet.getInt("loses"),
+                        resultSet.getBoolean("administrator")));
+            }
+            connection.close();
+        } catch (SQLException a) {
+        }
+    }
+
     public void registrationUser(String name, String password, String email) {
         PreparedStatement statement = null;
 
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("INSERT INTO users VALUES (? , ? , ?, 0)");
+            statement = connection.prepareStatement("INSERT INTO users VALUES (? , ? , ?, 0, 0, 0, 0, 0, 0)");
             statement.setString(1, name);
             statement.setString(2, hashPass(password));
             statement.setString(3, email);

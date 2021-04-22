@@ -144,4 +144,17 @@ public class Chessboard {
         computerMove = false;
     }
 
+    public boolean isBlackCheckmated() {
+        Piece temp = state.isCheckMated(this.getState(), true);
+        if (temp != null)
+            return true;
+        return false;
+    }
+
+    public boolean isWhiteCheckmated() {
+        Piece temp = state.isCheckMated(this.getState(), false);
+        if (temp != null)
+            return true;
+        return false;
+    }
 }

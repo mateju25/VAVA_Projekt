@@ -81,7 +81,10 @@ public class DrawingFunctions {
             drawTransparentRecntangle(finishX, finishY);
         }
 
-
+        if (board.getLastSignal() == Signalization.CHECK)
+            drawCheckRectangle(board.getState().whereIsThis(board.getState().isChecked(board.getState(), board.isBlackTurn())));
+        if (board.getLastSignal() == Signalization.CHECKMATE)
+            drawMateRecntangle(board.getState().whereIsThis(board.getState().isChecked(board.getState(), board.isBlackTurn())));
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -89,7 +92,6 @@ public class DrawingFunctions {
                     drawPiece(i, j, temp.getPieceOnPlace(i,j));
             }
         }
-        if (board.getLastSignal() == Signalization.CHECK)
-            drawCheckRectangle(board.getState().whereIsThis(board.getState().isChecked(board.getState(), board.isBlackTurn())));
+
     }
 }
