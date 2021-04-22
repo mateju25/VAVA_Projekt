@@ -86,7 +86,7 @@ public class SingleplayerController {
             Main.primaryStage.setScene(scene);
             Main.primaryStage.show();
         } else {
-            warningText.setText("Vyber spomedzi všetkých nastavení.");
+            warningText.setText("Vyberte farbu figúrok aj obtiažnosť!");
         }
     }
 
@@ -98,39 +98,46 @@ public class SingleplayerController {
 
 
     public void blackSideChoose(ActionEvent actionEvent) {
+        warningText.setText("");
         randomSideBtn.setSelected(false);
         whiteSideBtn.setSelected(false);
     }
 
     public void whiteSideClick(ActionEvent actionEvent) {
+        warningText.setText("");
         randomSideBtn.setSelected(false);
         blackSideBtn.setSelected(false);
     }
 
     public void randomSideClick(ActionEvent actionEvent) {
+        warningText.setText("");
         blackSideBtn.setSelected(false);
         whiteSideBtn.setSelected(false);
     }
 
     public void impossibleLevelBtnClick(ActionEvent actionEvent) {
+        warningText.setText("");
         easyLevelBtn.setSelected(false);
         hardLevelBtn.setSelected(false);
         mediumLevelBtn.setSelected(false);
     }
 
     public void hardLevelBtnClick(ActionEvent actionEvent) {
+        warningText.setText("");
         easyLevelBtn.setSelected(false);
         impossibleLevelBtn.setSelected(false);
         mediumLevelBtn.setSelected(false);
     }
 
     public void mediumLevelBtnClick(ActionEvent actionEvent) {
+        warningText.setText("");
         easyLevelBtn.setSelected(false);
         hardLevelBtn.setSelected(false);
         impossibleLevelBtn.setSelected(false);
     }
 
     public void easyLevelBtnClick(ActionEvent actionEvent) {
+        warningText.setText("");
         impossibleLevelBtn.setSelected(false);
         hardLevelBtn.setSelected(false);
         mediumLevelBtn.setSelected(false);

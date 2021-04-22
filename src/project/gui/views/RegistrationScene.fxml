@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../resources/css/BackgroundStyle.css" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.RegistrationSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../resources/css/BackgroundStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.RegistrationSceneController">
     <left>
         <AnchorPane prefHeight="700.0" prefWidth="335.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" style="-fx-background-color: red; -fx-background-radius: 20;">
+                <TextField fx:id="name" layoutX="41.0" layoutY="113.0" prefHeight="35.0" prefWidth="248.0" promptText="👤 Meno" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -24,7 +24,7 @@
                         <Font name="System Bold" size="29.0" />
                     </font>
                 </Text>
-                <TextField fx:id="password" layoutX="42.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
+                <TextField fx:id="password" layoutX="42.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -33,26 +33,26 @@
                         <Image url="@../resources/pictures/dec2.png" />
                     </image>
                 </ImageView>
-            <TextField fx:id="email" layoutX="41.0" layoutY="219.0" prefHeight="35.0" prefWidth="248.0" promptText="☎ Email" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="email" layoutX="41.0" layoutY="219.0" prefHeight="35.0" prefWidth="248.0" promptText="☎ Email" style="-fx-background-color: red; -fx-background-radius: 20;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <Button layoutX="144.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendVerificationMail" prefHeight="38.0" prefWidth="147.0" style="-fx-background-color: red; -fx-background-radius: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Zaslať PIN" textFill="#0d0d0d">
+            <Button fx:id="sendPinBtn" layoutX="144.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendVerificationMail" prefHeight="38.0" prefWidth="147.0" style="-fx-background-color: red; -fx-background-radius: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Zaslať PIN" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <TextField fx:id="textPin" alignment="CENTER" layoutX="49.0" layoutY="343.0" prefHeight="38.0" prefWidth="85.0" promptText="PIN" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="textPin" alignment="CENTER" layoutX="49.0" layoutY="343.0" prefHeight="38.0" prefWidth="85.0" promptText="PIN" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Button layoutX="50.0" layoutY="396.0" mnemonicParsing="false" onAction="#registration" prefHeight="38.0" prefWidth="240.0" style="-fx-background-color: red; -fx-background-radius: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Registrovať" textFill="#0d0d0d">
+            <Button fx:id="registrateBtn" layoutX="50.0" layoutY="396.0" mnemonicParsing="false" onAction="#registration" prefHeight="38.0" prefWidth="240.0" style="-fx-background-color: red; -fx-background-radius: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Registrovať" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button layoutX="52.0" layoutY="625.0" mnemonicParsing="false" onAction="#changeSceneLogin" prefHeight="38.0" prefWidth="241.0" style="-fx-background-color: red; -fx-background-radius: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Späť" textFill="#0d0d0d">
+            <Button fx:id="backBtn" layoutX="52.0" layoutY="625.0" mnemonicParsing="false" onAction="#changeSceneLogin" prefHeight="38.0" prefWidth="241.0" style="-fx-background-color: red; -fx-background-radius: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Späť" textFill="#0d0d0d">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -82,6 +82,24 @@
                       </Label>
                </children>
             </HBox>
+            <Button id="buttonInternationalization" layoutX="543.0" layoutY="615.0" mnemonicParsing="false" onAction="#changeToEnglish" prefHeight="41.0" prefWidth="31.0" stylesheets="@../resources/css/ButtonStyles.css">
+               <graphic>
+                  <ImageView fitHeight="84.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pictures/UKflag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="buttonInternationalization" layoutX="470.0" layoutY="615.0" mnemonicParsing="false" onAction="#changeToSlovak" prefHeight="41.0" prefWidth="31.0" stylesheets="@../resources/css/ButtonStyles.css">
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pictures/SKflag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             </children>
         </AnchorPane>
     </center>

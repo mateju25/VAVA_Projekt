@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.MultiplayerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.MultiplayerController">
    <left>
       <AnchorPane prefHeight="526.0" prefWidth="110.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER" />
    </left>
@@ -34,16 +34,16 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <TextField fx:id="timeText" alignment="CENTER" layoutX="90.0" layoutY="281.0" prefHeight="44.0" prefWidth="329.0" promptText="00:00" style="-fx-background-color: red; -fx-background-radius: 10;">
+            <TextField fx:id="timeText" alignment="CENTER" layoutX="90.0" layoutY="281.0" prefHeight="44.0" prefWidth="329.0" promptText="00:00" style="-fx-background-color: red; -fx-background-radius: 10;" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
 
-            <Label fx:id="warningText" alignment="CENTER" layoutX="92.0" layoutY="406.0" prefHeight="50.0" prefWidth="233.0" text="WARNINGSWARNINGSWARNINNGS" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="warningText" alignment="CENTER" layoutX="20.0" layoutY="406.0" prefHeight="50.0" prefWidth="403.0" textAlignment="CENTER" textFill="RED">
 
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
             <ToggleButton fx:id="blackSideBtn" layoutX="14.0" layoutY="126.0" mnemonicParsing="false" onAction="#blackSideChoose" prefHeight="120.0" prefWidth="120.0" stylesheets="@../resources/css/ButtonStyles.css">
@@ -85,7 +85,7 @@
             </Label>
 
             <Line endX="17.0" endY="425.0" layoutX="437.0" layoutY="87.0" startX="17.0" startY="-6.0" />
-            <TextField fx:id="generateLinkText" alignment="CENTER" layoutX="203.0" layoutY="360.0" prefHeight="49.0" prefWidth="215.0" promptText="Link" style="-fx-background-color: red; -fx-background-radius: 10;">
+            <TextField fx:id="generateLinkText" alignment="CENTER" editable="false" layoutX="203.0" layoutY="360.0" prefHeight="49.0" prefWidth="215.0" promptText="Link" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
 
                <font>
                   <Font size="20.0" />
@@ -96,7 +96,7 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <TextField fx:id="joinLinkText" alignment="CENTER" layoutX="503.0" layoutY="82.0" prefHeight="44.0" prefWidth="243.0" promptText="Link" style="-fx-background-color: red; -fx-background-radius: 10;">
+            <TextField fx:id="joinLinkText" alignment="CENTER" layoutX="503.0" layoutY="82.0" prefHeight="44.0" prefWidth="243.0" promptText="Link" style="-fx-background-color: red; -fx-background-radius: 10;" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="20.0" />
                </font>
@@ -106,18 +106,18 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button layoutX="643.0" layoutY="459.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 20;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Label fx:id="warningJoinText" alignment="CENTER" layoutX="482.0" layoutY="207.0" prefHeight="50.0" prefWidth="280.0" textAlignment="CENTER" textFill="RED">
+
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Line endX="633.0" layoutX="123.0" layoutY="67.0" startX="-100.0" />
+            <Button layoutX="643.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Label fx:id="warningJoinText" alignment="CENTER" layoutX="505.0" layoutY="406.0" prefHeight="50.0" prefWidth="233.0" text="WARNINGSWARNINGSWARNINNGS" textAlignment="CENTER" textFill="RED">
-
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Line endX="633.0" layoutX="123.0" layoutY="67.0" startX="-100.0" />
          </children>
       </AnchorPane>
    </center>

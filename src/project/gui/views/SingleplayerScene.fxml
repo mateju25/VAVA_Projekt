@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.SingleplayerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.SingleplayerController">
    <left>
       <AnchorPane prefHeight="526.0" prefWidth="110.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER" />
    </left>
@@ -58,14 +58,14 @@
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <TextField fx:id="timeText" alignment="CENTER" layoutX="479.0" layoutY="11.0" prefHeight="60.0" prefWidth="279.0" promptText="00:00" style="-fx-background-color: red; -fx-background-radius: 10;">
+            <TextField fx:id="timeText" alignment="CENTER" layoutX="479.0" layoutY="19.0" prefHeight="19.0" prefWidth="279.0" promptText="00:00" style="-fx-background-color: red; -fx-background-radius: 10;" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
-                  <Font size="28.0" />
+                  <Font size="20.0" />
                </font>
             </TextField>
-            <Label fx:id="warningText" alignment="CENTER" layoutX="502.0" layoutY="238.0" prefHeight="50.0" prefWidth="233.0" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="warningText" alignment="CENTER" layoutX="386.0" layoutY="238.0" prefHeight="50.0" prefWidth="384.0" textAlignment="CENTER" textFill="RED">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
             <Button layoutX="658.0" layoutY="477.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">

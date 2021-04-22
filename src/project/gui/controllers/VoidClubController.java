@@ -1,38 +1,66 @@
 package project.gui.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
+import javafx.scene.control.cell.PropertyValueFactory;
+import project.model.databaseSystem.ChessPlayer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class VoidClubController {
+public class VoidClubController implements Initializable{
 
     @FXML
-    private TableView statistics;
+    private TableView<ChessPlayer> statistics;
     @FXML
-    private TableColumn nameColumn;
+    private TableColumn<ChessPlayer,String> nameColumn;
     @FXML
-    private TableColumn winsColumn;
+    private TableColumn<ChessPlayer,Short> winsColumn;
     @FXML
-    private TableColumn drawsColumn;
+    private TableColumn<ChessPlayer,Short> drawsColumn;
     @FXML
-    private TableColumn losesColumn;
+    private TableColumn<ChessPlayer,Short> losesColumn;
     @FXML
-    private TableColumn pointsColumn;
+    private TableColumn<ChessPlayer,Short> pointsColumn;
     @FXML
-    private TableColumn rankColumn;
+    private TableColumn<ChessPlayer,Short> matchesColumn;
 
+    private final ArrayList<ChessPlayer> playersList=new ArrayList<>();
+    //gett vsetkych gracov z databazy do arraylistu to sa upravi ptm
+    private final ObservableList<ChessPlayer> allPlayers = FXCollections.observableArrayList();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        playersList.add(new ChessPlayer("Rado", "kkt","kkt",true));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        matchesColumn.setCellValueFactory(new PropertyValueFactory<>("matches"));
+        winsColumn.setCellValueFactory(new PropertyValueFactory<>("wins"));
+        drawsColumn.setCellValueFactory(new PropertyValueFactory<>("draws"));
+        losesColumn.setCellValueFactory(new PropertyValueFactory<>("loses"));
+        pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
+        allPlayers.addAll(playersList);
+        statistics.getItems().setAll(allPlayers);
+    }
     @FXML
     private void changeSceneMenu() throws IOException {
         LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
 
     }
+
 
 
 }

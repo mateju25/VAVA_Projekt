@@ -30,7 +30,8 @@ import java.util.*;
 
 
 public class GameBoardController implements Initializable {
-
+    @FXML private Label title;
+    @FXML private Label resultWarning;
     @FXML public Canvas canvas;
     @FXML public TextArea textMoves;
     @FXML public Label topTimerText;
@@ -95,11 +96,8 @@ public class GameBoardController implements Initializable {
                         stop = true;
                         Platform.runLater(() -> {
                             canvas.setDisable(true);
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Information Dialog");
-                            alert.setHeaderText(null);
-                            alert.setContentText("DOSIEL CAS");
-                            alert.showAndWait();
+                            resultWarning.setVisible(true);
+                            resultWarning.setText("Došiel čas\n Vítaz farba 1-0 ");
                         });
                     }
                 }
@@ -108,7 +106,9 @@ public class GameBoardController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        //title.setText(getactiveplayer().getname()+ "vs Stockfish");
         Main.primaryStage.setMaximized(true);
+        resultWarning.setVisible(false);
 
         final boolean[] computerFirst;
 
@@ -142,6 +142,7 @@ public class GameBoardController implements Initializable {
         Thread stockfishThread = new Thread(new Runnable() {
             @Override
             public void run() {
+
                 String lastMove = board.getLastMove();
                 OUTER:
                 while (board.getLastSignal() != Signalization.CHECKMATE
@@ -188,7 +189,9 @@ public class GameBoardController implements Initializable {
                                 }
                             }
                             lastMove = board.getAllMoves().getLast();
-                            textMoves.setText(textMoves.getText() + newMove + " ");
+                            textMoves.setText(textMoves.getText() + newMove + "  ");
+
+
                             drawingFunctions.refreshBoard();
                         }
                     }
@@ -200,20 +203,16 @@ public class GameBoardController implements Initializable {
                             case CHECKMATE:
                                 stop = true;
                                 canvas.setDisable(true);
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("Information Dialog");
-                                alert.setHeaderText(null);
-                                alert.setContentText("MAT");
-                                alert.showAndWait();
+                                resultWarning.setVisible(true);
+                                drawingFunctions.drawMateRecntangle(board.getState().whereIsThis(board.getState().isChecked(board.getState(), board.isBlackTurn())));
+                                //if vyhral cierny if vyhral biely
+                                resultWarning.setText("MAT\nVíťaz čierny 1-0");
                                 break;
                             case STALEMATE:
                                 stop = true;
                                 canvas.setDisable(true);
-                                alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setTitle("Information Dialog");
-                                alert.setHeaderText(null);
-                                alert.setContentText("PAT");
-                                alert.showAndWait();
+                                resultWarning.setVisible(true);
+                                resultWarning.setText("PAT\n Remíza 1/2-1/2 ");
                         }
                     });
                 }
@@ -283,7 +282,7 @@ public class GameBoardController implements Initializable {
                 }
 
 
-                textMoves.setText(textMoves.getText() + board.getAllMoves().getLast() + " ");
+                textMoves.setText(textMoves.getText() + board.getAllMoves().getLast() + "  ");
                 drawingFunctions.refreshBoard();
             }
         } else {

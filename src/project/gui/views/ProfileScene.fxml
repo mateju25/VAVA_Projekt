@@ -17,56 +17,56 @@
       <AnchorPane style="-fx-background-color: #333333; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="326.0" fitWidth="224.0" layoutX="43.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="324.0" layoutY="388.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="248.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Zmeniť heslo" />
-            <Button layoutX="58.0" layoutY="325.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="195.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Odstrániť fotku" />
+            <Button layoutX="324.0" layoutY="388.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="24.0" prefWidth="248.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Zmeniť heslo" />
+            <Button layoutX="58.0" layoutY="325.0" mnemonicParsing="false" onAction="#deletePhoto" prefHeight="39.0" prefWidth="195.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Odstrániť fotku" />
             <Label alignment="CENTER" layoutX="342.0" prefHeight="93.0" prefWidth="216.0" text="Počet odohratých hier proti hráčom" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="610.0" layoutY="388.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="248.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť zmeny" />
-            <TextField fx:id="name" alignment="CENTER" layoutX="324.0" layoutY="201.0" prefHeight="35.0" prefWidth="248.0" style="-fx-background-color: red; -fx-background-radius: 20;" text="Radovan">
+            <Button fx:id="changeButton" layoutX="610.0" layoutY="388.0" mnemonicParsing="false" onAction="#saveChangedPassword" prefHeight="24.0" prefWidth="248.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť zmeny" />
+            <TextField fx:id="name" alignment="CENTER" layoutX="324.0" layoutY="201.0" prefHeight="35.0" prefWidth="248.0" style="-fx-font-size: 18; -fx-background-radius: 20;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="name3" alignment="CENTER" layoutX="324.0" layoutY="263.0" prefHeight="35.0" prefWidth="248.0" style="-fx-background-color: red; -fx-background-radius: 20;" text="Radovan">
+            <TextField fx:id="password" alignment="CENTER" layoutX="324.0" layoutY="263.0" prefHeight="35.0" prefWidth="248.0" style="-fx-font-size: 18; -fx-background-radius: 20;" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="name2" alignment="CENTER" layoutX="324.0" layoutY="325.0" prefHeight="35.0" prefWidth="248.0" style="-fx-background-color: red; -fx-background-radius: 20;" text="Radovan">
+            <TextField fx:id="email" alignment="CENTER" layoutX="324.0" layoutY="325.0" prefHeight="35.0" prefWidth="248.0" style="-fx-font-size: 18; -fx-background-radius: 20;" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="name1" layoutX="610.0" layoutY="263.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Nové heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="newPassword" layoutX="610.0" layoutY="263.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Nové heslo" style="-fx-font-size: 18; -fx-background-radius: 20;" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="name4" layoutX="610.0" layoutY="325.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Staré heslo" style="-fx-background-color: red; -fx-background-radius: 20;">
+            <TextField fx:id="oldPassword" layoutX="610.0" layoutY="325.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Staré heslo" style="-fx-font-size: 18; -fx-background-radius: 20;" styleClass="text-fieldDesign" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <Button layoutX="58.0" layoutY="391.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="195.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Nahrať fotku" />
-            <Label alignment="CENTER" layoutX="350.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="289" textAlignment="CENTER" textFill="WHITE">
+            <Button layoutX="58.0" layoutY="391.0" mnemonicParsing="false" onAction="#choosePhoto" prefHeight="39.0" prefWidth="195.0" style="-fx-font-size: 18;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Nahrať fotku" />
+            <Label fx:id="gamesWithPlayers" alignment="CENTER" layoutX="350.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="289" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century" size="52.0" />
                </font>
             </Label>
-            <ImageView fitHeight="238.0" fitWidth="236.0" layoutX="41.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="photoContainer" fitHeight="254.0" fitWidth="227.0" layoutX="41.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/Profile-Avatar-PNG.png" />
                </image>
             </ImageView>
-            <Button layoutX="741.0" layoutY="461.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Button layoutX="751.0" layoutY="459.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" layoutX="634.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="54" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="gamesWithPc" alignment="CENTER" layoutX="634.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="54" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century" size="52.0" />
                </font>
@@ -74,6 +74,11 @@
             <Label alignment="CENTER" layoutX="626.0" prefHeight="93.0" prefWidth="216.0" text="Počet odohratých hier proti počítači" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="warning" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="459.0" prefHeight="17.0" prefWidth="475.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="27.0" />
                </font>
             </Label>
          </children>

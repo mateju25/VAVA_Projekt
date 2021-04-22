@@ -20,24 +20,14 @@
                   <Font name="System Bold" size="26.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="76.0" layoutY="14.0" prefHeight="68.0" prefWidth="314.0" text="Vzhľad šachovnice" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="77.0" layoutY="14.0" prefHeight="68.0" prefWidth="314.0" text="Vzhľad šachovnice" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
             </Label>
-            <Button layoutX="410.0" layoutY="207.0" mnemonicParsing="false" onAction="#nextImage" prefHeight="82.0" prefWidth="59.0" style="-fx-background-color: transparent;" text="&gt;" textFill="WHITE">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
-            <Button layoutX="12.0" layoutY="207.0" mnemonicParsing="false" onAction="#previousImage" prefHeight="82.0" prefWidth="41.0" style="-fx-background-color: transparent;" text="&lt;" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
             <AnchorPane layoutX="66.0" layoutY="80.0" prefHeight="335.0" prefWidth="335.0">
                <children>
-                  <AnchorPane fx:id="pane2" prefHeight="335.0" prefWidth="335.0">
+                  <AnchorPane fx:id="pane3" prefHeight="335.0" prefWidth="335.0">
                      <children>
                         <ImageView fitHeight="334.0" fitWidth="334.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -46,7 +36,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="pane3" prefHeight="335.0" prefWidth="335.0">
+                  <AnchorPane fx:id="pane2" prefHeight="335.0" prefWidth="335.0">
                      <children>
                         <ImageView fitHeight="334.0" fitWidth="334.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -66,6 +56,69 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
+            <AnchorPane layoutX="400.0" layoutY="73.0" prefHeight="353.0" prefWidth="357.0" style="-fx-background-color: #333;" />
+            <AnchorPane layoutX="594.0" layoutY="160.0">
+               <children>
+                  <AnchorPane fx:id="pane6" style="-fx-background-color: #333333;">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pictures/whitepawn2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="pane5" style="-fx-background-color: #333333;">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pictures/pawnwhite-new.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="pane4" style="-fx-background-color: #333333;">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pictures/WhitePawn.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="730.0" layoutY="160.0" prefHeight="151.0" prefWidth="150.0" style="-fx-background-color: #333;" />
+            <Button layoutX="410.0" layoutY="207.0" mnemonicParsing="false" onAction="#nextImage" prefHeight="82.0" prefWidth="28.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&gt;" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="768.0" layoutY="473.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button layoutX="546.0" layoutY="473.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="39.0" prefWidth="183.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť nastavenia">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button layoutX="14.0" layoutY="207.0" mnemonicParsing="false" onAction="#previousImage" prefHeight="82.0" prefWidth="39.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&lt;" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="750.0" layoutY="207.0" mnemonicParsing="false" onAction="#nextImageFigure" prefHeight="82.0" prefWidth="28.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&gt;" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="545.0" layoutY="207.0" mnemonicParsing="false" onAction="#previousImageFigure" prefHeight="82.0" prefWidth="39.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="&lt;" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>
@@ -77,11 +130,6 @@
                   <Font name="System Bold" size="70.0" />
                </font>
             </Label>
-            <Button layoutX="888.0" layoutY="16.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
    </top>

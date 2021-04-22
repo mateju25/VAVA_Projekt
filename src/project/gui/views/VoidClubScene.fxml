@@ -18,17 +18,17 @@
    <center>
       <AnchorPane style="-fx-background-color: #333333; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="statistics" layoutX="64.0" layoutY="39.0" prefHeight="423.0" prefWidth="752.0" stylesheets="@../resources/css/BackgroundStyle.css">
+            <TableView fx:id="statistics" layoutX="89.0" layoutY="40.0" prefHeight="412.0" prefWidth="702.0" stylesheets="@../resources/css/BackgroundStyle.css">
                <columns>
                   <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Meno" />
+                  <TableColumn fx:id="matchesColumn" prefWidth="100.0" text="Partie" />
                   <TableColumn fx:id="winsColumn" prefWidth="100.0" text="Výhry" />
                   <TableColumn fx:id="drawsColumn" prefWidth="100.0" text="Remízy" />
                   <TableColumn fx:id="losesColumn" prefWidth="100.0" text="Prehry" />
                   <TableColumn fx:id="pointsColumn" prefWidth="150.0" text="Body" />
-                  <TableColumn fx:id="rankColumn" prefWidth="150.0" text="Poradie" />
                </columns>
             </TableView>
-            <Button layoutX="716.0" layoutY="473.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Button layoutX="691.0" layoutY="473.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>

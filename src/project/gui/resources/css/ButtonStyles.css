@@ -82,5 +82,16 @@
     -fx-border-radius: 9;
     -fx-border-color:red;
 }
+#buttonInternationalization{
+    -fx-background-radius: 100;
+    -fx-border-color: red;
+    -fx-border-width: 0;
+}
+#buttonInternationalization:hover{
+    -fx-background-radius: 100;
+    -fx-border-color: red;
+    -fx-background-insets: 3;
+    -fx-border-width: 0;
+}
 
 

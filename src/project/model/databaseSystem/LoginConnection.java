@@ -1,11 +1,14 @@
 package project.model.databaseSystem;
 
+import javafx.scene.control.Button;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class LoginConnection {
@@ -32,6 +35,15 @@ public class LoginConnection {
     public void setActivePlayer(ChessPlayer activePlayer) {
         this.activePlayer = activePlayer;
     }
+/*pomocna lokalna databaza potom vymazeme ked tak*/
+    public static ArrayList<ChessPlayer> chessPlayerslist = new ArrayList<>();
+    public static void addNewChessplayer(String name, String password, String email, boolean admin) {
+        chessPlayerslist.add(new ChessPlayer(name,password,email,admin));
+    }
+
+    public static ArrayList<ChessPlayer> getchessPlayerslist() {
+        return chessPlayerslist;
+    }
 
     public boolean existsUserName(String name, String email) {
         ResultSet resultSet = null;
@@ -51,7 +63,7 @@ public class LoginConnection {
         } catch (SQLException a) {}
         return result;
     }
-
+/*
     public boolean loginUser(String name, String password) {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -74,7 +86,7 @@ public class LoginConnection {
         }
         return result;
     }
-
+*/
     public void registrationUser(String name, String password, String email) {
         PreparedStatement statement = null;
 
