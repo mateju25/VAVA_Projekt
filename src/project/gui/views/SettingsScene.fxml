@@ -64,16 +64,16 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/pictures/figures/set2/whitepawn2.png" />
+                              <Image url="@../resources/pictures/figures/set2/WhitePawn.png" />
                            </image>
                         </ImageView>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="pane5" style="-fx-background-color: #333333;">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="150.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/pictures/figures/pawnwhite-new.png" />
+                              <Image url="@../resources/pictures/figures/set3/WhitePawn.png" />
                            </image>
                         </ImageView>
                      </children>
