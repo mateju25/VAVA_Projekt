@@ -1,6 +1,7 @@
 package project.model.gameChess.pieces;
 
 import javafx.scene.image.Image;
+import project.model.databaseSystem.LoginConnection;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public abstract class Piece implements Cloneable{
     protected Boolean black;
     protected Image pic;
+    public static int SetNumber = LoginConnection.getInstance().getFavouritePieces();
 
     public Piece(Boolean black) {
         this.black = black;

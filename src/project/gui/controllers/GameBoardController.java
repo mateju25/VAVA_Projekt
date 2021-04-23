@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -42,7 +43,7 @@ public class GameBoardController {
     private boolean stop = false;
 
     private DrawingFunctions drawingFunctions = null;
-    private Chessboard board = null;
+    public static Chessboard board = null;
     private ArrayList<Coordinates> legalMoves;
 
     private Coordinates activeFigure = null;
@@ -347,6 +348,7 @@ public class GameBoardController {
         Stage window = new Stage();
         window.setResizable(false);
         window.setAlwaysOnTop(true);
+        window.getIcons().add(new Image("/project/gui/resources/pictures/graphics/ikonka.png"));
         window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(scene);
         window.showAndWait();

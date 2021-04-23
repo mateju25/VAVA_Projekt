@@ -9,7 +9,7 @@
    <children>
       <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseQueen" style="-fx-background-color: #333333;">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="queen" fitHeight="150.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/figures/set1/WhiteQueen.png" />
                </image>
@@ -18,7 +18,7 @@
       </Button>
       <Button layoutX="554.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseBishop" style="-fx-background-color: #333333;">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="bishop" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/figures/set1/WhiteBishop.png" />
                </image>
@@ -27,7 +27,7 @@
       </Button>
       <Button layoutX="195.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseRook" style="-fx-background-color: #333333;">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="rook" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/figures/set1/WhiteRook.png" />
                </image>
@@ -36,7 +36,7 @@
       </Button>
       <Button layoutX="375.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseKnight" style="-fx-background-color: #333333;">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="knight" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/pictures/figures/set1/WhiteKnight.png" />
                </image>

@@ -154,6 +154,41 @@ public class LoginConnection {
         }
     }
 
+    public int getFavouritePieces() {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+
+        int result = 1;
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("SELECT pieces FROM users WHERE email = ?;");
+            statement.setString(1, activePlayer.getEmail());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException a) {
+        }
+        return result;
+    }
+
+    public void setFavouritePieces(int pieces) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("UPDATE users SET pieces = ? WHERE email= ?;");
+            statement.setInt(1, pieces);
+            statement.setString(2,  activePlayer.getEmail());
+            statement.executeQuery();
+
+            connection.close();
+        } catch (SQLException a) {
+        }
+    }
+
     public void loadPlayers() {
         ResultSet resultSet = null;
         PreparedStatement statement = null;
@@ -184,7 +219,7 @@ public class LoginConnection {
 
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("INSERT INTO users VALUES (? , ? , ?, 0, 0, 0, 0, 0, 0)");
+            statement = connection.prepareStatement("INSERT INTO users VALUES (? , ? , ?, 0, 0, 0, 0, 0, 0, 1, 1)");
             statement.setString(1, name);
             statement.setString(2, hashPass(password));
             statement.setString(3, email);
