@@ -325,6 +325,7 @@ public class GameBoardController {
 //
 //        makeMoves("d2d4 e7e6 e2e4 d7d5 e4e5 c7c5 c2c3 b8c6 c1e3 d8b6 a2a3 b6b2 b1d2 b2c3 f1b5 g8e7 a1b1 c3a3 d4c5 e7f5 b5c6 b7c6 d2b3 a3b4 d1d2 b4e4 b1c1 e4g2 b3d4 g2h1 e1f1 f5d4 d2d4 c8a6 f1e1 h1g1 e1d2 g1h2 d2c2 h2h5 c2b1 a8b8 b1a2 h5e2 e3d2 e2b5");
 //        ((Stockfish)secondPlayer).setMoves(new LinkedList<>(board.getAllMoves()));
+        secondPlayerThread.setDaemon(true);
         secondPlayerThread.start();
         drawingFunctions.refreshBoard();
     }

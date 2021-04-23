@@ -52,7 +52,7 @@ public class DrawingFunctions {
 
     public void drawTransparentRecntangle(int x, int y) {
         gc.setFill(rgb(245, 95, 10, 0.75));
-        gc.fillRect(x * (sizeOfSquare)-1, y * (sizeOfSquare), sizeOfSquare+1, sizeOfSquare+1);
+        gc.fillRect(x * (sizeOfSquare), y * (sizeOfSquare)-1, sizeOfSquare+1, sizeOfSquare+1);
     }
     public void drawMateRecntangle(Coordinates king) {
         gc.setFill(rgb(255, 0, 0, 0.8));
