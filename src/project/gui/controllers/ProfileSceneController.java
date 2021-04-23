@@ -42,7 +42,7 @@ public class ProfileSceneController implements Initializable {
     @FXML
     private Label warning;
 
-    private final Image defaultPhoto=new Image("/project/gui/resources/pictures/Profile-Avatar-PNG.png");
+    private final Image defaultPhoto=new Image("/project/gui/resources/pictures/graphics/Profile-Avatar-PNG.png");
     private final ChessPlayer activePlayer = LoginConnection.getInstance().getActivePlayer();
     private FileChooser fileChooser;
 

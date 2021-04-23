@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import project.model.databaseSystem.LoginConnection;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +33,8 @@ public class SettingsController implements Initializable {
         translateAnimation(pane2,0);
         translateAnimation(pane4,0);
         translateAnimation(pane5,0);
+        // toto treba dorobit
+//        positionBoard = LoginConnection.getInstance().getFavouriteBoard();
     }
 
     private void translateAnimation(Node node, double width) {
@@ -86,6 +89,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void changeSceneMenu() throws IOException {
+        LoginConnection.getInstance().setFavouriteBoard(positionBoard+1);
         LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
 
     }

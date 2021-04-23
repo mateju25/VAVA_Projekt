@@ -10,9 +10,9 @@ public class Knight extends Piece{
     public Knight(Boolean black)  {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackKnight.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/BlackKnight.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteKnight.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/WhiteKnight.png"));
     }
 
     @Override

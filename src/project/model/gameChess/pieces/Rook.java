@@ -11,9 +11,9 @@ public class Rook extends Piece{
     public Rook(Boolean black)  {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackRook.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/BlackRook.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteRook.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/WhiteRook.png"));
     }
 
     public boolean isMoved() {

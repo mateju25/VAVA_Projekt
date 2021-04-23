@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import project.model.databaseSystem.Tournament;
 
 public class Main extends Application {
     public static Stage primaryStage;
@@ -16,7 +15,7 @@ public class Main extends Application {
 
         Main.primaryStage = primaryStage;
         primaryStage.setTitle("Void Chess");
-        primaryStage.getIcons().add(new Image("/project/gui/resources/pictures/ikonka.png"));
+        primaryStage.getIcons().add(new Image("/project/gui/resources/pictures/graphics/ikonka.png"));
         Parent root = FXMLLoader.load(getClass().getResource("/project/gui/views/LoginScene.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

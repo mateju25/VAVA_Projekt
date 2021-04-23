@@ -17,7 +17,7 @@
                <graphic>
                   <ImageView fitHeight="122.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/whitepawnp.png" />
+                        <Image url="@../resources/pictures/graphics/whitepawnp.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -26,7 +26,7 @@
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/settings.png" />
+                        <Image url="@../resources/pictures/graphics/settings.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -35,7 +35,7 @@
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/Community-High-Quality-PNG.png" />
+                        <Image url="@../resources/pictures/graphics/Community-High-Quality-PNG.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -44,7 +44,7 @@
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/Chess-PNG.png" />
+                        <Image url="@../resources/pictures/graphics/Chess-PNG.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -53,7 +53,7 @@
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/Profile-Avatar-PNG.png" />
+                        <Image url="@../resources/pictures/graphics/Profile-Avatar-PNG.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -62,7 +62,7 @@
                <graphic>
                   <ImageView fitHeight="172.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/Golden-Cup-PNG.png" />
+                        <Image url="@../resources/pictures/graphics/Golden-Cup-PNG.png" />
                      </image>
                   </ImageView>
                </graphic>

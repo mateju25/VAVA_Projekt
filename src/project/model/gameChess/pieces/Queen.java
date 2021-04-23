@@ -10,9 +10,9 @@ public class Queen extends Piece{
     public Queen(Boolean black)  {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/BlackQueen.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/BlackQueen.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/WhiteQueen.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/WhiteQueen.png"));
     }
 
     @Override

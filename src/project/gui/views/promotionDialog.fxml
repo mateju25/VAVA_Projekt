@@ -11,7 +11,7 @@
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteQueen.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteQueen.png" />
                </image>
             </ImageView>
          </graphic>
@@ -20,7 +20,7 @@
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteBishop.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteBishop.png" />
                </image>
             </ImageView>
          </graphic>
@@ -29,7 +29,7 @@
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteRook.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteRook.png" />
                </image>
             </ImageView>
          </graphic>
@@ -38,7 +38,7 @@
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteKnight.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteKnight.png" />
                </image>
             </ImageView>
          </graphic>

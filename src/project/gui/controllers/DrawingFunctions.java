@@ -3,6 +3,7 @@ package project.gui.controllers;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import project.model.databaseSystem.LoginConnection;
 import project.model.gameChess.Chessboard;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
@@ -16,12 +17,16 @@ public class DrawingFunctions {
     private GraphicsContext gc = null;
     private int sizeOfSquare;
     private Chessboard board = null;
+    private Image backgroundBlack;
+    private Image backgroundWhite;
 
     public DrawingFunctions(Canvas canvas, Chessboard board) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.sizeOfSquare = (int) ((canvas.getWidth()) / 8);
         this.board = board;
+        this.backgroundBlack = new Image("/project/gui/resources/pictures/boards/set" + LoginConnection.getInstance().getFavouriteBoard() + "/BlackBoard.png");
+        this.backgroundWhite = new Image("/project/gui/resources/pictures/boards/set" + LoginConnection.getInstance().getFavouriteBoard() + "/WhiteBoard.png");
     }
 
     public void drawPiece(int x, int y, Piece piece) {
@@ -47,7 +52,7 @@ public class DrawingFunctions {
 
     public void drawTransparentRecntangle(int x, int y) {
         gc.setFill(rgb(245, 95, 10, 0.75));
-        gc.fillRect(x * (sizeOfSquare)-1, y * (sizeOfSquare), sizeOfSquare+1, sizeOfSquare+1);
+        gc.fillRect(x * (sizeOfSquare), y * (sizeOfSquare)-1, sizeOfSquare+1, sizeOfSquare+1);
     }
     public void drawMateRecntangle(Coordinates king) {
         gc.setFill(rgb(255, 0, 0, 0.8));
@@ -57,9 +62,9 @@ public class DrawingFunctions {
 
     public void refreshBoard() {
         if (board.getState().isBlackCloser())
-            gc.drawImage(new Image("/project/gui/resources/pictures/BlackBoard.png"),0,0,canvas.getWidth(),canvas.getHeight());
+            gc.drawImage(backgroundBlack,0,0,canvas.getWidth(),canvas.getHeight());
         else
-            gc.drawImage(new Image("/project/gui/resources/pictures/WhiteBoard.png"),0,0,canvas.getWidth(),canvas.getHeight());
+            gc.drawImage(backgroundWhite,0,0,canvas.getWidth(),canvas.getHeight());
         GameState temp = board.getState();
 
         if (board.getAllMoves().size() != 0) {
