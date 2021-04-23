@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
    <top>
       <AnchorPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
@@ -22,7 +22,7 @@
                   <Font name="System Bold" size="47.0" />
                </font>
             </Label>
-            <Button layoutX="1580.0" layoutY="27.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Menu" textFill="#0d0d0d" AnchorPane.rightAnchor="35.0">
+            <Button id="btnsks" layoutX="1580.0" layoutY="27.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="46.0" prefWidth="90.0" style="-fx-font-size: 22;" stylesheets="@../resources/css/ButtonStyles.css" text="Menu" textFill="#0d0d0d" AnchorPane.rightAnchor="35.0">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -73,7 +73,7 @@
             </ImageView>
             <HBox alignment="CENTER" layoutX="1613.0" layoutY="545.0" prefHeight="44.0" prefWidth="141.0" spacing="10.0" AnchorPane.leftAnchor="1613.0" AnchorPane.rightAnchor="47.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#giveUp" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Vzdať sa" textFill="#0d0d0d">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#giveUp" prefHeight="44.0" prefWidth="161.0" style="-fx-background-radius: 5; -fx-font-size: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Vzdať sa" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -92,7 +92,7 @@
             </Label>
             <HBox alignment="CENTER" layoutX="1589.0" layoutY="309.0" prefHeight="47.0" prefWidth="165.0" AnchorPane.leftAnchor="1613.0" AnchorPane.rightAnchor="47.0">
                <children>
-                  <Button fx:id="revenge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#revenge" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Odveta" textFill="#0d0d0d">
+                  <Button fx:id="revenge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#revenge" prefHeight="44.0" prefWidth="161.0" style="-fx-background-radius: 5; -fx-font-size: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Odveta" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

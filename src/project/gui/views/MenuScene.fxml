@@ -13,7 +13,7 @@
    <center>
       <AnchorPane prefHeight="550.0" prefWidth="737.0" style="-fx-background-color: #333333;" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" layoutX="75.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="75.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneSingleplayer" prefHeight="180.0" prefWidth="180.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="122.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -22,7 +22,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="674.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSettings" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
+            <Button alignment="CENTER" layoutX="722.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneSettings" prefHeight="180.0" prefWidth="180.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="98.0">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -31,7 +31,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="390.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneVoidClub" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="390.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneVoidClub" prefHeight="180.0" prefWidth="180.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,7 +40,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="75.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneMultiplayer" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="75.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneMultiplayer" prefHeight="180.0" prefWidth="180.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="674.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneProfile" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="75.0">
+            <Button alignment="CENTER" layoutX="722.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneProfile" prefHeight="180.0" prefWidth="180.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" AnchorPane.rightAnchor="98.0">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -58,7 +58,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="390.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeSceneTournament" prefHeight="190.0" prefWidth="190.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
+            <Button alignment="CENTER" layoutX="390.0" layoutY="29.0" mnemonicParsing="false" onAction="#changeSceneTournament" prefHeight="180.0" prefWidth="180.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css">
                <graphic>
                   <ImageView fitHeight="172.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -67,32 +67,32 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Text fill="WHITE" layoutX="94.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Singleplayer">
+            <Text fx:id="singleplayerText" fill="WHITE" layoutX="89.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Singleplayer">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="438.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turnaje">
+            <Text fx:id="tournamentText" fill="WHITE" layoutX="383.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turnaje" textAlignment="CENTER" wrappingWidth="194.4853515625">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="796.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profil">
+            <Text fx:id="profileText" fill="WHITE" layoutX="723.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profil" textAlignment="CENTER" wrappingWidth="176.955078125">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="99.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Multiplayer">
+            <Text fx:id="multiplayerText" fill="WHITE" layoutX="94.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Multiplayer">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="425.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Void klub">
+            <Text fx:id="voidClubText" fill="WHITE" layoutX="421.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Void klub">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="762.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nastavenia">
+            <Text fx:id="settingsText" fill="WHITE" layoutX="722.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nastavenia" textAlignment="CENTER" wrappingWidth="177.3447265625">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
@@ -102,11 +102,38 @@
    <top>
       <AnchorPane prefHeight="138.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="163.0" layoutY="21.0" style="-fx-background-color: red; -fx-background-radius: 20;" text=" VOID CHESS MENU " textFill="#070707">
+            <Label id="titleslabels" layoutX="163.0" layoutY="21.0" style="-fx-background-color: red; -fx-background-radius: 20;" stylesheets="@../resources/css/TextfieldsStyles.css" textFill="#070707">
                <font>
                   <Font name="System Bold" size="70.0" />
                </font>
+               <graphic>
+                  <Text id="textTitles" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 60;" text=" VOID CHESS MENU " />
+               </graphic>
             </Label>
+            <Button layoutX="890.0" layoutY="21.0" mnemonicParsing="false" onAction="#logOut" prefHeight="66.0" prefWidth="74.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" />
+            <Text fx:id="logOutText" fill="WHITE" layoutX="856.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Odhlásiť sa" textAlignment="CENTER" wrappingWidth="141.849609375">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+            <Button id="buttonInternationalization" layoutX="86.0" layoutY="21.0" mnemonicParsing="false" onAction="#changeToEnglish" prefHeight="41.0" prefWidth="31.0" stylesheets="@../resources/css/ButtonStyles.css">
+               <graphic>
+                  <ImageView fitHeight="84.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pictures/UKflag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="buttonInternationalization" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#changeToSlovak" prefHeight="41.0" prefWidth="60.0" stylesheets="@../resources/css/ButtonStyles.css">
+               <graphic>
+                  <ImageView id="buttonInternationalization" fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pictures/SKflag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </top>

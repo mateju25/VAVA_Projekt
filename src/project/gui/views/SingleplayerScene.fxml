@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Text>
-            <Button layoutX="484.0" layoutY="101.0" mnemonicParsing="false" onAction="#changeSceneGameBoard" prefHeight="116.0" prefWidth="272.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 20; -fx-font-size: 54;" stylesheets="@../resources/css/ButtonStyles.css" text="ŠTART">
+            <Button layoutX="484.0" layoutY="101.0" mnemonicParsing="false" onAction="#changeSceneGameBoard" prefHeight="116.0" prefWidth="272.0" style="-fx-background-radius: 20; -fx-font-size: 54;" stylesheets="@../resources/css/ButtonStyles.css" text="ŠTART">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -68,7 +68,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Button layoutX="658.0" layoutY="477.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Button id="btnsks" layoutX="658.0" layoutY="477.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -141,10 +141,13 @@
    <top>
       <AnchorPane prefHeight="144.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="180.0" layoutY="21.0" prefHeight="103.0" prefWidth="640.0" style="-fx-background-radius: 20; -fx-background-color: #333333;" text="Singleplayer" textFill="RED">
+            <Label id="titlesSceneslabels" alignment="CENTER" layoutX="180.0" layoutY="21.0" prefHeight="103.0" prefWidth="640.0" stylesheets="@../resources/css/TextfieldsStyles.css" textFill="RED">
                <font>
                   <Font name="System Bold" size="70.0" />
                </font>
+               <graphic>
+                  <Text id="textScenesTitles" strokeType="OUTSIDE" strokeWidth="0.0" text="Singleplayer" />
+               </graphic>
             </Label>
             <ImageView fitHeight="120.0" fitWidth="183.0" layoutX="20.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
