@@ -73,12 +73,12 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <Label layoutX="115.0" layoutY="14.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="  Vytvoriť hru  " textFill="WHITE">
+            <Label id="titlesScenesMiniLabels" layoutX="115.0" layoutY="14.0" stylesheets="@../resources/css/TextfieldsStyles.css" text="  Vytvoriť hru  " textFill="WHITE">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="478.0" layoutY="14.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="  Pripojiť sa do hry  " textFill="WHITE">
+            <Label id="titlesScenesMiniLabels" layoutX="478.0" layoutY="14.0" stylesheets="@../resources/css/TextfieldsStyles.css" text="  Pripojiť sa do hry  " textFill="WHITE">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>

@@ -77,12 +77,12 @@
             </Label>
             <ImageView fitHeight="112.0" fitWidth="80.0" layoutX="225.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/Golden-Cup-PNG-Picture.png" />
+                  <Image url="@../resources/pictures/graphics/Golden-Cup-PNG-Picture.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="112.0" fitWidth="80.0" layoutX="694.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/Golden-Cup-PNG-Picture.png" />
+                  <Image url="@../resources/pictures/graphics/Golden-Cup-PNG-Picture.png" />
                </image>
             </ImageView>
          </children>

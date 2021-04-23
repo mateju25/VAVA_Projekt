@@ -100,7 +100,7 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button layoutX="546.0" layoutY="473.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="39.0" prefWidth="183.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť nastavenia">
+            <Button layoutX="546.0" layoutY="473.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="39.0" prefWidth="183.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť nastavenia">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -136,7 +136,7 @@
             </Label>
             <ImageView fitHeight="114.0" fitWidth="125.0" layoutX="76.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/settings.png" />
+                  <Image url="@../resources/pictures/graphics/settings.png" />
                </image>
             </ImageView>
          </children>

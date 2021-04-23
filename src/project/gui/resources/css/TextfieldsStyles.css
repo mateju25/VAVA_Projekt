@@ -54,6 +54,12 @@
     -fx-fill: linear-gradient(#B00,#F00);
     -fx-effect: dropshadow(three-pass-box , rgba(0,0,0,0.4) , 10,0.3,3,3 ); ;
 }
+#titlesScenesMiniLabels {
+    -fx-background-radius: 10;
+    -fx-background-color: #222;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.5) , 5, 0.2 , 3, 3 );
+}
+
 
 
 

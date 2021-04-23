@@ -20,7 +20,7 @@
             <ImageView fitHeight="274.0" fitWidth="223.0" layoutX="43.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" />
             <Button layoutX="324.0" layoutY="388.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="24.0" prefWidth="248.0" style="-fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Zmeniť heslo" />
             <Button layoutX="58.0" layoutY="325.0" mnemonicParsing="false" onAction="#deletePhoto" prefHeight="39.0" prefWidth="195.0" style="-fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Odstrániť fotku" />
-            <Label alignment="CENTER" layoutX="342.0" prefHeight="93.0" prefWidth="216.0" text="Počet odohratých hier proti hráčom" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label id="titlesScenesMiniLabels" alignment="CENTER" layoutX="348.0" layoutY="8.0" prefHeight="77.0" prefWidth="205.0" stylesheets="@../resources/css/TextfieldsStyles.css" text="Počet odohratých hier proti hráčom" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -52,7 +52,7 @@
                </font>
             </TextField>
             <Button layoutX="58.0" layoutY="391.0" mnemonicParsing="false" onAction="#choosePhoto" prefHeight="39.0" prefWidth="195.0" style="-fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Nahrať fotku" />
-            <Label fx:id="gamesWithPlayers" alignment="CENTER" layoutX="350.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="289" textAlignment="CENTER" textFill="WHITE">
+            <Label id="titlesScenesMiniLabels" fx:id="gamesWithPlayers" alignment="CENTER" layoutX="350.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" stylesheets="@../resources/css/TextfieldsStyles.css" text="289" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century" size="52.0" />
                </font>
@@ -67,12 +67,12 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Label fx:id="gamesWithPc" alignment="CENTER" layoutX="634.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" text="54" textAlignment="CENTER" textFill="WHITE">
+            <Label id="titlesScenesMiniLabels" fx:id="gamesWithPc" alignment="CENTER" layoutX="634.0" layoutY="94.0" prefHeight="77.0" prefWidth="201.0" stylesheets="@../resources/css/TextfieldsStyles.css" text="54" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century" size="52.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="626.0" prefHeight="93.0" prefWidth="216.0" text="Počet odohratých hier proti počítači" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label id="titlesScenesMiniLabels" alignment="CENTER" layoutX="630.0" layoutY="10.0" prefHeight="73.0" prefWidth="206.0" stylesheets="@../resources/css/TextfieldsStyles.css" text="Počet odohratých hier proti počítači" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
