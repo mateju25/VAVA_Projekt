@@ -5,5 +5,8 @@ public enum Signalization {
     STALEMATE,
     CHECK,
     NORMAL,
-    NOPIECE
+    NOPIECE,
+    NOTIME,
+    GIVEUPME,
+    GIVEUPOTHER
 }

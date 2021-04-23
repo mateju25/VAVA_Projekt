@@ -1,47 +1,77 @@
 .button{
     -fx-font-weight:bold;
-    -fx-background-color: red;
     -fx-background-radius: 22;
     -fx-font-size: 16;
     -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#F00, #B00);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
 .button:hover{
     -fx-font-weight:bold;
-    -fx-background-color: red;
+
     -fx-background-radius: 22;
     -fx-font-size: 16;
     -fx-text-fill: white;
     -fx-background-insets: -3;
+    -fx-background-color: linear-gradient(#B00,#F00);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 
 }
-.buttonBoard{
-    -fx-font-weight:bold;
-    -fx-background-color: red;
-    -fx-background-radius: 22;
-    -fx-font-size: 20;
-    -fx-text-fill: black;
-}
-.buttonBoard:hover{
-    -fx-font-weight:bold;
-    -fx-background-color: red;
-    -fx-background-radius: 22;
-    -fx-font-size: 20;
+#btnsks{
+    -fx-background-radius: 5;
+    -fx-font-size: 18;
     -fx-text-fill: white;
-    -fx-background-insets: -3;
+    -fx-background-color: linear-gradient(#B00,#F00);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
-.buttonBar{
-    -fx-font-weight:bold;
-    -fx-background-color: transparent;
-    -fx-background-radius: 0;
-    -fx-font-size: 20;
-    -fx-text-fill: white;
+
+.toggle-button{
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+    -fx-background-color: linear-gradient(#111,#333);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
-.buttonBar:hover{
-    -fx-font-weight:bold;
-    -fx-background-color: red;
-    -fx-background-radius: 0;
-    -fx-font-size: 20;
-    -fx-text-fill: black;
+.toggle-button:hover{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+    -fx-background-insets: 2;
+}
+.toggle-button:selected{
+
+    -fx-background-radius: 15;
+    -fx-border-width: 3;
+    -fx-border-radius: 9;
+    -fx-background-color: linear-gradient(#333,#111);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-border-color:red;
+}
+.buttonChoose{
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+    -fx-background-color: linear-gradient(#111,#333);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+.buttonChoose:hover{
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-border-width: 5;
+    -fx-border-radius: 9;
+}
+
+#buttonInternationalization{
+    -fx-background-radius: 100;
+    -fx-border-color: red;
+    -fx-border-width: 0;
+}
+#buttonInternationalization:hover{
+    -fx-background-radius: 100;
+    -fx-border-color: red;
+    -fx-background-insets: 2;
+    -fx-border-width: 0;
 }
 
 

@@ -8,34 +8,29 @@ import project.model.gameChess.pieces.*;
 public class PromotionController {
     public Pane pane;
 
-    public Piece chosedPiece = null;
-    private boolean isBlack;
+    public String chosedPiece = "q";
 
-    public void setBlack(boolean black) {
-        isBlack = black;
-    }
-
-    public Piece getChosedPiece() {
+    public String getChosedPiece() {
         return chosedPiece;
     }
 
     public void chooseQueen(ActionEvent actionEvent) {
-        chosedPiece= new Queen(isBlack);
+        chosedPiece= "q";
         close();
     }
 
     public void chooseBishop(ActionEvent actionEvent) {
-        chosedPiece= new Bishop(isBlack);
+        chosedPiece= "b";
         close();
     }
 
     public void chooseKnight(ActionEvent actionEvent) {
-        chosedPiece= new Knight(isBlack);
+        chosedPiece= "k";
         close();
     }
 
     public void chooseRook(ActionEvent actionEvent) {
-        chosedPiece= new Rook(isBlack);
+        chosedPiece= "r";
         close();
     }
 

@@ -2,12 +2,15 @@ package project.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import project.model.loginSystem.PlayerDatabase;
+import project.model.databaseSystem.LoginConnection;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,9 +25,14 @@ public class RegistrationSceneController {
     private TextField textPin;
     @FXML
     private Label warning;
-
+    @FXML
+    private Button registrateBtn;
+    @FXML
+    private Button sendPinBtn;
+    @FXML
+    private Button backBtn;
     private int generatedPin = 0;
-
+    private ResourceBundle bundle=null;
     @FXML
     private void registration() {
         warning.setText("");
@@ -38,13 +46,18 @@ public class RegistrationSceneController {
             return;
         }
 
+        if(password.length()<6){
+            warning.setText("Príliš krátke heslo - aspoň 6 znakov!");
+            return;
+        }
+
         Pattern p = Pattern.compile(".*@.*[.].*");
         Matcher m = p.matcher(email);
         if (!m.matches()) {
             warning.setText("Email v zlom tvare!");
             return;
         }
-        if (PlayerDatabase.getInstance().existsUserName(name, email)) {
+        if (LoginConnection.getInstance().existsUserName(name, email)) {
             warning.setText("Daný užívateľ už existuje!");
             return;
         }
@@ -53,7 +66,7 @@ public class RegistrationSceneController {
             return;
         }
 
-        PlayerDatabase.getInstance().registrationUser(name,password,email);
+        LoginConnection.getInstance().registrationUser(name,password,email);
 
         this.name.setText("");
         this.password.setText("");
@@ -64,7 +77,26 @@ public class RegistrationSceneController {
     private void changeSceneLogin() throws IOException {
         LoginSceneController.switchScene("/project/gui/views/LoginScene.fxml");
     }
+    public void changeToSlovak() {
+        Locale.setDefault(new Locale("sk"));
+        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
+        refreshTexts();
+    }
 
+    public  void changeToEnglish() {
+        Locale.setDefault(new Locale("us"));
+        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
+        refreshTexts();
+    }
+
+
+    private void refreshTexts() {
+        name.setPromptText("👤" + bundle.getString("nameField"));
+        password.setPromptText("\uD83D\uDD12"+bundle.getString("passwordField"));
+        registrateBtn.setText(bundle.getString("registrateBtn"));
+        sendPinBtn.setText(bundle.getString("sendPinBtn"));
+        backBtn.setText(bundle.getString("backBtn"));
+    }
     public void sendVerificationMail(ActionEvent actionEvent) {
         Random rand = new Random();
         generatedPin = rand.nextInt(1000) * 9 + 1;
@@ -74,6 +106,6 @@ public class RegistrationSceneController {
             warning.setText("Email v zlom tvare!");
             return;
         }
-        PlayerDatabase.getInstance().sendWelcomeEmail(email.getText(), generatedPin);
+        LoginConnection.getInstance().sendWelcomeEmail(email.getText(), generatedPin);
     }
 }

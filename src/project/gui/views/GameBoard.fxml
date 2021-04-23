@@ -10,18 +10,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.GameBoardController">
    <top>
       <AnchorPane prefHeight="100.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="15.0" prefHeight="70.0" prefWidth="882.0" text="Name of user VS Mr Stockfish (uroven)" textFill="WHITE" AnchorPane.leftAnchor="219.0" AnchorPane.rightAnchor="219.0">
+            <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="15.0" prefHeight="70.0" prefWidth="882.0" text="Name of user VS Mr Stockfish (uroven)" textFill="WHITE" AnchorPane.leftAnchor="219.0" AnchorPane.rightAnchor="219.0">
                <font>
                   <Font name="System Bold" size="47.0" />
                </font>
             </Label>
-            <Button layoutX="1580.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Menu" textFill="#0d0d0d" AnchorPane.rightAnchor="35.0">
+            <Button id="btnsks" layoutX="1580.0" layoutY="27.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="46.0" prefWidth="90.0" style="-fx-font-size: 22;" stylesheets="@../resources/css/ButtonStyles.css" text="Menu" textFill="#0d0d0d" AnchorPane.rightAnchor="35.0">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -34,52 +35,64 @@
          <children>
             <HBox alignment="CENTER" layoutX="377.0" layoutY="14.0" prefHeight="872.0" prefWidth="878.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="377.0" AnchorPane.rightAnchor="376.0" AnchorPane.topAnchor="14.0">
                <children>
-                  <Canvas fx:id="canvas" height="800.0" onMouseClicked="#onClick" width="800.0" />
+                  <Pane prefHeight="872.0" prefWidth="953.0">
+                     <children>
+                        <Canvas fx:id="canvas" height="800.0" layoutX="77.0" layoutY="43.0" onMouseClicked="#onClick" width="800.0" />
+                        <Label fx:id="resultWarning" alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="399.0" prefHeight="89.0" prefWidth="253.0" style="-fx-background-color: #222222; -fx-background-radius: 10;" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                </children>
             </HBox>
-            <TextArea fx:id="textMoves" layoutX="1450.0" layoutY="370.0" prefHeight="160.0" prefWidth="256.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="95.0" />
+            <TextArea fx:id="textMoves" layoutX="1450.0" layoutY="370.0" prefHeight="160.0" prefWidth="161.0" style="-fx-background-color: white; -fx-background-radius: 5;" wrapText="true" AnchorPane.leftAnchor="1450.0" AnchorPane.rightAnchor="94.0">
+               <font>
+                  <Font size="15.0" />
+               </font></TextArea>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="26.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="7.0" layoutY="643.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="1501.0" layoutY="655.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.rightAnchor="31.20001220703125">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="231.0" fitWidth="298.0" layoutX="1520.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" AnchorPane.rightAnchor="12.20001220703125">
                <image>
-                  <Image url="@../resources/pictures/dec2.png" />
+                  <Image url="@../resources/pictures/graphics/dec2.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER" layoutX="1613.0" layoutY="545.0" prefHeight="44.0" prefWidth="141.0" spacing="10.0" AnchorPane.leftAnchor="1613.0" AnchorPane.rightAnchor="47.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Vzdať sa" textFill="#0d0d0d">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#giveUp" prefHeight="44.0" prefWidth="161.0" style="-fx-background-radius: 5; -fx-font-size: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Vzdať sa" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <Label layoutX="1451.0" layoutY="287.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
+            <Label fx:id="topTimerText" layoutX="1451.0" layoutY="287.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
                <font>
                   <Font size="46.0" />
                </font>
             </Label>
-            <Label layoutX="1451.0" layoutY="545.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
+            <Label fx:id="botTimerText" layoutX="1451.0" layoutY="545.0" style="-fx-background-color: red; -fx-background-radius: 15;" text="00:00" textFill="#0d0d0d">
                <font>
                   <Font size="46.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" layoutX="1589.0" layoutY="309.0" prefHeight="47.0" prefWidth="165.0" AnchorPane.leftAnchor="1613.0" AnchorPane.rightAnchor="47.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="161.0" style="-fx-background-color: red; -fx-background-radius: 5;" styleClass="buttonBoard" stylesheets="@../resources/css/ButtonStyles.css" text="Odveta" textFill="#0d0d0d">
+                  <Button fx:id="revenge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#revenge" prefHeight="44.0" prefWidth="161.0" style="-fx-background-radius: 5; -fx-font-size: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Odveta" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -88,7 +101,7 @@
             </HBox>
             <ImageView fitHeight="577.0" fitWidth="214.0" layoutX="188.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="187.49017333984375" AnchorPane.topAnchor="188.0">
                <image>
-                  <Image url="@../resources/pictures/whiteKingo.png" />
+                  <Image url="@../resources/pictures/graphics/whiteKingo.png" />
                </image>
             </ImageView>
          </children>

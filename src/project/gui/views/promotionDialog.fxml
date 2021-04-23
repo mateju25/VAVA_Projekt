@@ -5,41 +5,40 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.PromotionController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="187.0" prefWidth="735.0" style="-fx-background-color: #222222; -fx-border-color: black; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.PromotionController">
    <children>
-      <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseQueen" prefHeight="158.0" prefWidth="216.0">
+      <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseQueen" style="-fx-background-color: #333333;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteQueen.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteQueen.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="244.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseBishop">
+      <Button layoutX="554.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseBishop" style="-fx-background-color: #333333;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteBishop.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteBishop.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="15.0" layoutY="181.0" mnemonicParsing="false" onAction="#chooseKnight" prefHeight="158.0" prefWidth="211.0">
+      <Button layoutX="195.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseRook" style="-fx-background-color: #333333;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteKnight.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteRook.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="244.0" layoutY="181.0" mnemonicParsing="false" onAction="#chooseRook">
+      <Button layoutX="375.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseKnight" style="-fx-background-color: #333333;">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/pictures/WhiteRook.png" />
+                  <Image url="@../resources/pictures/figures/set1/WhiteKnight.png" />
                </image>
             </ImageView>
          </graphic>

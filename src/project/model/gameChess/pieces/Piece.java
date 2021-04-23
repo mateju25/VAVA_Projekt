@@ -29,6 +29,10 @@ public abstract class Piece implements Cloneable{
         return this.black;
     }
 
+    public void setPic(Image pic) {
+        this.pic = pic;
+    }
+
     protected boolean insertMove(ArrayList<Coordinates> list, GameState state, int x, int y) {
         if (state.getPieceOnPlace(x, y) == null)
             list.add(new Coordinates(x, y));
