@@ -27,6 +27,12 @@
 }
 
 .table-view .table-cell{
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-border-width: 1;
+    -fx-border-color: black;
+}
+.table-view .table-cell:odd{
     -fx-text-fill: white;
     -fx-alignment: center;
     -fx-border-width: 1;
@@ -42,7 +48,7 @@
 }
 
 .table-row-cell:odd{
-    -fx-background-color: -fx-table-cell-border-color, rgb(180,45,45);
+    -fx-background-color: -fx-table-cell-border-color, #B00;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }

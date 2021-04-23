@@ -110,7 +110,14 @@
                   <Text id="textTitles" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 60;" text=" VOID CHESS MENU " />
                </graphic>
             </Label>
-            <Button layoutX="890.0" layoutY="21.0" mnemonicParsing="false" onAction="#logOut" prefHeight="66.0" prefWidth="74.0" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" />
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="892.0" layoutY="21.0" mnemonicParsing="false" onAction="#logOut" prefHeight="70.0" prefWidth="70.0" style="-fx-background-insets: 1;" styleClass="buttonChoose" stylesheets="@../resources/css/ButtonStyles.css" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="56.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/pictures/graphics/exitDoor.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <Text fx:id="logOutText" fill="WHITE" layoutX="856.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Odhlásiť sa" textAlignment="CENTER" wrappingWidth="141.849609375">
                <font>
                   <Font name="System Bold" size="20.0" />
@@ -120,7 +127,7 @@
                <graphic>
                   <ImageView fitHeight="84.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/UKflag.png" />
+                        <Image url="@../resources/pictures/graphics/UKflag.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -129,7 +136,7 @@
                <graphic>
                   <ImageView id="buttonInternationalization" fitHeight="42.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/pictures/SKflag.png" />
+                        <Image url="@../resources/pictures/graphics/SKflag.png" />
                      </image>
                   </ImageView>
                </graphic>
