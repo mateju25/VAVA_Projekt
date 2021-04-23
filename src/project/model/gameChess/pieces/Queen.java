@@ -1,6 +1,7 @@
 package project.model.gameChess.pieces;
 
 import javafx.scene.image.Image;
+import project.model.databaseSystem.LoginConnection;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 
@@ -10,9 +11,9 @@ public class Queen extends Piece{
     public Queen(Boolean black)  {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/BlackQueen.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackQueen.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/WhiteQueen.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/WhiteQueen.png"));
     }
 
     @Override

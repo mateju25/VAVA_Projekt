@@ -1,6 +1,7 @@
 package project.model.gameChess.pieces;
 
 import javafx.scene.image.Image;
+import project.model.databaseSystem.LoginConnection;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 import java.util.ArrayList;
@@ -12,9 +13,9 @@ public class Pawn extends Piece{
     public Pawn(Boolean black)  {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set3/BlackPawn.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackPawn.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set3/WhitePawn.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/WhitePawn.png"));
     }
 
     public void setEnPasant(boolean enPasant) {

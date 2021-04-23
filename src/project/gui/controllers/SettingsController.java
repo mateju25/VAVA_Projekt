@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import project.model.databaseSystem.LoginConnection;
+import project.model.gameChess.pieces.Piece;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,19 +33,23 @@ public class SettingsController implements Initializable {
 
         translateAnimation(pane4,0.001,0);
         translateAnimation(pane5,0.001,0);
-        if(LoginConnection.getInstance().getFavouriteBoard()==1)
+        // treba dorobit
+//        LoginConnection.getInstance().getFavouritePieces();
+
+        int fav = LoginConnection.getInstance().getFavouriteBoard();
+        if(fav==1)
         {
             translateAnimation(pane1,0.001,0);
             translateAnimation(pane2,0.001,0);
             positionBoard=0;
         }
-        if(LoginConnection.getInstance().getFavouriteBoard()==2)
+        if(fav==2)
         {
             positionBoard=1;
             translateAnimation(pane1,0.001,334);
             translateAnimation(pane2,0.001,0);
         }
-        if(LoginConnection.getInstance().getFavouriteBoard()==3)
+        if(fav==3)
         {
             positionBoard=2;
             translateAnimation(pane1,0.001,334);
@@ -104,6 +109,8 @@ public class SettingsController implements Initializable {
     @FXML
     private void saveSettings() {
         LoginConnection.getInstance().setFavouriteBoard(positionBoard+1);
+        LoginConnection.getInstance().setFavouritePieces(positionFigure+1);
+        Piece.SetNumber = positionFigure+1;
     }
     @FXML
     private void changeSceneMenu() throws IOException {

@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginSceneController {
-    private ResourceBundle bundle=null;
+
 
     @FXML
     private TextField name;
@@ -34,8 +34,6 @@ public class LoginSceneController {
     @FXML
     private Button loginBtn;
     public void initialize() {
-        Locale.setDefault(new Locale("sk"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
     @FXML
@@ -72,22 +70,22 @@ public class LoginSceneController {
 
     public void changeToSlovak() {
         Locale.setDefault(new Locale("sk"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
+        Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
 
     public  void changeToEnglish() {
         Locale.setDefault(new Locale("us"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
+        Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
         refreshTexts();
     }
 
     private void refreshTexts() {
-        name.setPromptText("👤" + bundle.getString("nameField"));
-        password.setPromptText("\uD83D\uDD12"+bundle.getString("passwordField"));
-        loginBtn.setText(bundle.getString("loginBtn"));
-        regsitrationBtn.setText(bundle.getString("registrationBtn"));
-        exitBtn.setText(bundle.getString("exitBtn"));
+        name.setPromptText("👤" + Main.bundle.getString("nameField"));
+        password.setPromptText("\uD83D\uDD12"+Main.bundle.getString("passwordField"));
+        loginBtn.setText(Main.bundle.getString("loginBtn"));
+        regsitrationBtn.setText(Main.bundle.getString("registrationBtn"));
+        exitBtn.setText(Main.bundle.getString("exitBtn"));
     }
 
     public static void switchScene(String s) throws IOException {

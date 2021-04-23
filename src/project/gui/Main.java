@@ -7,8 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class Main extends Application {
     public static Stage primaryStage;
+    static {Locale.setDefault(new Locale("sk"));}
+    public static ResourceBundle bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
 
     @Override
     public void start(Stage primaryStage) throws Exception{

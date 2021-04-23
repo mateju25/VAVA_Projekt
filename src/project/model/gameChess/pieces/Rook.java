@@ -1,6 +1,7 @@
 package project.model.gameChess.pieces;
 
 import javafx.scene.image.Image;
+import project.model.databaseSystem.LoginConnection;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 
@@ -11,9 +12,9 @@ public class Rook extends Piece{
     public Rook(Boolean black)  {
         super(black);
         if (black)
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/BlackRook.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackRook.png"));
         else
-            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set1/WhiteRook.png"));
+            pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/WhiteRook.png"));
     }
 
     public boolean isMoved() {
