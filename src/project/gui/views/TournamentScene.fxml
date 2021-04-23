@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -28,18 +30,18 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Button layoutX="766.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Button id="btnsks" layoutX="766.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
             <ComboBox fx:id="participantsCount" layoutX="225.0" layoutY="468.0" prefHeight="42.0" prefWidth="90.0" styleClass="combo-box" stylesheets="@../resources/css/TextfieldsStyles.css" />
-            <Button fx:id="buttonCreate" layoutX="340.0" layoutY="470.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Vytvoriť turnaj">
+            <Button fx:id="buttonCreate" layoutX="340.0" layoutY="470.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Vytvoriť turnaj">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="buttonSave" layoutX="572.0" layoutY="469.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-color: red; -fx-background-insets: -3; -fx-background-radius: 5; -fx-font-size: 18;" styleClass="buttonBar" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť výsledok">
+            <Button fx:id="buttonSave" layoutX="572.0" layoutY="469.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť výsledok">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -65,11 +67,24 @@
    <top>
       <AnchorPane prefHeight="144.0" prefWidth="1000.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="327.0" layoutY="21.0" prefHeight="91.0" prefWidth="346.0" style="-fx-background-radius: 20; -fx-background-color: #333333;" text="Turnaj" textFill="RED">
+            <Label id="titlesSceneslabels" alignment="CENTER" layoutX="327.0" layoutY="21.0" prefHeight="91.0" prefWidth="346.0" stylesheets="@../resources/css/TextfieldsStyles.css" textFill="RED">
                <font>
                   <Font name="System Bold" size="70.0" />
                </font>
+               <graphic>
+                  <Text id="textScenesTitles" strokeType="OUTSIDE" strokeWidth="0.0" text="Turnaj" />
+               </graphic>
             </Label>
+            <ImageView fitHeight="112.0" fitWidth="80.0" layoutX="225.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/pictures/Golden-Cup-PNG-Picture.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="112.0" fitWidth="80.0" layoutX="694.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/pictures/Golden-Cup-PNG-Picture.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </top>

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -91,10 +92,17 @@
             </Button>
             <HBox alignment="CENTER" layoutY="37.0" prefHeight="103.0" prefWidth="666.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Label style="-fx-background-color: #FF0000; -fx-background-radius: 20;" text=" ♟VOID CHESS  " textFill="#0d0d0d">
+                  <Label id="titleslabels" stylesheets="@../resources/css/TextfieldsStyles.css" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="70.0" />
                      </font>
+                     <graphic>
+                        <Text id="textTitles" strokeType="OUTSIDE" strokeWidth="0.0" text=" ♟VOID CHESS ">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Text>
+                     </graphic>
                   </Label>
                </children>
             </HBox>

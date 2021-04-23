@@ -32,3 +32,31 @@
     -fx-font-size: 18px;
 
 }
+#titleslabels {
+    -fx-background-radius: 20;
+    -fx-background-color: red;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.8) , 5, 0.5 , 3, 3 );
+}
+#textTitles {
+    -fx-font-size: 70px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: linear-gradient(#001,#111);
+    -fx-effect: dropshadow(three-pass-box , rgba(0,0,0,0.4) , 10,0.3,3,3 ); ;
+}
+#titlesSceneslabels {
+    -fx-background-radius: 20;
+    -fx-background-color: #333;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.8) , 5, 0.5 , 3, 3 );
+}
+#textScenesTitles {
+    -fx-font-size: 70px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: linear-gradient(#B00,#F00);
+    -fx-effect: dropshadow(three-pass-box , rgba(0,0,0,0.4) , 10,0.3,3,3 ); ;
+}
+
+.text {
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
