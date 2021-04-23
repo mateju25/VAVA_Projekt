@@ -198,9 +198,9 @@ public class GameBoardController {
                 exitEverything();
                 resultWarning.setVisible(true);
                 if (board.getState().isBlackCloser())
-                    resultWarning.setText("Vzdal sa súper\n Víťaz čierny 1-0 ");
+                    resultWarning.setText("Súper sa vzdal\n Víťaz čierny 1-0 ");
                 else
-                    resultWarning.setText("Vzdal sa súper\n Víťaz biely 1-0 ");
+                    resultWarning.setText("Súper sa vzdal\n Víťaz biely 1-0 ");
 
                 LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, 0, 0);
                 LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
@@ -220,7 +220,7 @@ public class GameBoardController {
         final boolean[] secondPLayerFirst;
 
         if (SingleplayerController.use) {
-            title.setText(LoginConnection.getInstance().getActivePlayer().getName()+ " vs Stockfish úrovne " + SingleplayerController.level);
+            title.setText(LoginConnection.getInstance().getActivePlayer().getName()+ " vs Stockfish úroveň " + SingleplayerController.level);
             board = new Chessboard(SingleplayerController.blackSide);
             secondPLayerFirst = new boolean[]{SingleplayerController.blackSide};
             secondPlayer = Stockfish.getInstance(SingleplayerController.level);
