@@ -24,8 +24,6 @@ public class Chessboard {
         this.state.setBlackCloser(blackCloser);
     }
 
-
-
     public GameState getState() {
         return state;
     }
@@ -91,7 +89,7 @@ public class Chessboard {
             if (temp instanceof Queen) {
                 s = "q";
             } else if (temp instanceof Knight) {
-                s = "k";
+                s = "n";
             } else if (temp instanceof Bishop) {
                 s = "b";
             } else {
