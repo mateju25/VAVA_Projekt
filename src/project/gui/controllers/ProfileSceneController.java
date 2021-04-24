@@ -55,7 +55,7 @@ public class ProfileSceneController implements Initializable {
             photoContainer.setImage(new Image(path.toFile().toURI().toString()));
         } else {
             new File("Data").mkdir();
-            photoContainer.setImage(activePlayer.getPhoto());
+            photoContainer.setImage(defaultPhoto);
         }
     }
 
