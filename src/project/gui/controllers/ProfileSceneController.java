@@ -14,6 +14,9 @@ import project.model.databaseSystem.LoginConnection;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import static project.gui.Main.primaryStage;
@@ -46,10 +49,22 @@ public class ProfileSceneController implements Initializable {
     private final ChessPlayer activePlayer = LoginConnection.getInstance().getActivePlayer();
     private FileChooser fileChooser;
 
+    private void loadImage() {
+        Path path = Paths.get(".","Data", "ProfilePic.png");
+        if (Files.exists(path)) {
+            photoContainer.setImage(new Image(path.toFile().toURI().toString()));
+        } else {
+            new File("Data").mkdir();
+            photoContainer.setImage(activePlayer.getPhoto());
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        photoContainer.setImage(activePlayer.getPhoto());
+        loadImage();
+
+
         warning.setText("");
         name.setText(activePlayer.getName());
         password.setText(activePlayer.getPassword());
@@ -74,6 +89,12 @@ public class ProfileSceneController implements Initializable {
             warning.setText("Nemáte nastavenú žiadnú fotku!");
             return;
         }
+
+        Path path = Paths.get(".","Data", "ProfilePic.png");
+        if (Files.exists(path)) {
+            path.toFile().delete();
+        }
+
         photoContainer.setImage(defaultPhoto);
         setImageToCenter(photoContainer);
         //+pouzivatelovi nastav foto ze nema
@@ -88,6 +109,11 @@ public class ProfileSceneController implements Initializable {
             photoContainer.setImage(photo);
             activePlayer.setPhoto(photo);
             setImageToCenter(photoContainer);
+            try {
+                Files.copy(file.toPath(), Paths.get(".", "Data", "ProfilePic.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
