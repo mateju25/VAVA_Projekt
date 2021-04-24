@@ -24,8 +24,8 @@
                   <Font name="System Bold" size="43.0" />
                </font>
             </Label>
-            <Canvas height="435.0" layoutX="35.0" layoutY="24.0" width="801.0" />
-            <Text fx:id="description" fill="WHITE" layoutX="48.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Počet účastníkov">
+            <Canvas fx:id="canvas" height="420.0" layoutX="50.0" layoutY="25.0" width="780.0" />
+            <Text fx:id="description" fill="WHITE" layoutX="50.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Počet účastníkov">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -46,17 +46,12 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <TextField fx:id="round" alignment="CENTER" layoutX="225.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Kolo" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
+            <TextField fx:id="match" alignment="CENTER" layoutX="225.0" layoutY="469.0" prefHeight="39.0" prefWidth="115.0" promptText="Zápas" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="match" alignment="CENTER" layoutX="300.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Zápas" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="result" alignment="CENTER" layoutX="375.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Víťaz" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
+            <TextField fx:id="result" alignment="CENTER" layoutX="353.0" layoutY="470.0" prefHeight="39.0" prefWidth="115.0" promptText="Víťaz" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
@@ -85,6 +80,11 @@
                   <Image url="@../resources/pictures/graphics/Golden-Cup-PNG-Picture.png" />
                </image>
             </ImageView>
+            <Button layoutX="802.0" layoutY="53.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="137.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Pridať sa">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>
