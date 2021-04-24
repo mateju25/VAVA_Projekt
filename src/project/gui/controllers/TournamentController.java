@@ -5,11 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import project.model.databaseSystem.ChessPlayer;
 import project.model.databaseSystem.LoginConnection;
@@ -25,8 +28,6 @@ public class TournamentController implements Initializable {
     @FXML
     private Text description;
     @FXML
-    private TextField round;
-    @FXML
     private TextField match;
     @FXML
     private TextField result;
@@ -36,7 +37,9 @@ public class TournamentController implements Initializable {
     private Button buttonSave;
     @FXML
     private ComboBox<Integer> participantsCount;
-    private final ObservableList<Integer> counts = FXCollections.observableArrayList(4,8,12);
+    private final ObservableList<Integer> counts = FXCollections.observableArrayList(4,8);
+    @FXML
+    private Canvas canvas;
 
 
     //si ho len getnem ten turnaj
@@ -56,7 +59,7 @@ public class TournamentController implements Initializable {
         participantsCount.setItems(counts);
         if(activePlayer.isAdministrator()){
             if(!tournament.isActive()){
-                round.setVisible(false);
+
                 match.setVisible(false);
                 result.setVisible(false);
                 warning.setVisible(true);
@@ -69,7 +72,7 @@ public class TournamentController implements Initializable {
                 return;
             }
             //displaybrackets
-            round.setVisible(true);
+
             match.setVisible(true);
             result.setVisible(true);
             warning.setVisible(false);
@@ -82,7 +85,7 @@ public class TournamentController implements Initializable {
 
         }
         if(!tournament.isActive()){
-            round.setVisible(false);
+
             match.setVisible(false);
             result.setVisible(false);
             warning.setVisible(true);
@@ -93,7 +96,7 @@ public class TournamentController implements Initializable {
             return;
         }
         //displayBrackets();
-        round.setVisible(false);
+
         match.setVisible(false);
         result.setVisible(false);
         warning.setVisible(false);
@@ -112,24 +115,28 @@ public class TournamentController implements Initializable {
         description.setVisible(false);
         participantsCount.setVisible(false);
         tournament.setActive(true);
-        round.setVisible(true);
+
         match.setVisible(true);
         result.setVisible(true);
         description.setVisible(true);
         description.setText("Zapísať výsledok");
-        //display brackets
+        displayBrackets();
 
     }
     private void displayBrackets(){
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Image brackets=null;
         if(participantsCount.getValue().equals(4)){
 
-        }
+            brackets = new Image("/project/gui/resources/pictures/turnaj4.png");
+
+            }
         if(participantsCount.getValue().equals(8)){
 
-        }
-        if(participantsCount.getValue().equals(12)){
+            brackets = new Image("/project/gui/resources/pictures/turnaj8.png");
 
         }
+        gc.drawImage(brackets, 0, 0);
     }
     @FXML
     private void changeSceneMenu() throws IOException {
