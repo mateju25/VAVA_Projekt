@@ -30,6 +30,7 @@ import java.util.*;
 
 public class GameBoardController {
     public Button revenge;
+    public Button giveup;
     @FXML private Label title;
     @FXML private Label resultWarning;
     @FXML public Canvas canvas;
@@ -114,6 +115,8 @@ public class GameBoardController {
             e.printStackTrace();
         }
         if (timer != null) timer.cancel();
+        timer = null;
+        giveup.setVisible(false);
         canvas.setDisable(true);
     }
 
@@ -213,7 +216,9 @@ public class GameBoardController {
     public void initialize() {
         timer = null;
         textMoves.setText("");
-        revenge.setVisible(false);
+        giveup.setVisible(true);
+        if (MultiplayerController.use)
+            revenge.setVisible(false);
         Main.primaryStage.setMaximized(true);
         resultWarning.setVisible(false);
         canvas.setDisable(false);
@@ -323,9 +328,9 @@ public class GameBoardController {
                 stop = true;
             }
         });
-//
-        makeMoves("d2d4 d7d5 c2c4 e7e6 g1f3 f8b4 b1c3 b8c6 c4d5 e6d5 e2e4 d5e4 c1g5 g8f6 a2a3 b4c3 b2c3 e4f3 g5e3 c8f5 d1b3 f3g2 f1g2 e8g8 b3b7 c6a5 b7f3 f5e4 f3e4 f6e4 g2e4 a5b3 e1g1 d8h4 e4a8 f8a8 f2f3 h4h3 a1e1 a8e8 f1f2 e8e3 e1e3 h7h6 e3e8 g8h7 e8e2 b3c1 e2e1 c1d3 e1b1 d3f2 g1f2 h3h2 f2e3 h2d6 b1b2 d6a3 b2c2 a3e7 e3d3 e7f6 c2f2 f6f5 d3e3 f5g5 e3e2 a7a5 e2d3 a5a4 f2d2 a4a3 d2d1 a3a2 d1a1 g5g2 d3e3 g2b2 a1a2 b2a2 e3e4 a2c2 e4f4 c2c3 f4e4 c3c2 e4f4 c2f2 f4e4 c7c5 d4c5 f2c5 e4f4 g7g5 f4g4 f7f5 g4g3 f5f4 g3g4 c5g1 g4f5 h6h5 f5f6 h5h4 f6f5 h4h3 f5f6 h3h2 f6f5 h2h1q f5e4 g5g4 e4f5 g4f3 f5f4 f3f2");
-        ((Stockfish)secondPlayer).setMoves(new LinkedList<>(board.getAllMoves()));
+////
+//        makeMoves("d2d4 d7d5 c2c4 e7e6 g1f3 f8b4 b1c3 b8c6 c4d5 e6d5 e2e4 d5e4 c1g5 g8f6 a2a3 b4c3 b2c3 e4f3 g5e3 c8f5 d1b3 f3g2 f1g2 e8g8 b3b7 c6a5 b7f3 f5e4 f3e4 f6e4 g2e4 a5b3 e1g1 d8h4 e4a8 f8a8 f2f3 h4h3 a1e1 a8e8 f1f2 e8e3 e1e3 h7h6 e3e8 g8h7 e8e2 b3c1 e2e1 c1d3 e1b1 d3f2 g1f2 h3h2 f2e3 h2d6 b1b2 d6a3 b2c2 a3e7 e3d3 e7f6 c2f2 f6f5 d3e3 f5g5 e3e2 a7a5 e2d3 a5a4 f2d2 a4a3 d2d1 a3a2 d1a1 g5g2 d3e3 g2b2 a1a2 b2a2 e3e4 a2c2 e4f4 c2c3 f4e4 c3c2 e4f4 c2f2 f4e4 c7c5 d4c5 f2c5 e4f4 g7g5 f4g4 f7f5 g4g3 f5f4 g3g4 c5g1 g4f5 h6h5 f5f6 h5h4 f6f5 h4h3 f5f6 h3h2 f6f5 h2h1q f5e4 g5g4 e4f5 g4f3 f5f4 f3f2");
+//        ((Stockfish)secondPlayer).setMoves(new LinkedList<>(board.getAllMoves()));
         secondPlayerThread.setDaemon(true);
         secondPlayerThread.start();
         drawingFunctions.refreshBoard();
