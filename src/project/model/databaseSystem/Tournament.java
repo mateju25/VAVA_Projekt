@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class Tournament {
     private  final static Logger LOGGER = Logger.getLogger(LoginConnection.class.getName());
 
-    private byte format;
+    private int format;
     private boolean active = false;
     private Map<String, String> mapOfParticipants = new HashMap<>();
     private final String connectionUrl = "jdbc:sqlserver://fiit-vava.database.windows.net:1433;database=fiit-vava-dbs;user=matej.delincak@fiit-vava;password=28qpj2C5zXTDmRn45x9wlkj;";
@@ -89,7 +89,11 @@ public class Tournament {
         return active;
     }
 
-    public byte getFormat() {
+    public int getFormat() {
         return format;
+    }
+
+    public void setFormat(int format) {
+        this.format = format;
     }
 }
