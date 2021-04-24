@@ -10,8 +10,12 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginConnection {
+    private  final static Logger LOGGER = Logger.getLogger(LoginConnection.class.getName());
+
     private static LoginConnection single_instance = null;
     private ChessPlayer activePlayer = null;
     private ArrayList<ChessPlayer> chessPlayerslist = new ArrayList<>();
@@ -51,7 +55,9 @@ public class LoginConnection {
             statement.executeQuery();
 
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public boolean existsUserName(String name, String email) {
@@ -69,7 +75,9 @@ public class LoginConnection {
                 result = false;
             }
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
         return result;
     }
 
@@ -100,6 +108,7 @@ public class LoginConnection {
             connection.close();
         } catch (SQLException a) {
             result = false;
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
         }
         return result;
     }
@@ -116,7 +125,9 @@ public class LoginConnection {
             statement.executeQuery();
 
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public int getFavouriteBoard() {
@@ -169,6 +180,7 @@ public class LoginConnection {
             }
             connection.close();
         } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
         }
         return result;
     }
@@ -186,6 +198,7 @@ public class LoginConnection {
 
             connection.close();
         } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
         }
     }
 
@@ -211,6 +224,7 @@ public class LoginConnection {
             }
             connection.close();
         } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
         }
     }
 
@@ -225,7 +239,9 @@ public class LoginConnection {
             statement.setString(3, email);
             statement.executeUpdate();
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public void sendWelcomeEmail(String email, int pin) {
@@ -257,7 +273,7 @@ public class LoginConnection {
             message.setText("Pre úspešné zaregistrovanie zadaj tento PIN do aplikácie: " + String.valueOf(pin));
             Transport.send(message);
         } catch (MessagingException mex) {
-            mex.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Nastala chyba pri poslaní emailu");
         }
     }
 

@@ -46,7 +46,7 @@ public class Pawn extends Piece{
                 return;
             switch (state.isPromotion()) {
                 case "q": state.getState()[finishX][finishY] = new Queen(this.black); break;
-                case "k": state.getState()[finishX][finishY] = new Knight(this.black); break;
+                case "n": state.getState()[finishX][finishY] = new Knight(this.black); break;
                 case "b": state.getState()[finishX][finishY] = new Bishop(this.black); break;
                 case "r": state.getState()[finishX][finishY] = new Rook(this.black); break;
             }

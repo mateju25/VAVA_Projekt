@@ -41,7 +41,7 @@ public class PromotionController {
     }
 
     public void chooseKnight(ActionEvent actionEvent) {
-        chosedPiece= "k";
+        chosedPiece= "n";
         close();
     }
 

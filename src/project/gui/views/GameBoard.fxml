@@ -73,7 +73,7 @@
             </ImageView>
             <HBox alignment="CENTER" layoutX="1613.0" layoutY="545.0" prefHeight="44.0" prefWidth="141.0" spacing="10.0" AnchorPane.leftAnchor="1613.0" AnchorPane.rightAnchor="47.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#giveUp" prefHeight="44.0" prefWidth="161.0" style="-fx-background-radius: 5; -fx-font-size: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Vzdať sa" textFill="#0d0d0d">
+                  <Button fx:id="giveup" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#giveUp" prefHeight="44.0" prefWidth="161.0" style="-fx-background-radius: 5; -fx-font-size: 20;" stylesheets="@../resources/css/ButtonStyles.css" text="Vzdať sa" textFill="#0d0d0d">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

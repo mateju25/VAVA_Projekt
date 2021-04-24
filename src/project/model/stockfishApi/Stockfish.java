@@ -3,13 +3,9 @@ package project.model.stockfishApi;
 import project.model.GameParticipant;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class Stockfish implements GameParticipant {
-    //region Private
-    private Process myProcess =  null;
     private BufferedReader output = null;
     private BufferedWriter input = null;
     private LinkedList<String> moves = null;
@@ -19,7 +15,8 @@ public class Stockfish implements GameParticipant {
         this.level = level;
         try {
             ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.dir").replace('\\','/') + "/src/" + "project/model/stockfishApi/resources/stockfish_13_win_x64.exe");
-            myProcess = pb.start();
+            //region Private
+            Process myProcess = pb.start();
             output = new BufferedReader(new InputStreamReader(myProcess.getInputStream()));
             input = new BufferedWriter(new OutputStreamWriter(myProcess.getOutputStream()));
             moves = new LinkedList<>();
@@ -56,37 +53,8 @@ public class Stockfish implements GameParticipant {
         }
     }
 
-    //endregion Private
-
-    //region Public
     public static Stockfish getInstance(int level) {
         return new Stockfish(level);
-    }
-
-    public LinkedList<String> getMoves() {
-        return this.moves;
-    }
-
-    public void setMoves(LinkedList<String> moves) {
-        this.moves = moves;
-    }
-
-    public void shutdownStockfish() {
-        try {
-            input.close();
-            output.close();
-            myProcess.destroy();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Boolean isCheckmate() {
-        String lastLine = getLastLine();
-        if (lastLine == null)
-            return null;
-        else
-            return lastLine.contains("(none)");
     }
 
     public void makeMove(String paMove) {
@@ -96,7 +64,7 @@ public class Stockfish implements GameParticipant {
 
     public String makeBestMove() {
         String lastLine = getLastLine();
-        String[] parts = null;
+        String[] parts;
         if (lastLine == null)
             return null;
         else
@@ -105,10 +73,13 @@ public class Stockfish implements GameParticipant {
             return parts[1];
     }
 
+    public void setMoves(LinkedList<String> moves) {
+        this.moves = moves;
+    }
+
     @Override
     public String getLastMove() {
         return moves.size() == 0 ? "" : moves.getLast();
     }
 
-    //endregion
 }
