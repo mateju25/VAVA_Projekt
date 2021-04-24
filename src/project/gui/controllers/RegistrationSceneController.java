@@ -52,6 +52,11 @@ public class RegistrationSceneController {
             return;
         }
 
+        if(name.length()>20){
+            warning.setText("Príliš dlhé meno - najviac 20 znakov!");
+            return;
+        }
+
         Pattern p = Pattern.compile(".*@.*[.].*");
         Matcher m = p.matcher(email);
         if (!m.matches()) {
