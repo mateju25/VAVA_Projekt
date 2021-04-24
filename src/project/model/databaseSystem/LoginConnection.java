@@ -106,7 +106,6 @@ public class LoginConnection {
                         resultSet.getBoolean("administrator"));
             }
             connection.close();
-            throw new SQLException();
         } catch (SQLException a) {
             result = false;
             LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
