@@ -48,8 +48,11 @@ public class ProfileSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        if(activePlayer.getPhoto()==null){
+            activePlayer.setPhoto(defaultPhoto);
+        }
         photoContainer.setImage(activePlayer.getPhoto());
+        setImageToCenter(photoContainer);
         warning.setText("");
         name.setText(activePlayer.getName());
         password.setText(activePlayer.getPassword());
