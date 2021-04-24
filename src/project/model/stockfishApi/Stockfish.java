@@ -5,6 +5,12 @@ import project.model.GameParticipant;
 import java.io.*;
 import java.util.LinkedList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Trieda ma na starosti komunikaciu s programom Stockfish (.exe), zaroven obsahuje doteraz zahrane tahy.
+ * Z tychto tahov sa sklada argument, ktory sa zapisuje do konzoly programu.
+ */
 public class Stockfish implements GameParticipant {
     private BufferedReader output = null;
     private BufferedWriter input = null;
@@ -25,6 +31,10 @@ public class Stockfish implements GameParticipant {
         }
     }
 
+    /**
+     * Funkcia posklada z atributu moves jeden String, v ktorom su zasebou pospajane vsetky tahy.
+     * @return retazec tahov
+     */
     private String buildMovesString() {
         StringBuilder result = new StringBuilder();
         for (String move: this.moves) {
@@ -34,6 +44,10 @@ public class Stockfish implements GameParticipant {
         return result.toString();
     }
 
+    /**
+     * Funkcia zapise retazec tahov do programu a precita odpoved stockfishu
+     * @return retazec najlepsieho tahu podla stockfishu
+     */
     private String getLastLine() {
         try {
             input.write("position startpos moves " + buildMovesString() + "\n");
@@ -57,11 +71,19 @@ public class Stockfish implements GameParticipant {
         return new Stockfish(level);
     }
 
+    /**
+     * Vlozi tah do zoznamu tahov, ak nie je null
+     * @param paMove
+     */
     public void makeMove(String paMove) {
         if (paMove != null)
             moves.add(paMove);
     }
 
+    /**
+     * Funkcia vlozi do moves tah, ktory najskor ziska z funkcie getLastLine
+     * @return
+     */
     public String makeBestMove() {
         String lastLine = getLastLine();
         String[] parts;
@@ -77,6 +99,10 @@ public class Stockfish implements GameParticipant {
         this.moves = moves;
     }
 
+    /**
+     * Funkcia vrati posledny tah v zozname tahov
+     * @return posledny tah
+     */
     @Override
     public String getLastMove() {
         return moves.size() == 0 ? "" : moves.getLast();

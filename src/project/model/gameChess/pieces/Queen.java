@@ -7,15 +7,27 @@ import project.model.gameChess.GameState;
 
 import java.util.ArrayList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Figurka damy. Dedi funkcionalitu od vseobecnej triedy Piece
+ */
 public class Queen extends Piece{
-    public Queen(Boolean black)  {
-        super(black);
+    public Queen(Boolean black, Coordinates coors) {
+        super(black, coors);
         if (black)
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackQueen.png"));
         else
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/WhiteQueen.png"));
     }
 
+    /**
+     * Vrati mozne pohyby pre damu.
+     * @param state
+     * @param x
+     * @param y
+     * @return
+     */
     @Override
     public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
         Rook tempRook = new Rook(this.black);

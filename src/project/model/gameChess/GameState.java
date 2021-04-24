@@ -4,21 +4,39 @@ import project.model.gameChess.pieces.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+/**
+ * @author Matej Delincak
+ *
+ * Trieda obsahujuca logiku sachovnice. Obsahuje rozne funkcie na tvorbu partii, ci ich manazement.
+ */
 public class GameState {
+    private List<List<Piece>> matrix = new ArrayList<>();
     private Piece[][] state = new Piece[8][8];
     private boolean blackCloser = false;
     private String promotion = null;
 
     GameState() {
+//        for (int i = 0; i < 8; i++) {
+//            matrix.
+//        }
         for(Piece[] array : state) Arrays.fill(array, null);
     }
 
+    /**
+     * Vrati hodnotu, ci v danej partii su cierne figurky blizsie pri hracovi
+     * @return
+     */
     public boolean isBlackCloser() {
         return blackCloser;
     }
 
-    public String isPromotion() {
+    /**
+     * Vrati hodnotu, ci je nastavena promotion
+     * @return
+     */
+    public String getPromotion() {
         return promotion;
     }
 
@@ -30,6 +48,11 @@ public class GameState {
         this.blackCloser = blackCloser;
     }
 
+
+    /**
+     * Vytvori kopiu aktualneho stavu partie
+     * @return vrati kopiu partie
+     */
     GameState makeCopyFromActualGame() {
         GameState copyGame = new GameState();
         for (int i = 0; i < 8; i++) {
@@ -48,6 +71,13 @@ public class GameState {
         return copyGame;
     }
 
+    /**
+     * Vrati vsetky mozne pohyby figurky na x, y suradniciach. Zaroven zisti ci je mozna rosada a tiez, ze ak dany
+     * pohyb sposobi sach kralovi v rovnakej farbe ako pohybovana figurka, tak tento tah odstrani.
+     * @param x
+     * @param y
+     * @return Zoznam moznych tahov
+     */
     ArrayList<Coordinates> getLegalMoves(int x, int y) {
         ArrayList<Coordinates> legalMoves =  new ArrayList<>();
         if (getPieceOnPlace(x,y) == null)
@@ -99,6 +129,15 @@ public class GameState {
         return newlegalMoves;
     }
 
+    /**
+     * Posunie figurku v ramci poskytnutej partie, ak sa jedna o rosadu, posunie navyse aj vezu.
+     * Nakoniec nastavi vsetkym pinclom, ze enpassant uz neplati
+     * @param state
+     * @param startX
+     * @param startY
+     * @param finishX
+     * @param finishY
+     */
     void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
         state.getPieceOnPlace(startX, startY).makeMove(state, startX, startY, finishX, finishY);
 
@@ -106,8 +145,6 @@ public class GameState {
             //kral sa pohol
             ((King) state.getPieceOnPlace(finishX, finishY)).setMoved(true);
             int minus = isBlackCloser() ? -1 : 1;
-//            if (state.getPieceOnPlace(finishX, finishY).getBlack())
-//                minus *= -1;
             // rosada velka
             if (startX-finishX==-2*minus) {
                 state.getPieceOnPlace(startX+3*minus, startY).makeMove(state, startX+3*minus, startY, finishX-1*minus, finishY);
@@ -130,6 +167,13 @@ public class GameState {
         }
     }
 
+
+    /**
+     * Vrati figurku na danom mieste
+     * @param x
+     * @param y
+     * @return
+     */
     public Piece getPieceOnPlace(int x, int y) {
         return state[x][y];
     }
@@ -138,6 +182,9 @@ public class GameState {
         return state;
     }
 
+    /**
+     * Vytvori partiu, kde su biele figurky pri hracovi
+     */
     void setNewStateStandardWhiteFiguresCloser() {
         //white
         for (byte i = 0; i < 8; i++)
@@ -164,6 +211,10 @@ public class GameState {
         state[4][0] = new King( true);
     }
 
+
+    /**
+     * Vytvori partiu, kde su cierne figurky pri hracovi
+     */
     void setNewStateStandardBlackFiguresCloser() {
         //white
         for (byte i = 0; i < 8; i++)
@@ -190,6 +241,11 @@ public class GameState {
         state[3][0] = new King( false);
     }
 
+    /**
+     * Zisti miesto, kde sa nachadza dana figurka
+     * @param piece
+     * @return
+     */
     public Coordinates whereIsThis(Piece piece) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -200,6 +256,12 @@ public class GameState {
         return null;
     }
 
+    /**
+     * Zisti a vrati krala, ktory ma danu farbu a je v sachu
+     * @param state
+     * @param black
+     * @return
+     */
     public Piece isChecked(GameState state, boolean black) {
         Coordinates king = null;
         for (int i = 0; i < 8; i++) {
@@ -223,6 +285,12 @@ public class GameState {
         return null;
     }
 
+    /**
+     * Zisti a vrati krala, ktory ma danu farbu a ma sach-mat
+     * @param state
+     * @param black
+     * @return
+     */
     public Piece isCheckMated(GameState state, boolean black) {
         if (isChecked(state, black) != null) {
             Coordinates king = null;
@@ -240,6 +308,12 @@ public class GameState {
         return null;
     }
 
+    /**
+     * Zisti, ci v danej partii, existuju nejake tahy pre danu farbu
+     * @param state
+     * @param blackOnMove
+     * @return
+     */
     boolean isAnyThereLegalMove(GameState state, boolean blackOnMove) {
         ArrayList<Coordinates> legalMoves =  new ArrayList<>();
         for (int i = 0; i < 8; i++) {
@@ -253,6 +327,14 @@ public class GameState {
         return false;
     }
 
+    /**
+     * Zisti, ci nejaka figurka utoci na dane policko. Vyuziva sa pri rosade a pohybe krala.
+     * @param state
+     * @param x
+     * @param y
+     * @param byBlack
+     * @return
+     */
     boolean isSquareAttacked(GameState state, int x, int y, boolean byBlack) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

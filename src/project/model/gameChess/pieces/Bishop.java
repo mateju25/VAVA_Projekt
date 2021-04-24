@@ -8,15 +8,27 @@ import project.model.gameChess.GameState;
 import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Figurka strelca. Dedi funkcionalitu od vseobecnej triedy Piece
+ */
 public class Bishop extends Piece{
-    public Bishop(Boolean black) {
-        super(black);
+    public Bishop(Boolean black, Coordinates coors) {
+        super(black, coors);
         if (black)
              pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackBishop.png"));
         else
              pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/WhiteBishop.png"));
     }
 
+    /**
+     * Vrati mozne pohyby pre strelca.
+     * @param state
+     * @param x
+     * @param y
+     * @return
+     */
     @Override
     public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
         ArrayList<Coordinates> result = new ArrayList<>();

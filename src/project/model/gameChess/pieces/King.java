@@ -7,10 +7,15 @@ import project.model.gameChess.GameState;
 
 import java.util.ArrayList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Figurka krala. Dedi funkcionalitu od vseobecnej triedy Piece
+ */
 public class King extends Piece{
     private boolean isMoved = false;
-    public King(Boolean black) {
-        super(black);
+    public King(Boolean black, Coordinates coors) {
+        super(black, coors);
         if (black)
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackKing.png"));
         else
@@ -25,6 +30,13 @@ public class King extends Piece{
         isMoved = moved;
     }
 
+    /**
+     * Vrati mozne pohyby pre krala.
+     * @param state
+     * @param x
+     * @param y
+     * @return
+     */
     @Override
     public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
         ArrayList<Coordinates> result = new ArrayList<>();

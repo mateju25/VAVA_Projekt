@@ -1,17 +1,21 @@
 package project.model.gameChess.pieces;
 
 import javafx.scene.image.Image;
-import project.model.databaseSystem.LoginConnection;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 import java.util.ArrayList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Figurka pesiaka. Dedi funkcionalitu od vseobecnej triedy Piece
+ */
 public class Pawn extends Piece{
     private boolean isMoved = false;
     private boolean enPasant = false;
 
-    public Pawn(Boolean black)  {
-        super(black);
+    public Pawn(Boolean black, Coordinates coors) {
+        super(black, coors);
         if (black)
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackPawn.png"));
         else
@@ -22,6 +26,14 @@ public class Pawn extends Piece{
         this.enPasant = enPasant;
     }
 
+    /**
+     * Vykona pohyb pesiaka
+     * @param state
+     * @param startX
+     * @param startY
+     * @param finishX
+     * @param finishY
+     */
     public void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
         state.getState()[finishX][finishY] = state.getPieceOnPlace(startX, startY);
         state.getState()[startX][startY] = null;
@@ -42,9 +54,9 @@ public class Pawn extends Piece{
             enPasant = true;
 
         if (finishY == 0 || finishY == 7) {
-            if (state.isPromotion() == null)
+            if (state.getPromotion() == null)
                 return;
-            switch (state.isPromotion()) {
+            switch (state.getPromotion()) {
                 case "q": state.getState()[finishX][finishY] = new Queen(this.black); break;
                 case "n": state.getState()[finishX][finishY] = new Knight(this.black); break;
                 case "b": state.getState()[finishX][finishY] = new Bishop(this.black); break;
@@ -55,6 +67,13 @@ public class Pawn extends Piece{
 
     }
 
+    /**
+     * Vrati mozne pohyby pre pesiaka.
+     * @param state
+     * @param x
+     * @param y
+     * @return
+     */
     @Override
     public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
         ArrayList<Coordinates> result = new ArrayList<>();

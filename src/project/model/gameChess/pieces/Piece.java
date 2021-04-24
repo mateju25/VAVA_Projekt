@@ -7,15 +7,32 @@ import project.model.gameChess.GameState;
 
 import java.util.ArrayList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Hlavna trieda figurky. Obsahuje informacie o farbe, obrazku.
+ */
 public abstract class Piece implements Cloneable{
     protected Boolean black;
     protected Image pic;
+    protected Coordinates coors;
+
+
     public static int SetNumber = LoginConnection.getInstance().getFavouritePieces();
 
-    public Piece(Boolean black) {
+    public Piece(Boolean black, Coordinates coors) {
         this.black = black;
+        this.coors = coors;
     }
 
+    /**
+     * Vykona pohyb figurky.
+     * @param state
+     * @param startX
+     * @param startY
+     * @param finishX
+     * @param finishY
+     */
     public void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
         state.getState()[finishX][finishY] = state.getPieceOnPlace(startX, startY);
         state.getState()[startX][startY] = null;
@@ -35,6 +52,14 @@ public abstract class Piece implements Cloneable{
         this.pic = pic;
     }
 
+    /**
+     * Vlozi mozny pohyb figurky do zoznamu, ak je takyto pohyb mozny
+     * @param list
+     * @param state
+     * @param x
+     * @param y
+     * @return
+     */
     protected boolean insertMove(ArrayList<Coordinates> list, GameState state, int x, int y) {
         if (state.getPieceOnPlace(x, y) == null)
             list.add(new Coordinates(x, y));

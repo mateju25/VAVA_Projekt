@@ -99,7 +99,7 @@ public class GameBoardController {
                 else {
                     if (!stop) {
                         timer.cancel();
-                        board.setLastSignal(Signalization.NOTIME);
+                        board.setLastSignal(Signalization.NO_TIME);
                         Platform.runLater(() -> handleSignalFromChessboard());
                     }
                 }
@@ -159,7 +159,7 @@ public class GameBoardController {
                 break;
             }
 
-            case NOTIME: {
+            case NO_TIME: {
                 exitEverything();
                 resultWarning.setVisible(true);
 
@@ -185,7 +185,7 @@ public class GameBoardController {
                 break;
             }
 
-            case GIVEUPME: {
+            case GIVE_UP_ME: {
                 exitEverything();
                 resultWarning.setVisible(true);
                 if (board.getState().isBlackCloser())
@@ -198,7 +198,7 @@ public class GameBoardController {
                 break;
             }
 
-            case GIVEUPOTHER: {
+            case GIVE_UP_OTHER: {
                 exitEverything();
                 resultWarning.setVisible(true);
                 if (board.getState().isBlackCloser())
@@ -256,7 +256,7 @@ public class GameBoardController {
         secondPlayerThread = new Thread(new Runnable() {
             private void checkIfGiveUp() {
                 if (MultiplayerController.use && MultiplayerConnection.getInstance().isGiveUp()) {
-                    board.setLastSignal(Signalization.GIVEUPOTHER);
+                    board.setLastSignal(Signalization.GIVE_UP_OTHER);
                     Platform.runLater(() -> handleSignalFromChessboard());
                 }
             }
@@ -375,7 +375,7 @@ public class GameBoardController {
                 board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, tmp);
 
                 activeFigure = null;
-                if (board.getLastSignal() == Signalization.NOPIECE) {
+                if (board.getLastSignal() == Signalization.NO_PIECE) {
                     board.setLastSignal(signal);
                     drawingFunctions.refreshBoard();
                     return;
@@ -416,11 +416,11 @@ public class GameBoardController {
 
     public void giveUp(ActionEvent actionEvent) {
         if (SingleplayerController.use) {
-            board.setLastSignal(Signalization.GIVEUPME);
+            board.setLastSignal(Signalization.GIVE_UP_ME);
             handleSignalFromChessboard();
         }
         if (MultiplayerController.use) {
-            board.setLastSignal(Signalization.GIVEUPME);
+            board.setLastSignal(Signalization.GIVE_UP_ME);
             handleSignalFromChessboard();
             MultiplayerConnection.getInstance().setGiveUp(true);
         }
