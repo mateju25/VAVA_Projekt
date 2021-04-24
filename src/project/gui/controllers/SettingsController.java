@@ -24,7 +24,7 @@ public class SettingsController implements Initializable {
     @FXML
     private AnchorPane pane5;
     private int positionBoard;
-    private int positionFigure = 0;
+    private int positionFigure;
 
 
 
@@ -33,27 +33,43 @@ public class SettingsController implements Initializable {
 
         translateAnimation(pane4,0.001,0);
         translateAnimation(pane5,0.001,0);
-        // treba dorobit
-//        LoginConnection.getInstance().getFavouritePieces();
-
-        int fav = LoginConnection.getInstance().getFavouriteBoard();
-        if(fav==1)
+        int favF = LoginConnection.getInstance().getFavouritePieces();
+        int favB = LoginConnection.getInstance().getFavouriteBoard();
+        if(favB==1)
         {
+            positionBoard=0;
             translateAnimation(pane1,0.001,0);
             translateAnimation(pane2,0.001,0);
-            positionBoard=0;
         }
-        if(fav==2)
+        if(favB==2)
         {
             positionBoard=1;
             translateAnimation(pane1,0.001,334);
             translateAnimation(pane2,0.001,0);
         }
-        if(fav==3)
+        if(favB==3)
         {
             positionBoard=2;
             translateAnimation(pane1,0.001,334);
             translateAnimation(pane2,0.001,334);
+        }
+        if(favF==1)
+        {
+            positionFigure=0;
+            translateAnimation(pane4,0.001,0);
+            translateAnimation(pane5,0.001,0);
+        }
+        if(favF==2)
+        {
+            positionFigure=1;
+            translateAnimation(pane4,0.001,130);
+            translateAnimation(pane5,0.001,0);
+        }
+        if(favF==3)
+        {
+            positionFigure=2;
+            translateAnimation(pane4,0.001,130);
+            translateAnimation(pane5,0.001,130);
         }
     }
 

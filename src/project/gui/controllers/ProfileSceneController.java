@@ -61,10 +61,7 @@ public class ProfileSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         loadImage();
-
-
         warning.setText("");
         name.setText(activePlayer.getName());
         password.setText(activePlayer.getPassword());

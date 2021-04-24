@@ -27,7 +27,7 @@ public class ChessPlayer {
         this.draws = draws;
         this.loses = loses;
         this.points = wins + draws*0.5;
-        this.photo = new Image("/project/gui/resources/pictures/graphics/Profile-Avatar-PNG.png");
+        this.photo = null;
         this.administrator = administrator;
     }
 
