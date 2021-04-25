@@ -64,7 +64,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/pictures/figures/set2/WhitePawn.png" />
+                              <Image url="@../resources/pictures/figures/set3/WhitePawn.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -73,7 +73,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/pictures/figures/set3/WhitePawn.png" />
+                              <Image url="@../resources/pictures/figures/set2/WhitePawn.png" />
                            </image>
                         </ImageView>
                      </children>

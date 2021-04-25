@@ -4,8 +4,12 @@ import project.model.GameParticipant;
 
 import java.sql.*;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MultiplayerConnection implements GameParticipant {
+    private  final static Logger LOGGER = Logger.getLogger(LoginConnection.class.getName());
+
     private static MultiplayerConnection single_instance = null;
     private int id = 0;
     private final String connectionUrl = "jdbc:sqlserver://fiit-vava.database.windows.net:1433;database=fiit-vava-dbs;user=matej.delincak@fiit-vava;password=28qpj2C5zXTDmRn45x9wlkj;";
@@ -43,7 +47,9 @@ public class MultiplayerConnection implements GameParticipant {
             statement.setInt(3, time.toSecondOfDay());
             statement.executeUpdate();
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public void createNewGame(boolean black, LocalTime time) {
@@ -69,7 +75,9 @@ public class MultiplayerConnection implements GameParticipant {
 
             }
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public void setTimers(LocalTime ownTime, LocalTime otherTime) {
@@ -85,7 +93,9 @@ public class MultiplayerConnection implements GameParticipant {
             statement.setInt(2, otherTime.toSecondOfDay());
             statement.executeUpdate();
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public boolean getColor() {
@@ -105,7 +115,9 @@ public class MultiplayerConnection implements GameParticipant {
                 result = resultSet.getInt(1);
             }
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
         return result == 1;
     }
 
@@ -126,7 +138,9 @@ public class MultiplayerConnection implements GameParticipant {
                 result = resultSet.getInt(1);
             }
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
         return result == 1;
     }
 
@@ -142,7 +156,9 @@ public class MultiplayerConnection implements GameParticipant {
             statement.setInt(1, (giveUp ? 1 : 0));
             statement.executeUpdate();
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public LocalTime[] getTimes() {
@@ -163,7 +179,9 @@ public class MultiplayerConnection implements GameParticipant {
                 result[1] = LocalTime.of(0, resultSet.getInt(2)/60, resultSet.getInt(2)%60);
             }
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
         return result;
     }
 
@@ -179,7 +197,9 @@ public class MultiplayerConnection implements GameParticipant {
             statement.setString(1, move);
             statement.executeUpdate();
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
     }
 
     public String getLastMove() {
@@ -199,7 +219,9 @@ public class MultiplayerConnection implements GameParticipant {
                 result = resultSet.getString(1);
             }
             connection.close();
-        } catch (SQLException a) {}
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
         return result;
     }
 

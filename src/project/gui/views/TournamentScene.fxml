@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.TournamentController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.TournamentController">
    <left>
       <AnchorPane prefHeight="526.0" prefWidth="60.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER" />
    </left>
@@ -24,13 +24,13 @@
                   <Font name="System Bold" size="43.0" />
                </font>
             </Label>
-            <Canvas height="435.0" layoutX="35.0" layoutY="24.0" width="801.0" />
-            <Text fx:id="description" fill="WHITE" layoutX="48.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Počet účastníkov">
+            <Canvas fx:id="canvas" height="420.0" layoutX="50.0" layoutY="25.0" width="780.0" />
+            <Text fx:id="description" fill="WHITE" layoutX="50.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Počet účastníkov">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Button id="btnsks" layoutX="766.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Button id="btnsks" layoutX="730.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -41,22 +41,17 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="buttonSave" layoutX="572.0" layoutY="469.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť výsledok">
+            <Button fx:id="buttonSave" layoutX="545.0" layoutY="469.0" mnemonicParsing="false" onAction="#addResult" prefHeight="39.0" prefWidth="169.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť výsledok">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <TextField fx:id="round" alignment="CENTER" layoutX="225.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Kolo" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
+            <TextField fx:id="match" alignment="CENTER" layoutX="225.0" layoutY="469.0" prefHeight="39.0" prefWidth="115.0" promptText="Zápas" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="match" alignment="CENTER" layoutX="300.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Zápas" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="result" alignment="CENTER" layoutX="375.0" layoutY="470.0" prefHeight="39.0" prefWidth="70.0" promptText="Víťaz" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
+            <TextField fx:id="result" alignment="CENTER" layoutX="353.0" layoutY="470.0" prefHeight="39.0" prefWidth="115.0" promptText="Víťaz" style="-fx-background-radius: 10; -fx-font-size: 18;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="18.0" />
                </font>
@@ -85,6 +80,16 @@
                   <Image url="@../resources/pictures/graphics/Golden-Cup-PNG-Picture.png" />
                </image>
             </ImageView>
+            <Button fx:id="buttonJoin" layoutX="802.0" layoutY="53.0" mnemonicParsing="false" onAction="#joinTournament" prefHeight="39.0" prefWidth="137.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Pridať sa">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonCancelTournament" layoutX="57.0" layoutY="53.0" mnemonicParsing="false" onAction="#cancelTournament" prefHeight="39.0" prefWidth="153.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Ukonči turnaj">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>

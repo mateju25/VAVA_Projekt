@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import project.model.databaseSystem.LoginConnection;
+import project.model.gameChess.pieces.Piece;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +24,7 @@ public class SettingsController implements Initializable {
     @FXML
     private AnchorPane pane5;
     private int positionBoard;
-    private int positionFigure = 0;
+    private int positionFigure;
 
 
 
@@ -32,23 +33,43 @@ public class SettingsController implements Initializable {
 
         translateAnimation(pane4,0.001,0);
         translateAnimation(pane5,0.001,0);
-        if(LoginConnection.getInstance().getFavouriteBoard()==1)
+        int favF = LoginConnection.getInstance().getActivePlayer().getFavouritePieces();
+        int favB = LoginConnection.getInstance().getActivePlayer().getFavouriteBoard();
+        if(favB==1)
         {
+            positionBoard=0;
             translateAnimation(pane1,0.001,0);
             translateAnimation(pane2,0.001,0);
-            positionBoard=0;
         }
-        if(LoginConnection.getInstance().getFavouriteBoard()==2)
+        if(favB==2)
         {
             positionBoard=1;
             translateAnimation(pane1,0.001,334);
             translateAnimation(pane2,0.001,0);
         }
-        if(LoginConnection.getInstance().getFavouriteBoard()==3)
+        if(favB==3)
         {
             positionBoard=2;
             translateAnimation(pane1,0.001,334);
             translateAnimation(pane2,0.001,334);
+        }
+        if(favF==1)
+        {
+            positionFigure=0;
+            translateAnimation(pane4,0.001,0);
+            translateAnimation(pane5,0.001,0);
+        }
+        if(favF==2)
+        {
+            positionFigure=1;
+            translateAnimation(pane4,0.001,130);
+            translateAnimation(pane5,0.001,0);
+        }
+        if(favF==3)
+        {
+            positionFigure=2;
+            translateAnimation(pane4,0.001,130);
+            translateAnimation(pane5,0.001,130);
         }
     }
 
@@ -103,7 +124,9 @@ public class SettingsController implements Initializable {
     }
     @FXML
     private void saveSettings() {
-        LoginConnection.getInstance().setFavouriteBoard(positionBoard+1);
+        LoginConnection.getInstance().getActivePlayer().setFavouriteBoard(positionBoard+1);
+        LoginConnection.getInstance().getActivePlayer().setFavouritePieces(positionFigure+1);
+        LoginConnection.getInstance().saveUser();
     }
     @FXML
     private void changeSceneMenu() throws IOException {

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../resources/css/BackgroundStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.RegistrationSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../resources/css/BackgroundStyle.css" xmlns="http://javafx.com/javafx/8.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.controllers.RegistrationSceneController">
     <left>
         <AnchorPane prefHeight="700.0" prefWidth="335.0" style="-fx-background-color: #222222;" BorderPane.alignment="CENTER">
             <children>
@@ -20,20 +20,10 @@
                <font>
                   <Font size="15.0" />
                </font></TextField>
-                <Text fill="WHITE" layoutX="85.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrácia" wrappingWidth="151.8232421875">
-                    <font>
-                        <Font name="System Bold" size="29.0" />
-                    </font>
-                </Text>
                 <TextField fx:id="password" layoutX="42.0" layoutY="166.0" prefHeight="35.0" prefWidth="248.0" promptText="🔒 Heslo" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
                </font></TextField>
-                <ImageView disable="true" fitHeight="198.0" fitWidth="232.0" layoutX="14.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../resources/pictures/graphics/dec2.png" />
-                    </image>
-                </ImageView>
             <TextField fx:id="email" layoutX="41.0" layoutY="219.0" prefHeight="35.0" prefWidth="248.0" promptText="☎ Email" style="-fx-background-color: red; -fx-background-radius: 20;" styleClass="text-fieldMenu" stylesheets="@../resources/css/TextfieldsStyles.css">
                <font>
                   <Font size="15.0" />
@@ -58,6 +48,16 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
+                <Text fill="WHITE" layoutX="85.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrácia" wrappingWidth="151.8232421875">
+                    <font>
+                        <Font name="System Bold" size="29.0" />
+                    </font>
+                </Text>
+                <ImageView disable="true" fitHeight="198.0" fitWidth="232.0" layoutX="14.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../resources/pictures/graphics/dec2.png" />
+                    </image>
+                </ImageView>
             <ImageView disable="true" fitHeight="198.0" fitWidth="232.0" layoutX="91.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                <image>
                   <Image url="@../resources/pictures/graphics/dec2.png" />

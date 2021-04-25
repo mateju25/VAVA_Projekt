@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import project.gui.Main;
 import project.model.databaseSystem.LoginConnection;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class RegistrationSceneController {
     @FXML
     private Button backBtn;
     private int generatedPin = 0;
-    private ResourceBundle bundle=null;
+
     @FXML
     private void registration() {
         warning.setText("");
@@ -48,6 +49,11 @@ public class RegistrationSceneController {
 
         if(password.length()<6){
             warning.setText("Príliš krátke heslo - aspoň 6 znakov!");
+            return;
+        }
+
+        if(name.length()>20){
+            warning.setText("Príliš dlhé meno - najviac 20 znakov!");
             return;
         }
 
@@ -79,23 +85,23 @@ public class RegistrationSceneController {
     }
     public void changeToSlovak() {
         Locale.setDefault(new Locale("sk"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
+        Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
 
     public  void changeToEnglish() {
         Locale.setDefault(new Locale("us"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
+        Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
         refreshTexts();
     }
 
 
     private void refreshTexts() {
-        name.setPromptText("👤" + bundle.getString("nameField"));
-        password.setPromptText("\uD83D\uDD12"+bundle.getString("passwordField"));
-        registrateBtn.setText(bundle.getString("registrateBtn"));
-        sendPinBtn.setText(bundle.getString("sendPinBtn"));
-        backBtn.setText(bundle.getString("backBtn"));
+        name.setPromptText("👤" + Main.bundle.getString("nameField"));
+        password.setPromptText("\uD83D\uDD12"+Main.bundle.getString("passwordField"));
+        registrateBtn.setText(Main.bundle.getString("registrateBtn"));
+        sendPinBtn.setText(Main.bundle.getString("sendPinBtn"));
+        backBtn.setText(Main.bundle.getString("backBtn"));
     }
     public void sendVerificationMail(ActionEvent actionEvent) {
         Random rand = new Random();

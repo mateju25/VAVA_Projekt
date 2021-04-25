@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import project.gui.Main;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -23,31 +24,29 @@ public class MenuController {
     private Text voidClubText;
     @FXML
     private Text logOutText;
-    private ResourceBundle bundle=null;
+
 
     public void initialize() {
-        Locale.setDefault(new Locale("sk"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
     public void changeToSlovak() {
         Locale.setDefault(new Locale("sk"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
+        Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
 
     public  void changeToEnglish() {
         Locale.setDefault(new Locale("us"));
-        bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
+        Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
         refreshTexts();
     }
 
     private void refreshTexts() {
-        settingsText.setText(bundle.getString("settingsText"));
-        tournamentText.setText(bundle.getString("tournamentText"));
-        voidClubText.setText(bundle.getString("voidClubText"));
-        profileText.setText(bundle.getString("profileText"));
-        logOutText.setText(bundle.getString("logoutText"));
+        settingsText.setText(Main.bundle.getString("settingsText"));
+        tournamentText.setText(Main.bundle.getString("tournamentText"));
+        voidClubText.setText(Main.bundle.getString("voidClubText"));
+        profileText.setText(Main.bundle.getString("profileText"));
+        logOutText.setText(Main.bundle.getString("logoutText"));
     }
 
     @FXML

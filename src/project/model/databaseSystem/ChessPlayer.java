@@ -1,6 +1,7 @@
 package project.model.databaseSystem;
 
 import javafx.scene.image.Image;
+import project.model.gameChess.pieces.Piece;
 
 public class ChessPlayer {
     private final String name;
@@ -15,8 +16,11 @@ public class ChessPlayer {
     private double points;
     private Image photo;
     private boolean administrator;
+    private boolean participant;
+    private int favouriteBoard;
+    private int favouritePieces;
 
-    public ChessPlayer(String name, String password, String email, int gamesVsPc, int gamesVsPlayer, int wins, int draws, int loses, boolean administrator) {
+    public ChessPlayer(String name, String password, String email, boolean administrator, int gamesVsPc, int gamesVsPlayer, int wins, int draws, int loses, int favouriteBoard, int favouritePieces, boolean participant) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -27,8 +31,11 @@ public class ChessPlayer {
         this.draws = draws;
         this.loses = loses;
         this.points = wins + draws*0.5;
-        this.photo = new Image("/project/gui/resources/pictures/graphics/Profile-Avatar-PNG.png");
+        this.photo = null;
         this.administrator = administrator;
+        this.participant = participant;
+        this.favouriteBoard = favouriteBoard;
+        this.favouritePieces = favouritePieces;
     }
 
     public String getName() {
@@ -99,7 +106,7 @@ public class ChessPlayer {
         return points;
     }
 
-    public void setPoints(short points) {
+    public void setPoints(double points) {
         this.points = points;
     }
 
@@ -107,16 +114,40 @@ public class ChessPlayer {
         return photo;
     }
 
-    public boolean isAdministrator() {
-        return administrator;
-    }
-
-
     public void setPhoto(Image photo) {
         this.photo = photo;
     }
 
+    public boolean isAdministrator() {
+        return administrator;
+    }
+
     public void setAdministrator(boolean administrator) {
         this.administrator = administrator;
+    }
+
+    public boolean isParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(boolean participant) {
+        this.participant = participant;
+    }
+
+    public int getFavouriteBoard() {
+        return favouriteBoard;
+    }
+
+    public void setFavouriteBoard(int favouriteBoard) {
+        this.favouriteBoard = favouriteBoard;
+    }
+
+    public int getFavouritePieces() {
+        return favouritePieces;
+    }
+
+    public void setFavouritePieces(int favouritePieces) {
+        Piece.SetNumber = favouritePieces;
+        this.favouritePieces = favouritePieces;
     }
 }
