@@ -30,7 +30,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Button id="btnsks" layoutX="766.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
+            <Button id="btnsks" layoutX="730.0" layoutY="469.0" mnemonicParsing="false" onAction="#changeSceneMenu" prefHeight="8.0" prefWidth="100.0" stylesheets="@../resources/css/ButtonStyles.css" text="Späť">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -41,7 +41,7 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="buttonSave" layoutX="572.0" layoutY="469.0" mnemonicParsing="false" onAction="#createTournament" prefHeight="39.0" prefWidth="169.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť výsledok">
+            <Button fx:id="buttonSave" layoutX="545.0" layoutY="469.0" mnemonicParsing="false" onAction="#addResult" prefHeight="39.0" prefWidth="169.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Uložiť výsledok">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -80,7 +80,7 @@
                   <Image url="@../resources/pictures/graphics/Golden-Cup-PNG-Picture.png" />
                </image>
             </ImageView>
-            <Button layoutX="802.0" layoutY="53.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="137.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Pridať sa">
+            <Button fx:id="buttonJoin" layoutX="802.0" layoutY="53.0" mnemonicParsing="false" onAction="#joinTournament" prefHeight="39.0" prefWidth="137.0" style="-fx-background-radius: 5; -fx-font-size: 18;" stylesheets="@../resources/css/ButtonStyles.css" text="Pridať sa">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
