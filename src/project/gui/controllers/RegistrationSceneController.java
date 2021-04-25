@@ -67,10 +67,10 @@ public class RegistrationSceneController {
             warning.setText("Daný užívateľ už existuje!");
             return;
         }
-        if (!(String.valueOf(generatedPin).equals(pin)))  {
-            warning.setText("Nesprávny PIN!");
-            return;
-        }
+//        if (!(String.valueOf(generatedPin).equals(pin)))  {
+//            warning.setText("Nesprávny PIN!");
+//            return;
+//        }
 
         LoginConnection.getInstance().registrationUser(name,password,email);
 
