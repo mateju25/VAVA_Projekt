@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import project.model.databaseSystem.ChessPlayer;
 import project.model.databaseSystem.LoginConnection;
@@ -66,11 +67,8 @@ public class TournamentController {
         }
 
         gc.setFill(rgb(255,255,255));
-        gc.setFont(new Font("serif",  20));
+        gc.setFont(Font.font("serif", FontWeight.BOLD,  20));
         participantsCount.setItems(counts);
-
-//        tournament.setMapOfParticipants(new HashMap<>());
-//        tournament.setMapOfParticipantsToDatabase();
 
         if(activePlayer.isAdministrator()){
             if(!tournament.isActive()){
