@@ -18,7 +18,7 @@ public abstract class Piece implements Cloneable{
     protected Coordinates coors;
 
 
-    public static int SetNumber = LoginConnection.getInstance().getFavouritePieces();
+    public static int SetNumber = LoginConnection.getInstance().getActivePlayer().getFavouritePieces();
 
     public Piece(Boolean black, Coordinates coors) {
         this.black = black;

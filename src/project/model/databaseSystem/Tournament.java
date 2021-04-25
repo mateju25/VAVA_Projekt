@@ -125,6 +125,24 @@ public class Tournament {
         setType();
     }
 
+    public void deleteTournament() {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("DELETE FROM tournament_info;");
+            statement.executeUpdate();
+            statement = connection.prepareStatement("DELETE FROM tournament;");
+            statement.executeUpdate();
+            statement = connection.prepareStatement("UPDATE users SET tournament = 0;");
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri turnaji v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
+    }
+
     public void setActive(boolean active) {
         this.active = active;
     }

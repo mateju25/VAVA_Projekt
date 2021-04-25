@@ -44,15 +44,15 @@ public class LoginSceneController {
     @FXML
     private void changeSceneMenu() throws IOException {
         warning.setText("");
-//        String name = this.name.getText();
-//        String password= this.password.getText();
-//
-//        if(name.isEmpty()||password.isEmpty()) {
-//            warning.setText("Vyplnťe všetky povinné polia!");
-//            return;
-//        }
+        String name = this.name.getText();
+        String password= this.password.getText();
 
-        if (!LoginConnection.getInstance().loginUser("Morfex", "voidchess25")) {
+        if(name.isEmpty()||password.isEmpty()) {
+            warning.setText("Vyplnťe všetky povinné polia!");
+            return;
+        }
+
+        if (!LoginConnection.getInstance().loginUser(name, password)) {
             warning.setText("Nepodarilo sa prihlasit");
             return;
         }

@@ -33,8 +33,8 @@ public class SettingsController implements Initializable {
 
         translateAnimation(pane4,0.001,0);
         translateAnimation(pane5,0.001,0);
-        int favF = LoginConnection.getInstance().getFavouritePieces();
-        int favB = LoginConnection.getInstance().getFavouriteBoard();
+        int favF = LoginConnection.getInstance().getActivePlayer().getFavouritePieces();
+        int favB = LoginConnection.getInstance().getActivePlayer().getFavouriteBoard();
         if(favB==1)
         {
             positionBoard=0;
@@ -124,9 +124,9 @@ public class SettingsController implements Initializable {
     }
     @FXML
     private void saveSettings() {
-        LoginConnection.getInstance().setFavouriteBoard(positionBoard+1);
-        LoginConnection.getInstance().setFavouritePieces(positionFigure+1);
-        Piece.SetNumber = positionFigure+1;
+        LoginConnection.getInstance().getActivePlayer().setFavouriteBoard(positionBoard+1);
+        LoginConnection.getInstance().getActivePlayer().setFavouritePieces(positionFigure+1);
+        LoginConnection.getInstance().saveUser();
     }
     @FXML
     private void changeSceneMenu() throws IOException {

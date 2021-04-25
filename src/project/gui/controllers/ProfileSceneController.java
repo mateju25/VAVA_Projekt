@@ -157,8 +157,8 @@ public class ProfileSceneController implements Initializable {
         }
 
 
-        LoginConnection.getInstance().changePassword(newPassword.getText());
         activePlayer.setPassword(newPassword.getText());
+        LoginConnection.getInstance().saveUser();
 
         newPassword.setVisible(false);
         oldPassword.setVisible(false);
