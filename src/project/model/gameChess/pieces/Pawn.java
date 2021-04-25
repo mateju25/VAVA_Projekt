@@ -1,17 +1,21 @@
 package project.model.gameChess.pieces;
 
 import javafx.scene.image.Image;
-import project.model.databaseSystem.LoginConnection;
 import project.model.gameChess.Coordinates;
 import project.model.gameChess.GameState;
 import java.util.ArrayList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Figurka pesiaka. Dedi funkcionalitu od vseobecnej triedy Piece
+ */
 public class Pawn extends Piece{
     private boolean isMoved = false;
     private boolean enPasant = false;
 
-    public Pawn(Boolean black)  {
-        super(black);
+    public Pawn(Boolean black, Coordinates coors) {
+        super(black, coors);
         if (black)
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackPawn.png"));
         else
@@ -22,9 +26,14 @@ public class Pawn extends Piece{
         this.enPasant = enPasant;
     }
 
-    public void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
-        state.getState()[finishX][finishY] = state.getPieceOnPlace(startX, startY);
-        state.getState()[startX][startY] = null;
+    /**
+     * Vykona pohyb pesiaka
+     * @param state
+     * @param finishX
+     * @param finishY
+     */
+    public void makeMove(GameState state, int finishX, int finishY) {
+        super.makeMove(state, finishX, finishY);
 
         int minus = 1;
         if (state.isBlackCloser())
@@ -34,30 +43,46 @@ public class Pawn extends Piece{
             minus *= -1;
 
         if (state.getPieceOnPlace(finishX, finishY+minus) instanceof Pawn && ((Pawn) state.getPieceOnPlace(finishX, finishY+minus)).enPasant && state.getPieceOnPlace(finishX, finishY+ minus).getBlack() != black)
-            state.getState()[finishX][finishY + minus] = null;
+            state.getState().remove(state.getPieceOnPlace(finishX, finishY + minus));
 
         isMoved = true;
 
-        if (Math.abs(finishY - startY) == 2)
+        if (Math.abs(finishY - coors.getY()) == 2)
             enPasant = true;
 
         if (finishY == 0 || finishY == 7) {
-            if (state.isPromotion() == null)
+            if (state.getPromotion() == null)
                 return;
-            switch (state.isPromotion()) {
-                case "q": state.getState()[finishX][finishY] = new Queen(this.black); break;
-                case "n": state.getState()[finishX][finishY] = new Knight(this.black); break;
-                case "b": state.getState()[finishX][finishY] = new Bishop(this.black); break;
-                case "r": state.getState()[finishX][finishY] = new Rook(this.black); break;
+            state.getState().remove(state.getPieceOnPlace(finishX, finishY));
+            switch (state.getPromotion()) {
+                case "q":
+                    state.getState().add(new Queen(this.black, new Coordinates(finishX, finishY)));
+                    break;
+                case "n":
+                    state.getState().add(new Knight(this.black, new Coordinates(finishX, finishY)));
+                    break;
+                case "b":
+                    state.getState().add(new Bishop(this.black, new Coordinates(finishX, finishY)));
+                    break;
+                case "r":
+                    state.getState().add(new Rook(this.black, new Coordinates(finishX, finishY)));
+                    break;
             }
 
         }
 
     }
 
+    /**
+     * Vrati mozne pohyby pre pesiaka.
+     * @param state
+     * @return
+     */
     @Override
-    public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
+    public ArrayList<Coordinates> getLegalMoves(GameState state) {
         ArrayList<Coordinates> result = new ArrayList<>();
+        int x = coors.getX();
+        int y = coors.getY();
         if (y == 0 || y == 7)
             return result;
         int minus = 1;

@@ -25,8 +25,8 @@ public class DrawingFunctions {
         this.gc = canvas.getGraphicsContext2D();
         this.sizeOfSquare = (int) ((canvas.getWidth()) / 8);
         this.board = board;
-        this.backgroundBlack = new Image("/project/gui/resources/pictures/boards/set" + LoginConnection.getInstance().getFavouriteBoard() + "/BlackBoard.png");
-        this.backgroundWhite = new Image("/project/gui/resources/pictures/boards/set" + LoginConnection.getInstance().getFavouriteBoard() + "/WhiteBoard.png");
+        this.backgroundBlack = new Image("/project/gui/resources/pictures/boards/set" + LoginConnection.getInstance().getActivePlayer().getFavouriteBoard() + "/BlackBoard.png");
+        this.backgroundWhite = new Image("/project/gui/resources/pictures/boards/set" + LoginConnection.getInstance().getActivePlayer().getFavouriteBoard() + "/WhiteBoard.png");
     }
 
     public void drawPiece(int x, int y, Piece piece) {

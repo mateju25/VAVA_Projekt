@@ -7,18 +7,30 @@ import project.model.gameChess.GameState;
 
 import java.util.ArrayList;
 
+/**
+ * @author Matej Delincak
+ *
+ * Figurka kona. Dedi funkcionalitu od vseobecnej triedy Piece
+ */
 public class Knight extends Piece{
-    public Knight(Boolean black)  {
-        super(black);
+    public Knight(Boolean black, Coordinates coors) {
+        super(black, coors);
         if (black)
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber + "/BlackKnight.png"));
         else
             pic = new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + SetNumber +"/WhiteKnight.png"));
     }
 
+    /**
+     * Vrati mozne pohyby pre kona.
+     * @param state
+     * @return
+     */
     @Override
-    public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
+    public ArrayList<Coordinates> getLegalMoves(GameState state) {
         ArrayList<Coordinates> result = new ArrayList<>();
+        int x = coors.getX();
+        int y = coors.getY();
         if (x+2 <= 7 && x >= 0 && y <= 7 && y-1 >=0)
             insertMove(result, state, x+2, y-1);
         if (x+2 <= 7 && x >= 0 && y+1 <= 7 && y >=0)

@@ -18,7 +18,7 @@ public class PromotionController {
     public ImageView knight;
 
     public void initialize() {
-        int piece = LoginConnection.getInstance().getFavouritePieces();
+        int piece = LoginConnection.getInstance().getActivePlayer().getFavouritePieces();
         String color = GameBoardController.board.getState().isBlackCloser() ? "Black" : "White";
         queen.setImage(new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + piece + "/" + color + "Queen.png")));
         bishop.setImage(new Image(getClass().getResourceAsStream("/project/gui/resources/pictures/figures/set" + piece + "/" + color + "Bishop.png")));

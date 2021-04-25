@@ -1,5 +1,10 @@
 package project.model.gameChess;
 
+/**
+ * @author Matej Delincak
+ *
+ * Mala trieda obsahujuca suradnice objektov v sachovnici
+ */
 public class Coordinates {
     private int x;
     private int y;
@@ -23,5 +28,13 @@ public class Coordinates {
 
     public int getY() {
         return y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Coordinates))
+            return false;
+
+        return (((Coordinates) obj).getY() == y) && (((Coordinates) obj).getX() == x);
     }
 }

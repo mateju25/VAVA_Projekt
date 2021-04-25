@@ -36,8 +36,6 @@ public class VoidClubController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoginConnection.getInstance().loadPlayers();
-
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         matchesColumn.setCellValueFactory(new PropertyValueFactory<>("matches"));
         winsColumn.setCellValueFactory(new PropertyValueFactory<>("wins"));
