@@ -23,7 +23,9 @@ import project.model.databaseSystem.Tournament;
 import java.io.IOException;
 import java.net.URL;
 
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static javafx.scene.paint.Color.rgb;
 
@@ -49,25 +51,29 @@ public class TournamentController implements Initializable {
     private Canvas canvas;
     private GraphicsContext gc;
     //si ho len getnem ten turnaj toto treba spravit prve
-    private final Tournament tournament = new Tournament();
+    private final Tournament tournament= Tournament.getInstance();
     private final ChessPlayer activePlayer = LoginConnection.getInstance().getActivePlayer();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tournament.setFormat(tournament.loadType());
+        tournament.setMapOfParticipants(tournament.loadMapOfParticipantsFromDatabase());
+        if (tournament.loadType()!=0) {
+            tournament.setActive(true);
+        }
         gc=canvas.getGraphicsContext2D();
         gc.setFill(rgb(255,255,255));
         gc.setFont(new Font("serif",  20));
         participantsCount.setItems(counts);
-        tournament.setActive(false);//toto pojde dpc
-
+//        tournament.setMapOfParticipants(new HashMap<>());
+//        tournament.setMapOfParticipantsToDatabase();
         if(activePlayer.isAdministrator()){
             if(!tournament.isActive()){
                 setNoActiveTournamentAdmin();
                 return;
             }
             setActiveTournamentAdmin();
-            displayBrackets();
-            //tuto budu tie loopy na vykreslovanie
+            setNamesIntoBrackets();
             return;
         }
         if(!tournament.isActive()){
@@ -75,13 +81,22 @@ public class TournamentController implements Initializable {
             return;
         }
         setActiveTournamentPlayer();
-        displayBrackets();
-        //tuto budu tie loopy na vyhreslovanie
+        setNamesIntoBrackets();
 
     }
+    private void setNamesIntoBrackets() {
+        displayBrackets();
+        for (String key:tournament.getMapOfParticipants().keySet()
+        ) {
+            if (Integer.parseInt(key) < 12)
+                joinTournamentBrackets(Integer.parseInt(key),tournament.getMapOfParticipants().get(key));
+            else
+                addResult(key,tournament.getMapOfParticipants().get(key));
+        }
+    }
+
     private void setActiveTournamentAdmin(){
-        //if player joined tournament buttonJoin.setVisible(false);
-        //else buttonJoin.setVisible(true);
+        buttonJoin.setVisible(!activePlayer.isParticipant());
         match.setVisible(true);
         result.setVisible(true);
         warning.setVisible(false);
@@ -103,8 +118,7 @@ public class TournamentController implements Initializable {
         description.setText("Počet účastníkov");
     }
     private void setActiveTournamentPlayer(){
-        //if player joined tournament buttonJoin.setVisible(false);
-        //else buttonJoin.setVisible(true);
+        buttonJoin.setVisible(!activePlayer.isParticipant());
         match.setVisible(false);
         result.setVisible(false);
         warning.setVisible(false);
@@ -124,11 +138,8 @@ public class TournamentController implements Initializable {
         participantsCount.setVisible(false);
         description.setVisible(false);
     }
-    private void setNameIntoBrackets(int x,int format,ChessPlayer player){
-        //x je cislo najblizsej volnej pozicie teda kam sa ide zapisat meno inak toto je dobre
-        //zavolam z initialize tuto musim podla udajov z hashmapy vypisat mena na ich aktualne pozicie
-        //namiesto active player bude aktualny v loope
-        if(format==8) {
+    private void joinTournamentBrackets(int x, String name){
+        if(tournament.getFormat() == 8) {
             int temp = x;
             int gen = 0;
             while (temp != 1 && temp != 0) {
@@ -136,23 +147,22 @@ public class TournamentController implements Initializable {
                 gen++;
             }
             if (x % 2 == 1) {
-                gc.fillText(player.getName(), 65, 40 + (94 * (x - gen - 1)));
+                gc.fillText(name, 65, 40 + (94 * (x - gen - 1)));
 
             } else {
 
-                gc.fillText(player.getName(), 65, 88 + (94 * (x - gen - 1)));
+                gc.fillText(name, 65, 88 + (94 * (x - gen - 1)));
             }
         }
-        if(format==4){
+        if(tournament.getFormat() == 4){
             if (x == 1) {
-                gc.fillText(player.getName(), 68, 40);
+                gc.fillText(name, 68, 40);
             } else {
-                gc.fillText(player.getName(), 68, 40+(100 * (x-1)));
+                gc.fillText(name, 68, 40+(100 * (x-1)));
             }
         }
     }
     private void displayBrackets(){
-        //jednorazovo vykresli brackets
         Image brackets=null;
         if(tournament.getFormat()==4){
             brackets = new Image("/project/gui/resources/pictures/turnaj4.png");
@@ -165,15 +175,13 @@ public class TournamentController implements Initializable {
     }
     @FXML
     private void createTournament(){
-        //toto je hotove
-        if(participantsCount.getValue()!=8&&(participantsCount.getValue()!=4))
+        if(participantsCount.getSelectionModel().getSelectedItem()==null)
         {
-            //error
                 return;
         }
         tournament.setActive(true);
         tournament.setFormat(participantsCount.getValue());
-
+        tournament.setType();
         match.setVisible(true);
         result.setVisible(true);
         warning.setVisible(false);
@@ -186,128 +194,95 @@ public class TournamentController implements Initializable {
         displayBrackets();
     }
 
+    private String getAvailablePosition() {
+        int pos=0;
+        for (String key:tournament.getMapOfParticipants().keySet().stream().sorted((a,b)->b.length()-a.length()).collect(Collectors.toList())
+        ) {
+            if (Integer.parseInt(key) < 12) {
+                pos=Integer.parseInt(key);
+            }
+        }
+        if(pos<tournament.getFormat()){
+            pos++;
+        }
+        else {
+            pos=-1;
+        }
 
+        return pos==-1 ? null : String.valueOf(pos);
+    }
     @FXML
     private void joinTournament(){
-        //toto xko bude to cislo ku ktoremu idem pisat meno v brackets
+    
         gc.setFill(rgb(0,255,255));
         int x=1;
-        setNameIntoBrackets(x, tournament.getFormat(),activePlayer);
+        joinTournamentBrackets(x,activePlayer.getName());
         buttonJoin.setVisible(false);
-        //setMapOfParticipants
-        //setMapOfParticipantsToDatabase
+        String pos = getAvailablePosition();
+        if(pos!=null){
+            tournament.getMapOfParticipants().put(pos,activePlayer.getName());
+            tournament.setMapOfParticipantsToDatabase();
+        }
     }
     @FXML
     private void addResult() {
-        //toto Som len testoval kurva :D
-        //gc.fillText(activePlayer.getName(),245,346);
-        int matchround = Integer.parseInt(match.getText());
-        int winner = Integer.parseInt(result.getText());
-        //z mapy vytiahnem zapas ktoreho hladam winnera
-        //osetrim ci zapas existuje a ci este nema winnera
-        //270+270+270 X a 64+94+94+94 ---- 109+193-97
+
+        String matchround = match.getText();
+        String winner = result.getText();
+        if (tournament.getMapOfParticipants().containsKey(matchround)) {
+            return;
+        }
+        addResult(matchround,winner);
+    }
+    private void addResult(String matchround,String winner){
+
         if (tournament.getFormat() == 8) {
-            if (matchround == 12) {
-                if (winner == 1) {
-                    gc.fillText(activePlayer.getName(), 270, 64);
-                } else if (winner == 2) {
-                    gc.fillText(activePlayer.getName(), 270, 64);
-                } else {
-                    //error
-                    return;
+            if (matchround.equals("12")) {
+                gc.fillText(winner, 270, 64);
+                tournament.getMapOfParticipants().put("12",winner);
+            }
+            if (matchround.equals("34")) {
+                gc.fillText(winner, 270, 158);
+                tournament.getMapOfParticipants().put("34",winner);
                 }
             }
-            if (matchround == 34) {
-                if (winner == 3) {
-                    gc.fillText(activePlayer.getName(), 270, 158);
-                } else if (winner == 4) {
-                    gc.fillText(activePlayer.getName(), 270, 158);
-                } else {
-                    //error
-                    return;
-                }
+            if (matchround.equals("56")) {
+                gc.fillText(winner, 270, 252);
+                tournament.getMapOfParticipants().put("56",winner);
             }
-            if (matchround == 56) {
-                if (winner == 5) {
-                    gc.fillText(activePlayer.getName(), 270, 252);
-                } else if (winner == 6) {
-                    gc.fillText(activePlayer.getName(), 270, 252);
-                } else {
-                    //error
-                    return;
-                }
+            if (matchround.equals("78")) {
+
+                gc.fillText(winner, 270, 346);
+                tournament.getMapOfParticipants().put("78",winner);
             }
-            if (matchround == 78) {
-                if (winner == 7) {
-                    gc.fillText(activePlayer.getName(), 270, 346);
-                } else if (winner == 8) {
-                    gc.fillText(activePlayer.getName(), 270, 346);
-                } else {
-                    //error
-                    return;
-                }
+            if (matchround.equals("1234")) {
+                gc.fillText(winner, 440, 109);
+                tournament.getMapOfParticipants().put("1234",winner);
             }
-            if (matchround == 1234) {
-                if (winner == 12) {
-                    gc.fillText(activePlayer.getName(), 440, 109);
-                } else if (winner == 34) {
-                    gc.fillText(activePlayer.getName(), 440, 109);
-                } else {
-                    //error
-                    return;
-                }
+            if (matchround.equals("5678")) {
+                gc.fillText(winner, 440, 302);
+                tournament.getMapOfParticipants().put("5678",winner);
             }
-            if (matchround == 5678) {
-                if (winner == 56) {
-                    gc.fillText(activePlayer.getName(), 440, 302);
-                } else if (winner == 78) {
-                    gc.fillText(activePlayer.getName(), 440, 302);
-                } else {
-                    //error
-                    return;
-                }
-            }
-            if (matchround == 12345678) {
-                if (winner == 1234) {
-                    gc.fillText(activePlayer.getName(), 610, 205);
-                } else if (winner == 5678) {
-                    gc.fillText(activePlayer.getName(), 610, 205);
-                } else {
-                    //error
-                    return;
-                }
-            }
+            if (matchround.equals("12345678")) {
+                gc.fillText(winner, 610, 205);
+                tournament.getMapOfParticipants().put("12345678",winner);
         }
         if(tournament.getFormat()==4)
         {
-            if (matchround == 12) {
-                if (winner == 1) {
-                    gc.fillText(activePlayer.getName(), 310, 95);
-                } else if (winner == 2) {
-                    gc.fillText(activePlayer.getName(), 310, 95);
-                } else {
-                    //error
-                    return;
-                }
+            if (matchround.equals("12")) {
+                gc.fillText(winner, 310, 95);
+                tournament.getMapOfParticipants().put("12",winner);
             }
-            if (matchround == 34) {
-                if (winner == 3) {
-                    gc.fillText(activePlayer.getName(), 310, 320);
-                } else if (winner == 4) {
-                    gc.fillText(activePlayer.getName(), 310, 320);
-                } else {
-                    //error
-                    return;
-                }
+            if (matchround.equals("34")) {
+                gc.fillText(winner, 310, 320);
+                tournament.getMapOfParticipants().put("34",winner);
             }
-            if (matchround == 1234) {
-                if (winner == 12) {
-                    gc.fillText(activePlayer.getName(), 550, 207);
-                } else if (winner == 34) {
-                    gc.fillText(activePlayer.getName(), 550, 207);
-                }
+            if (matchround.equals("1234")) {
+                gc.fillText(winner, 550, 207);
+                tournament.getMapOfParticipants().put("1234",winner);
             }
         }
+        tournament.setMapOfParticipantsToDatabase();
     }
 
     @FXML

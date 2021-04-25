@@ -15,8 +15,9 @@ public class ChessPlayer {
     private double points;
     private Image photo;
     private boolean administrator;
+    private boolean participant;
 
-    public ChessPlayer(String name, String password, String email, int gamesVsPc, int gamesVsPlayer, int wins, int draws, int loses, boolean administrator) {
+    public ChessPlayer(String name, String password, String email, int gamesVsPc, int gamesVsPlayer, int wins, int draws, int loses, boolean administrator, boolean participant) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -29,6 +30,7 @@ public class ChessPlayer {
         this.points = wins + draws*0.5;
         this.photo = null;
         this.administrator = administrator;
+        this.participant = participant;
     }
 
     public String getName() {
@@ -111,6 +113,17 @@ public class ChessPlayer {
         return administrator;
     }
 
+    public void setPoints(double points) {
+        this.points = points;
+    }
+
+    public boolean isParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(boolean participant) {
+        this.participant = participant;
+    }
 
     public void setPhoto(Image photo) {
         this.photo = photo;

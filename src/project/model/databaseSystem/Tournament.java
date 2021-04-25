@@ -13,6 +13,7 @@ public class Tournament {
     private int format;
     private boolean active = false;
     private Map<String, String> mapOfParticipants = new HashMap<>();
+    private static Tournament single_instance = null;
     private final String connectionUrl = "jdbc:sqlserver://fiit-vava.database.windows.net:1433;database=fiit-vava-dbs;user=matej.delincak@fiit-vava;password=28qpj2C5zXTDmRn45x9wlkj;";
 
     // vrat lokalnu mapu hracov
@@ -23,6 +24,17 @@ public class Tournament {
     // setni lokalnu mapu hracov
     public void setMapOfParticipants(Map<String, String> mapOfParticipants) {
         this.mapOfParticipants = mapOfParticipants;
+    }
+    public static Tournament getInstance() {
+        if (single_instance == null)
+            single_instance = new Tournament();
+
+        return single_instance;
+    }
+
+    private Tournament() {
+
+        mapOfParticipants = loadMapOfParticipantsFromDatabase();
     }
 
     // nacitaj mapu hracov z databazy
@@ -47,6 +59,7 @@ public class Tournament {
         } catch (SQLException a) {
             LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
         }
+        this.active = newMap.containsKey("1");
         return newMap;
     }
 
@@ -54,30 +67,60 @@ public class Tournament {
     public void setMapOfParticipantsToDatabase() {
         PreparedStatement statement = null;
 
-        Map<String, String> local = new HashMap<>();
-        Map<String, String> database = loadMapOfParticipantsFromDatabase();
-
-        for (String key :
-                mapOfParticipants.keySet()) {
-            if (!database.containsKey(key)) {
-                local.put(key, mapOfParticipants.get(key));
-            }
-        }
-
 
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-
+            statement = connection.prepareStatement("DELETE FROM tournament");
+            statement.executeUpdate();
             statement = connection.prepareStatement("INSERT INTO tournament VALUES (?, ?);");
             for (String key :
-                    local.keySet()) {
+                    mapOfParticipants.keySet()) {
                 statement.setString(1, key);
-                statement.setString(2, local.get(key));
+                statement.setString(2, mapOfParticipants.get(key));
                 statement.executeUpdate();
             }
             connection.close();
         } catch (SQLException a) {
             LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
+        setType();
+    }
+    public int loadType() {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        int result = 0;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+
+            statement = connection.prepareStatement("SELECT * FROM tournament_info");
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri turnaji v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
+        return result;
+    }
+
+    public void setType() {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("DELETE FROM tournament_info;");
+            statement.executeUpdate();
+            statement = connection.prepareStatement("INSERT INTO tournament_info VALUES (?);");
+            statement.setInt(1, this.format);
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri turnaji v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
         }
     }
 

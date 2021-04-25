@@ -80,6 +80,22 @@ public class LoginConnection {
         }
         return result;
     }
+    public void setTournament(int tournament) {
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("UPDATE users SET tournament= ? WHERE email= ?;");
+            statement.setInt(1, tournament);
+            statement.setString(2,  activePlayer.getEmail());
+            statement.executeQuery();
+
+            connection.close();
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
+    }
 
     public boolean loginUser(String name, String password) {
         ResultSet resultSet = null;
@@ -103,7 +119,8 @@ public class LoginConnection {
                         resultSet.getInt("wins"),
                         resultSet.getInt("draws"),
                         resultSet.getInt("loses"),
-                        resultSet.getBoolean("administrator"));
+                        resultSet.getBoolean("administrator"),
+                        resultSet.getBoolean("tournament"));
             }
             connection.close();
         } catch (SQLException a) {
@@ -220,7 +237,8 @@ public class LoginConnection {
                         resultSet.getInt("wins"),
                         resultSet.getInt("draws"),
                         resultSet.getInt("loses"),
-                        resultSet.getBoolean("administrator")));
+                        resultSet.getBoolean("administrator"),
+                        resultSet.getBoolean("tournament")));
             }
             connection.close();
         } catch (SQLException a) {
@@ -233,7 +251,7 @@ public class LoginConnection {
 
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("INSERT INTO users VALUES (? , ? , ?, 0, 0, 0, 0, 0, 0, 1, 1)");
+            statement = connection.prepareStatement("INSERT INTO users VALUES (? , ? , ?, 0, 0, 0, 0, 0, 0, 1, 1, 0)");
             statement.setString(1, name);
             statement.setString(2, hashPass(password));
             statement.setString(3, email);
