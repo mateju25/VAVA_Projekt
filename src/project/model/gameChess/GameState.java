@@ -62,8 +62,6 @@ public class GameState {
     /**
      * Vrati vsetky mozne pohyby figurky na x, y suradniciach. Zaroven zisti ci je mozna rosada a tiez, ze ak dany
      * pohyb sposobi sach kralovi v rovnakej farbe ako pohybovana figurka, tak tento tah odstrani.
-     * @param x
-     * @param y
      * @return Zoznam moznych tahov
      */
     ArrayList<Coordinates> getLegalMoves(Piece piece) {
@@ -283,7 +281,7 @@ public class GameState {
                     king = piece;
             }
 
-            if (state.getLegalMoves(king.getCoors().getX(), king.getCoors().getY()).size() == 0) {
+            if (state.getLegalMoves(king).size() == 0) {
                 if (!isAnyThereLegalMove(state, black))
                     return king;
             }
@@ -300,7 +298,7 @@ public class GameState {
     boolean isAnyThereLegalMove(GameState state, boolean blackOnMove) {
         for (Piece piece : state.getState()) {
             if (piece.getBlack() == blackOnMove) {
-                if (state.getLegalMoves(piece.getCoors().getX(), piece.getCoors().getY()).size() != 0)
+                if (state.getLegalMoves(piece).size() != 0)
                     return true;
             }
         }
