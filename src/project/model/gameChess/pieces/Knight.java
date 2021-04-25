@@ -24,13 +24,13 @@ public class Knight extends Piece{
     /**
      * Vrati mozne pohyby pre kona.
      * @param state
-     * @param x
-     * @param y
      * @return
      */
     @Override
-    public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
+    public ArrayList<Coordinates> getLegalMoves(GameState state) {
         ArrayList<Coordinates> result = new ArrayList<>();
+        int x = coors.getX();
+        int y = coors.getY();
         if (x+2 <= 7 && x >= 0 && y <= 7 && y-1 >=0)
             insertMove(result, state, x+2, y-1);
         if (x+2 <= 7 && x >= 0 && y+1 <= 7 && y >=0)

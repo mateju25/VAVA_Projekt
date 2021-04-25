@@ -29,14 +29,11 @@ public class Pawn extends Piece{
     /**
      * Vykona pohyb pesiaka
      * @param state
-     * @param startX
-     * @param startY
      * @param finishX
      * @param finishY
      */
-    public void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
-        state.getState()[finishX][finishY] = state.getPieceOnPlace(startX, startY);
-        state.getState()[startX][startY] = null;
+    public void makeMove(GameState state, int finishX, int finishY) {
+        super.makeMove(state, finishX, finishY);
 
         int minus = 1;
         if (state.isBlackCloser())
@@ -46,21 +43,30 @@ public class Pawn extends Piece{
             minus *= -1;
 
         if (state.getPieceOnPlace(finishX, finishY+minus) instanceof Pawn && ((Pawn) state.getPieceOnPlace(finishX, finishY+minus)).enPasant && state.getPieceOnPlace(finishX, finishY+ minus).getBlack() != black)
-            state.getState()[finishX][finishY + minus] = null;
+            state.getState().remove(state.getPieceOnPlace(finishX, finishY + minus));
 
         isMoved = true;
 
-        if (Math.abs(finishY - startY) == 2)
+        if (Math.abs(finishY - coors.getY()) == 2)
             enPasant = true;
 
         if (finishY == 0 || finishY == 7) {
             if (state.getPromotion() == null)
                 return;
+            state.getState().remove(state.getPieceOnPlace(finishX, finishY));
             switch (state.getPromotion()) {
-                case "q": state.getState()[finishX][finishY] = new Queen(this.black); break;
-                case "n": state.getState()[finishX][finishY] = new Knight(this.black); break;
-                case "b": state.getState()[finishX][finishY] = new Bishop(this.black); break;
-                case "r": state.getState()[finishX][finishY] = new Rook(this.black); break;
+                case "q":
+                    state.getState().add(new Queen(this.black, new Coordinates(finishX, finishY)));
+                    break;
+                case "n":
+                    state.getState().add(new Knight(this.black, new Coordinates(finishX, finishY)));
+                    break;
+                case "b":
+                    state.getState().add(new Bishop(this.black, new Coordinates(finishX, finishY)));
+                    break;
+                case "r":
+                    state.getState().add(new Rook(this.black, new Coordinates(finishX, finishY)));
+                    break;
             }
 
         }
@@ -70,13 +76,13 @@ public class Pawn extends Piece{
     /**
      * Vrati mozne pohyby pre pesiaka.
      * @param state
-     * @param x
-     * @param y
      * @return
      */
     @Override
-    public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
+    public ArrayList<Coordinates> getLegalMoves(GameState state) {
         ArrayList<Coordinates> result = new ArrayList<>();
+        int x = coors.getX();
+        int y = coors.getY();
         if (y == 0 || y == 7)
             return result;
         int minus = 1;

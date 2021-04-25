@@ -28,17 +28,29 @@ public abstract class Piece implements Cloneable{
     /**
      * Vykona pohyb figurky.
      * @param state
-     * @param startX
-     * @param startY
      * @param finishX
      * @param finishY
      */
-    public void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
-        state.getState()[finishX][finishY] = state.getPieceOnPlace(startX, startY);
-        state.getState()[startX][startY] = null;
+    public void makeMove(GameState state, int finishX, int finishY) {
+        Piece startP = state.getPieceOnPlace(coors.getX(), coors.getY());
+        Piece finalP = state.getPieceOnPlace(finishX, finishY);
+        if (finalP != null) {
+            startP.setCoors(finalP.getCoors());
+            state.getState().remove(finalP);
+        } else {
+            startP.setCoors(new Coordinates(finishX, finishY));
+        }
     }
 
-    public abstract ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y);
+    public Coordinates getCoors() {
+        return coors;
+    }
+
+    public void setCoors(Coordinates coors) {
+        this.coors = coors;
+    }
+
+    public abstract ArrayList<Coordinates> getLegalMoves(GameState state);
 
     public Image getPic() {
         return this.pic;

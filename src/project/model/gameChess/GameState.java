@@ -12,17 +12,9 @@ import java.util.List;
  * Trieda obsahujuca logiku sachovnice. Obsahuje rozne funkcie na tvorbu partii, ci ich manazement.
  */
 public class GameState {
-    private List<List<Piece>> matrix = new ArrayList<>();
-    private Piece[][] state = new Piece[8][8];
+    private List<Piece> state = new ArrayList<>();
     private boolean blackCloser = false;
     private String promotion = null;
-
-    GameState() {
-//        for (int i = 0; i < 8; i++) {
-//            matrix.
-//        }
-        for(Piece[] array : state) Arrays.fill(array, null);
-    }
 
     /**
      * Vrati hodnotu, ci v danej partii su cierne figurky blizsie pri hracovi
@@ -55,15 +47,11 @@ public class GameState {
      */
     GameState makeCopyFromActualGame() {
         GameState copyGame = new GameState();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (getPieceOnPlace(i, j) != null) {
-                    try {
-                        copyGame.getState()[i][j] = (Piece) getPieceOnPlace(i, j).clone();
-                    } catch (CloneNotSupportedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        for (Piece piece: state) {
+            try {
+                copyGame.state.add((Piece) piece.clone());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
             }
         }
         copyGame.setPromotion(this.promotion);
@@ -78,40 +66,37 @@ public class GameState {
      * @param y
      * @return Zoznam moznych tahov
      */
-    ArrayList<Coordinates> getLegalMoves(int x, int y) {
-        ArrayList<Coordinates> legalMoves =  new ArrayList<>();
-        if (getPieceOnPlace(x,y) == null)
-            return legalMoves;
-        else
-            legalMoves = getPieceOnPlace(x,y).getLegalMoves(this, x, y);
+    ArrayList<Coordinates> getLegalMoves(Piece piece) {
+        ArrayList<Coordinates> legalMoves = piece.getLegalMoves(this);
 
         // rosada
-        if (getPieceOnPlace(x,y) instanceof King && !((King) getPieceOnPlace(x,y)).isMoved()) {
+        if (piece instanceof King && !((King) piece).isMoved()) {
+            int x = piece.getCoors().getX();
+            int y = piece.getCoors().getY();
             int minus = isBlackCloser() ? -1 : 1;
-            if (isChecked(this, getPieceOnPlace(x,y).getBlack()) == null &&
+            if (isChecked(this, piece.getBlack()) == null &&
                     getPieceOnPlace(x+1*minus,y) == null &&
                     getPieceOnPlace(x+2*minus,y) == null &&
                     getPieceOnPlace(x+3*minus,y) instanceof Rook &&
                     !((Rook) getPieceOnPlace(x+3*minus,y)).isMoved() &&
-                    getPieceOnPlace(x+3*minus, y).getBlack() == getPieceOnPlace(x,y).getBlack() &&
-                    !isSquareAttacked(this, x + 1*minus, y, !getPieceOnPlace(x, y).getBlack()) &&
-                    !isSquareAttacked(this, x + 2*minus, y, !getPieceOnPlace(x, y).getBlack()))
+                    getPieceOnPlace(x+3*minus, y).getBlack() == piece.getBlack() &&
+                    !isSquareAttacked(this, x + 1*minus, y, !piece.getBlack()) &&
+                    !isSquareAttacked(this, x + 2*minus, y, !piece.getBlack()))
                 legalMoves.add(new Coordinates(x+2*minus, y));
-            if (isChecked(this, getPieceOnPlace(x,y).getBlack()) == null &&
+
+            if (isChecked(this, piece.getBlack()) == null &&
                     getPieceOnPlace(x-1*minus,y) == null &&
                     getPieceOnPlace(x-2*minus,y) == null &&
                     getPieceOnPlace(x-3*minus,y) == null &&
                     getPieceOnPlace(x-4*minus,y) instanceof Rook &&
                     !((Rook) getPieceOnPlace(x-4*minus,y)).isMoved() &&
-                    getPieceOnPlace(x-4*minus, y).getBlack() == getPieceOnPlace(x,y).getBlack() &&
-                    !isSquareAttacked(this, x - 1*minus, y, !getPieceOnPlace(x, y).getBlack()) &&
-                    !isSquareAttacked(this, x - 2*minus, y, !getPieceOnPlace(x, y).getBlack()) &&
-                    !isSquareAttacked(this, x - 3*minus, y, !getPieceOnPlace(x, y).getBlack()))
+                    getPieceOnPlace(x-4*minus, y).getBlack() == piece.getBlack() &&
+                    !isSquareAttacked(this, x - 1*minus, y, !piece.getBlack()) &&
+                    !isSquareAttacked(this, x - 2*minus, y, !piece.getBlack()) &&
+                    !isSquareAttacked(this, x - 3*minus, y, !piece.getBlack()))
                 legalMoves.add(new Coordinates(x-2*minus, y));
         }
 
-//        if ((isChecked(this, getPieceOnPlace(x,y).getBlack()) != null) && (isChecked(this, getPieceOnPlace(x,y).getBlack()).getBlack() != getPieceOnPlace(x,y).getBlack()))
-//            return legalMoves;
         ArrayList<Coordinates> newlegalMoves =  new ArrayList<>();
         if (legalMoves.size() == 0)
             return legalMoves;
@@ -120,8 +105,8 @@ public class GameState {
             for (Coordinates coor :
                     legalMoves) {
                 GameState temp = makeCopyFromActualGame();
-                makeMove(temp, x, y, coor.getX(), coor.getY());
-                Piece checking = isChecked(temp, getPieceOnPlace(x,y).getBlack());
+                makeMove(temp, piece.getCoors().getX(),  piece.getCoors().getY(), coor.getX(), coor.getY());
+                Piece checking = isChecked(temp, getPieceOnPlace( piece.getCoors().getX(),piece.getCoors().getY()).getBlack());
                 if (checking == null)
                     newlegalMoves.add(coor);
             }
@@ -139,7 +124,7 @@ public class GameState {
      * @param finishY
      */
     void makeMove(GameState state, int startX, int startY, int finishX, int finishY) {
-        state.getPieceOnPlace(startX, startY).makeMove(state, startX, startY, finishX, finishY);
+        state.getPieceOnPlace(startX, startY).makeMove(state, finishX, finishY);
 
         if (state.getPieceOnPlace(finishX, finishY) instanceof King) {
             //kral sa pohol
@@ -147,11 +132,11 @@ public class GameState {
             int minus = isBlackCloser() ? -1 : 1;
             // rosada velka
             if (startX-finishX==-2*minus) {
-                state.getPieceOnPlace(startX+3*minus, startY).makeMove(state, startX+3*minus, startY, finishX-1*minus, finishY);
+                state.getPieceOnPlace(startX+3*minus, startY).makeMove(state, finishX-1*minus, finishY);
             }
             //rosada mala
             if (startX-finishX==2*minus) {
-                state.getPieceOnPlace(startX-4*minus, startY).makeMove(state, startX-4*minus, startY, finishX+1*minus, finishY);
+                state.getPieceOnPlace(startX-4*minus, startY).makeMove(state, finishX+1*minus, finishY);
             }
         }
         if (state.getPieceOnPlace(finishX, finishY) instanceof Rook) {
@@ -175,10 +160,14 @@ public class GameState {
      * @return
      */
     public Piece getPieceOnPlace(int x, int y) {
-        return state[x][y];
+        for (Piece piece : state) {
+            if (piece.getCoors().getY() == y && piece.getCoors().getX() == x)
+                return piece;
+        }
+        return null;
     }
 
-    public Piece[][] getState() {
+    public List<Piece> getState() {
         return state;
     }
 
@@ -188,27 +177,27 @@ public class GameState {
     void setNewStateStandardWhiteFiguresCloser() {
         //white
         for (byte i = 0; i < 8; i++)
-            state[i][6] = new Pawn(false);
-        state[0][7] = new Rook(false);
-        state[7][7] = new Rook(false);
-        state[1][7] = new Knight(false);
-        state[6][7] = new Knight(false);
-        state[2][7] = new Bishop(false);
-        state[5][7] = new Bishop(false);
-        state[3][7] = new Queen( false);
-        state[4][7] = new King(false);
+            state.add(new Pawn(false, new Coordinates(i, 6)));
+        state.add(new Rook(false, new Coordinates(0, 7)));
+        state.add(new Rook(false, new Coordinates(7, 7)));
+        state.add(new Knight(false, new Coordinates(1, 7)));
+        state.add(new Knight(false, new Coordinates(6, 7)));
+        state.add(new Bishop(false, new Coordinates(2, 7)));
+        state.add(new Bishop(false, new Coordinates(5, 7)));
+        state.add(new Queen( false, new Coordinates(3, 7)));
+        state.add(new King(false, new Coordinates(4, 7)));
 
         //black
         for (byte i = 0; i < 8; i++)
-            state[i][1] = new Pawn(true);
-        state[0][0] = new Rook( true);
-        state[7][0] = new Rook(true);
-        state[1][0] = new Knight(true);
-        state[6][0] = new Knight(true);
-        state[2][0] = new Bishop(true);
-        state[5][0] = new Bishop( true);
-        state[3][0] = new Queen(true);
-        state[4][0] = new King( true);
+            state.add(new Pawn(true, new Coordinates(i, 1)));
+        state.add(new Rook(true, new Coordinates(0, 0)));
+        state.add(new Rook(true, new Coordinates(7, 0)));
+        state.add(new Knight(true, new Coordinates(1, 0)));
+        state.add(new Knight(true, new Coordinates(6, 0)));
+        state.add(new Bishop(true, new Coordinates(2, 0)));
+        state.add(new Bishop(true, new Coordinates(5, 0)));
+        state.add(new Queen( true, new Coordinates(3, 0)));
+        state.add(new King(true, new Coordinates(4, 0)));
     }
 
 
@@ -218,40 +207,38 @@ public class GameState {
     void setNewStateStandardBlackFiguresCloser() {
         //white
         for (byte i = 0; i < 8; i++)
-            state[i][6] = new Pawn(true);
-        state[0][7] = new Rook(true);
-        state[7][7] = new Rook(true);
-        state[1][7] = new Knight(true);
-        state[6][7] = new Knight(true);
-        state[2][7] = new Bishop(true);
-        state[5][7] = new Bishop(true);
-        state[4][7] = new Queen( true);
-        state[3][7] = new King(true);
+            state.add(new Pawn(true, new Coordinates(i, 6)));
+        state.add(new Rook(true, new Coordinates(0, 7)));
+        state.add(new Rook(true, new Coordinates(7, 7)));
+        state.add(new Knight(true, new Coordinates(1, 7)));
+        state.add(new Knight(true, new Coordinates(6, 7)));
+        state.add(new Bishop(true, new Coordinates(2, 7)));
+        state.add(new Bishop(true, new Coordinates(5, 7)));
+        state.add(new Queen( true, new Coordinates(4, 7)));
+        state.add(new King(true, new Coordinates(3, 7)));
 
         //black
         for (byte i = 0; i < 8; i++)
-            state[i][1] = new Pawn(false);
-        state[0][0] = new Rook( false);
-        state[7][0] = new Rook(false);
-        state[1][0] = new Knight(false);
-        state[6][0] = new Knight(false);
-        state[2][0] = new Bishop(false);
-        state[5][0] = new Bishop( false);
-        state[4][0] = new Queen(false);
-        state[3][0] = new King( false);
+            state.add(new Pawn(false, new Coordinates(i, 1)));
+        state.add(new Rook(false, new Coordinates(0, 0)));
+        state.add(new Rook(false, new Coordinates(7, 0)));
+        state.add(new Knight(false, new Coordinates(1, 0)));
+        state.add(new Knight(false, new Coordinates(6, 0)));
+        state.add(new Bishop(false, new Coordinates(2, 0)));
+        state.add(new Bishop(false, new Coordinates(5, 0)));
+        state.add(new Queen( false, new Coordinates(4, 0)));
+        state.add(new King(false, new Coordinates(3, 0)));
     }
 
     /**
      * Zisti miesto, kde sa nachadza dana figurka
-     * @param piece
+     * @param lookedPiece
      * @return
      */
-    public Coordinates whereIsThis(Piece piece) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (this.getPieceOnPlace(i, j) == piece)
-                    return new Coordinates(i, j);
-            }
+    public Coordinates whereIsThis(Piece lookedPiece) {
+        for (Piece piece : state) {
+            if (piece == lookedPiece)
+                return piece.getCoors();
         }
         return null;
     }
@@ -263,22 +250,19 @@ public class GameState {
      * @return
      */
     public Piece isChecked(GameState state, boolean black) {
-        Coordinates king = null;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (state.getPieceOnPlace(i, j) instanceof King && state.getPieceOnPlace(i, j).getBlack() == black)
-                    king = new Coordinates(i, j);
+        Piece king = null;
+        for (Piece piece : state.getState()) {
+            if (piece instanceof King && piece.getBlack() == black) {
+                king = piece;
+                break;
             }
         }
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (state.getPieceOnPlace(i, j) != null && state.getPieceOnPlace(i, j).getBlack() != black) {
-                    ArrayList<Coordinates> coors = state.getPieceOnPlace(i, j).getLegalMoves(state, i, j);
-                    for (Coordinates coor:
-                            coors) {
-                        if (coor.getY() == king.getY() && coor.getX() == king.getX())
-                            return state.getPieceOnPlace(king.getX(), king.getY());
-                    }
+        for (Piece piece : state.getState()) {
+            if (piece.getBlack() != black) {
+                ArrayList<Coordinates> coors = piece.getLegalMoves(state);
+                for (Coordinates coor: coors) {
+                    if (coor.equals(king.getCoors()))
+                        return king;
                 }
             }
         }
@@ -292,17 +276,16 @@ public class GameState {
      * @return
      */
     public Piece isCheckMated(GameState state, boolean black) {
-        if (isChecked(state, black) != null) {
-            Coordinates king = null;
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (state.getPieceOnPlace(i, j) instanceof King && state.getPieceOnPlace(i, j).getBlack() == black)
-                        king = new Coordinates(i, j);
-                }
+        Piece king;
+        if ((king = isChecked(state, black)) != null) {
+            for (Piece piece : state.getState()) {
+                if (piece instanceof King && piece.getBlack() == black)
+                    king = piece;
             }
-            if (state.getLegalMoves(king.getX(), king.getY()).size() == 0) {
+
+            if (state.getLegalMoves(king.getCoors().getX(), king.getCoors().getY()).size() == 0) {
                 if (!isAnyThereLegalMove(state, black))
-                    return state.getPieceOnPlace(king.getX(), king.getY());
+                    return king;
             }
         }
         return null;
@@ -315,13 +298,10 @@ public class GameState {
      * @return
      */
     boolean isAnyThereLegalMove(GameState state, boolean blackOnMove) {
-        ArrayList<Coordinates> legalMoves =  new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (state.getPieceOnPlace(i, j) != null && state.getPieceOnPlace(i, j).getBlack() == blackOnMove) {
-                    if (state.getLegalMoves(i, j).size() != 0)
-                        return true;
-                }
+        for (Piece piece : state.getState()) {
+            if (piece.getBlack() == blackOnMove) {
+                if (state.getLegalMoves(piece.getCoors().getX(), piece.getCoors().getY()).size() != 0)
+                    return true;
             }
         }
         return false;
@@ -336,15 +316,12 @@ public class GameState {
      * @return
      */
     boolean isSquareAttacked(GameState state, int x, int y, boolean byBlack) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (state.getPieceOnPlace(i, j) != null && state.getPieceOnPlace(i, j).getBlack() == byBlack) {
-                    for (Coordinates coor : state.getPieceOnPlace(i, j).getLegalMoves(state, i, j)) {
-                        if (coor.getX() == x && coor.getY() == y)
-                            return true;
-                    }
+        for (Piece piece : state.getState()) {
+            if (piece.getBlack() == byBlack) {
+                for (Coordinates coor : piece.getLegalMoves(state)) {
+                    if (coor.equals(new Coordinates(x, y)))
+                        return true;
                 }
-
             }
         }
         return false;
