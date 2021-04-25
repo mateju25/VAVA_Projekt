@@ -24,16 +24,16 @@ public class Queen extends Piece{
     /**
      * Vrati mozne pohyby pre damu.
      * @param state
-     * @param x
-     * @param y
      * @return
      */
     @Override
-    public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
-        Rook tempRook = new Rook(this.black);
-        ArrayList<Coordinates> result = new ArrayList<>(tempRook.getLegalMoves(state, x, y));
-        Bishop tempBishop = new Bishop(this.black);
-        result.addAll(tempBishop.getLegalMoves(state, x, y));
+    public ArrayList<Coordinates> getLegalMoves(GameState state) {
+        int x = coors.getX();
+        int y = coors.getY();
+        Rook tempRook = new Rook(this.black, coors);
+        ArrayList<Coordinates> result = new ArrayList<>(tempRook.getLegalMoves(state));
+        Bishop tempBishop = new Bishop(this.black, coors);
+        result.addAll(tempBishop.getLegalMoves(state));
         return result;
     }
 }

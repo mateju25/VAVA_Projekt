@@ -25,14 +25,14 @@ public class Bishop extends Piece{
     /**
      * Vrati mozne pohyby pre strelca.
      * @param state
-     * @param x
-     * @param y
      * @return
      */
     @Override
-    public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
+    public ArrayList<Coordinates> getLegalMoves(GameState state) {
         ArrayList<Coordinates> result = new ArrayList<>();
         ValueRange range = ValueRange.of(0, 7);
+        int x = coors.getX();
+        int y = coors.getY();
         //doprava hore
         int j = y-1;
         int i = x+1;

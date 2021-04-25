@@ -33,13 +33,13 @@ public class Rook extends Piece{
     /**
      * Vrati mozne pohyby pre vezu.
      * @param state
-     * @param x
-     * @param y
      * @return
      */
     @Override
-    public ArrayList<Coordinates> getLegalMoves(GameState state, int x, int y) {
+    public ArrayList<Coordinates> getLegalMoves(GameState state) {
         ArrayList<Coordinates> result = new ArrayList<>();
+        int x = coors.getX();
+        int y = coors.getY();
         //x doprava
         for (int i = x+1; i < 8; i++) {
             if (!(insertMove(result, state, i, y)))

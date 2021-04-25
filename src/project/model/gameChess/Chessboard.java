@@ -68,14 +68,15 @@ public class Chessboard {
      * @return
      */
     public ArrayList<Coordinates> getLegalMoves(int x, int y) {
-        if (state.getPieceOnPlace(x,y) == null)
+        Piece piece = state.getPieceOnPlace(x,y);
+        if (piece == null)
             return null;
-        if (state.getPieceOnPlace(x,y).getBlack() && !blackTurn)
+        if (piece.getBlack() && !blackTurn)
             return null;
-        if (!state.getPieceOnPlace(x,y).getBlack() && blackTurn)
+        if (!piece.getBlack() && blackTurn)
             return null;
 
-        return state.getLegalMoves(x, y);
+        return state.getLegalMoves(piece);
     }
 
     /**
