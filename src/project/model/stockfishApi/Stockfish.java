@@ -1,9 +1,16 @@
 package project.model.stockfishApi;
 
+import javafx.scene.image.Image;
 import project.model.GameParticipant;
 
 import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * @author Matej Delincak
@@ -17,17 +24,23 @@ public class Stockfish implements GameParticipant {
     private LinkedList<String> moves = null;
     private int level = 1;
 
+    public int getLevel() {
+        return level;
+    }
+
     private Stockfish(int level) {
         this.level = level;
         try {
-            ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.dir").replace('\\','/') + "/src/" + "project/model/stockfishApi/resources/stockfish_13_win_x64.exe");
+            String url = System.getProperty("user.dir") + "/Data/stockfish_13_win_x64.exe";
+            url = url.replace("\\", FileSystems.getDefault().getSeparator()).replace("/", FileSystems.getDefault().getSeparator());
+            ProcessBuilder pb = new ProcessBuilder(url);
             //region Private
             Process myProcess = pb.start();
             output = new BufferedReader(new InputStreamReader(myProcess.getInputStream()));
             input = new BufferedWriter(new OutputStreamWriter(myProcess.getOutputStream()));
             moves = new LinkedList<>();
         } catch (IOException e) {
-            e.printStackTrace();
+            this.level = -1;
         }
     }
 
