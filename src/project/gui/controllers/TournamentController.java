@@ -212,7 +212,10 @@ public class TournamentController {
     private void addResult() {
         if (tournament.getMapOfParticipants().containsKey(match.getText()))
             return;
-
+        if (match.getText().isEmpty()||result.getText().isEmpty())
+        {
+            return;
+        }
         addNameIntoBracket(match.getText(),result.getText());
     }
 
