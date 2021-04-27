@@ -53,7 +53,7 @@ public class LoginSceneController {
         }
 
         if (!LoginConnection.getInstance().loginUser(name, password)) {
-            warning.setText("Nepodarilo sa prihlasit");
+            warning.setText("Nepodarilo sa prihlásiť!");
             return;
         }
 
