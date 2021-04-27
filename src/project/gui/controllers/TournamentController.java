@@ -213,7 +213,7 @@ public class TournamentController implements Initializable {
     }
     @FXML
     private void joinTournament(){
-
+    
         gc.setFill(rgb(0,255,255));
         int x=1;
         joinTournamentBrackets(x,activePlayer.getName());
