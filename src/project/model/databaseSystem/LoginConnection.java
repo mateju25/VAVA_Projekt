@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ public class LoginConnection {
 
     private static LoginConnection single_instance = null;
     private ChessPlayer activePlayer = null;
-    private ArrayList<ChessPlayer> chessPlayerslist = new ArrayList<>();
+    private ArrayList<ChessPlayer> chessPlayerslist = null;
 
 
     private final String connectionUrl = "jdbc:sqlserver://fiit-vava.database.windows.net:1433;database=fiit-vava-dbs;user=matej.delincak@fiit-vava;password=28qpj2C5zXTDmRn45x9wlkj;";
@@ -37,27 +38,11 @@ public class LoginConnection {
     }
 
     public ArrayList<ChessPlayer> getChessPlayerslist() {
-        return chessPlayerslist;
-    }
-
-    public void addPoints(int addGamePc, int addGamePlayer, int addWin, int addDraw, int addLose) {
-        PreparedStatement statement = null;
-
-        try {
-            Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("UPDATE users SET gamesPC += ?, gamesPlayer += ?, wins += ?, draws += ?, loses += ? WHERE email= ?;");
-            statement.setInt(1, addGamePc);
-            statement.setInt(2, addGamePlayer);
-            statement.setInt(3, addWin);
-            statement.setInt(4, addDraw);
-            statement.setInt(5, addLose);
-            statement.setString(6, activePlayer.getEmail());
-            statement.executeQuery();
-
-            connection.close();
-        } catch (SQLException a) {
-            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        if (chessPlayerslist == null) {
+            chessPlayerslist = new ArrayList<>();
+            loadPlayers();
         }
+        return chessPlayerslist;
     }
 
     public boolean existsUserName(String name, String email) {
@@ -80,22 +65,6 @@ public class LoginConnection {
         }
         return result;
     }
-    public void setTournament(int tournament) {
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-
-        try {
-            Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("UPDATE users SET tournament= ? WHERE email= ?;");
-            statement.setInt(1, tournament);
-            statement.setString(2,  activePlayer.getEmail());
-            statement.executeQuery();
-
-            connection.close();
-        } catch (SQLException a) {
-            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
-        }
-    }
 
     public boolean loginUser(String name, String password) {
         ResultSet resultSet = null;
@@ -114,12 +83,14 @@ public class LoginConnection {
                 this.activePlayer = new ChessPlayer(resultSet.getString("username"),
                         password,
                         resultSet.getString("email"),
+                        resultSet.getBoolean("administrator"),
                         resultSet.getInt("gamesPC"),
                         resultSet.getInt("gamesPlayer"),
                         resultSet.getInt("wins"),
                         resultSet.getInt("draws"),
                         resultSet.getInt("loses"),
-                        resultSet.getBoolean("administrator"),
+                        resultSet.getInt("board"),
+                        resultSet.getInt("pieces"),
                         resultSet.getBoolean("tournament"));
             }
             connection.close();
@@ -130,93 +101,29 @@ public class LoginConnection {
         return result;
     }
 
-    public void changePassword(String newPassword) {
+    public void saveUser() {
         PreparedStatement statement = null;
 
         try {
             Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("UPDATE users SET password = ? WHERE email= ? and password= ?;");
-            statement.setString(1, hashPass(newPassword));
-            statement.setString(2,  activePlayer.getEmail());
-            statement.setString(3,  hashPass(activePlayer.getPassword()));
-            statement.executeQuery();
+            statement = connection.prepareStatement("UPDATE users SET gamesPC = ?, gamesPlayer = ?, wins = ?, draws = ?, loses = ?, board = ?, pieces = ?, tournament = ?, password = ? WHERE email= ?;");
+            statement.setInt(1, activePlayer.getGamesVsPc());
+            statement.setInt(2, activePlayer.getGamesVsPlayer());
+            statement.setInt(3, activePlayer.getWins());
+            statement.setInt(4, activePlayer.getDraws());
+            statement.setInt(5, activePlayer.getLoses());
+            statement.setInt(6, activePlayer.getFavouriteBoard());
+            statement.setInt(7, activePlayer.getFavouritePieces());
+            statement.setInt(8, activePlayer.isParticipant() ? 1 : 0);
+            statement.setString(9, hashPass(activePlayer.getPassword()));
+            statement.setString(10, activePlayer.getEmail());
+            statement.executeUpdate();
 
             connection.close();
         } catch (SQLException a) {
             LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
         }
-    }
 
-    public int getFavouriteBoard() {
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-
-        int result = 1;
-        try {
-            Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("SELECT board FROM users WHERE email = ?;");
-            statement.setString(1, activePlayer.getEmail());
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                result = resultSet.getInt(1);
-            }
-            connection.close();
-        } catch (SQLException a) {
-        }
-        return result;
-    }
-
-    public void setFavouriteBoard(int board) {
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-
-        try {
-            Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("UPDATE users SET board = ? WHERE email= ?;");
-            statement.setInt(1, board);
-            statement.setString(2,  activePlayer.getEmail());
-            statement.executeQuery();
-
-            connection.close();
-        } catch (SQLException a) {
-        }
-    }
-
-    public int getFavouritePieces() {
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-
-        int result = 1;
-        try {
-            Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("SELECT pieces FROM users WHERE email = ?;");
-            statement.setString(1, activePlayer.getEmail());
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                result = resultSet.getInt(1);
-            }
-            connection.close();
-        } catch (SQLException a) {
-            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
-        }
-        return result;
-    }
-
-    public void setFavouritePieces(int pieces) {
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-
-        try {
-            Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("UPDATE users SET pieces = ? WHERE email= ?;");
-            statement.setInt(1, pieces);
-            statement.setString(2,  activePlayer.getEmail());
-            statement.executeQuery();
-
-            connection.close();
-        } catch (SQLException a) {
-            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
-        }
     }
 
     public void loadPlayers() {
@@ -232,12 +139,14 @@ public class LoginConnection {
                 this.chessPlayerslist.add(new ChessPlayer(resultSet.getString("username"),
                         "unknown",
                         resultSet.getString("email"),
+                        resultSet.getBoolean("administrator"),
                         resultSet.getInt("gamesPC"),
                         resultSet.getInt("gamesPlayer"),
                         resultSet.getInt("wins"),
                         resultSet.getInt("draws"),
                         resultSet.getInt("loses"),
-                        resultSet.getBoolean("administrator"),
+                        resultSet.getInt("board"),
+                        resultSet.getInt("pieces"),
                         resultSet.getBoolean("tournament")));
             }
             connection.close();

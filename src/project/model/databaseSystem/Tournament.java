@@ -63,28 +63,6 @@ public class Tournament {
         return newMap;
     }
 
-    // uloz aktualnu lokalnu mapu hracov do databazy
-    public void setMapOfParticipantsToDatabase() {
-        PreparedStatement statement = null;
-
-
-        try {
-            Connection connection = DriverManager.getConnection(connectionUrl);
-            statement = connection.prepareStatement("DELETE FROM tournament");
-            statement.executeUpdate();
-            statement = connection.prepareStatement("INSERT INTO tournament VALUES (?, ?);");
-            for (String key :
-                    mapOfParticipants.keySet()) {
-                statement.setString(1, key);
-                statement.setString(2, mapOfParticipants.get(key));
-                statement.executeUpdate();
-            }
-            connection.close();
-        } catch (SQLException a) {
-            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
-        }
-        setType();
-    }
     public int loadType() {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -117,6 +95,47 @@ public class Tournament {
             statement.executeUpdate();
             statement = connection.prepareStatement("INSERT INTO tournament_info VALUES (?);");
             statement.setInt(1, this.format);
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri turnaji v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
+    }
+
+    // uloz aktualnu lokalnu mapu hracov do databazy
+    public void setMapOfParticipantsToDatabase() {
+        PreparedStatement statement = null;
+
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("DELETE FROM tournament");
+            statement.executeUpdate();
+            statement = connection.prepareStatement("INSERT INTO tournament VALUES (?, ?);");
+            for (String key :
+                    mapOfParticipants.keySet()) {
+                statement.setString(1, key);
+                statement.setString(2, mapOfParticipants.get(key));
+                statement.executeUpdate();
+            }
+            connection.close();
+        } catch (SQLException a) {
+            LOGGER.log(Level.SEVERE, "Nastala chyba v spojení s databázou pri multiplayeri v metóde: " + new Object(){}.getClass().getEnclosingMethod().getName());
+        }
+        setType();
+    }
+
+    public void deleteTournament() {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl);
+            statement = connection.prepareStatement("DELETE FROM tournament_info;");
+            statement.executeUpdate();
+            statement = connection.prepareStatement("DELETE FROM tournament;");
+            statement.executeUpdate();
+            statement = connection.prepareStatement("UPDATE users SET tournament = 0;");
             statement.executeUpdate();
             connection.close();
         } catch (SQLException a) {

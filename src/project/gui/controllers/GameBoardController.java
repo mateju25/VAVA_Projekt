@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import project.gui.Main;
 import project.model.GameParticipant;
+import project.model.databaseSystem.ChessPlayer;
 import project.model.databaseSystem.LoginConnection;
 import project.model.databaseSystem.MultiplayerConnection;
 import project.model.gameChess.Chessboard;
@@ -99,7 +100,7 @@ public class GameBoardController {
                 else {
                     if (!stop) {
                         timer.cancel();
-                        board.setLastSignal(Signalization.NOTIME);
+                        board.setLastSignal(Signalization.NO_TIME);
                         Platform.runLater(() -> handleSignalFromChessboard());
                     }
                 }
@@ -121,96 +122,93 @@ public class GameBoardController {
     }
 
     public synchronized void handleSignalFromChessboard() {
-        int addWin = 0;
-        int addLose = 0;
+        if (board.getLastSignal() == Signalization.NO_PIECE ||
+                board.getLastSignal() == Signalization.NORMAL ||
+                board.getLastSignal() == Signalization.CHECK)
+            return;
+        ChessPlayer player = LoginConnection.getInstance().getActivePlayer();
+        exitEverything();
+        resultWarning.setVisible(true);
         switch (board.getLastSignal()) {
             case CHECKMATE: {
-                exitEverything();
-                resultWarning.setVisible(true);
-
                 if (board.getState().isBlackCloser() && board.isWhiteCheckmated()) {
                     resultWarning.setText("MAT\nVíťaz čierny 1-0");
-                    addWin = MultiplayerController.use ? 1 : 0;
+                    player.setWins(player.getWins() + (MultiplayerController.use ? 1 : 0));
                 }
                 if (board.getState().isBlackCloser() && board.isBlackCheckmated()) {
                     resultWarning.setText("MAT\nVíťaz biely 0-1");
-                    addLose = MultiplayerController.use ? 1 : 0;
+                    player.setLoses(player.getLoses() + (MultiplayerController.use ? 1 : 0));
                 }
                 if (!board.getState().isBlackCloser() && board.isBlackCheckmated()) {
                     resultWarning.setText("MAT\nVíťaz biely 1-0");
-                    addWin = MultiplayerController.use ? 1 : 0;
+                    player.setWins(player.getWins() + (MultiplayerController.use ? 1 : 0));
                 }
                 if (!board.getState().isBlackCloser() && board.isWhiteCheckmated()) {
                     resultWarning.setText("MAT\nVíťaz čierny 0-1");
-                    addLose = MultiplayerController.use ? 1 : 0;
+                    player.setLoses(player.getLoses() + (MultiplayerController.use ? 1 : 0));
                 }
 
-                LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, addWin, 0, addLose);
-                LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
                 break;
             }
 
             case STALEMATE: {
-                exitEverything();
-                resultWarning.setVisible(true);
                 resultWarning.setText("PAT\n Remíza 1/2-1/2 ");
-                LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, 0, 1, 0);
-                LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
+
+                player.setDraws(player.getDraws() + (MultiplayerController.use ? 1 : 0));
+
                 break;
             }
 
-            case NOTIME: {
-                exitEverything();
-                resultWarning.setVisible(true);
-
+            case NO_TIME: {
                 if (board.getState().isBlackCloser() && botTime.isAfter(LocalTime.of(0, 0, 0))) {
                     resultWarning.setText("Došiel čas\nVíťaz čierny 1-0");
-                    addWin = MultiplayerController.use ? 1 : 0;
+                    player.setWins(player.getWins() + (MultiplayerController.use ? 1 : 0));
                 }
                 if (board.getState().isBlackCloser() && topTime.isAfter(LocalTime.of(0, 0, 0))) {
                     resultWarning.setText("Došiel čas\nVíťaz biely 0-1");
-                    addLose = MultiplayerController.use ? 1 : 0;
+                    player.setLoses(player.getLoses() + (MultiplayerController.use ? 1 : 0));
                 }
                 if (!board.getState().isBlackCloser() && topTime.isAfter(LocalTime.of(0, 0, 0))) {
                     resultWarning.setText("Došiel čas\nVíťaz čierny 0-1");
-                    addLose = MultiplayerController.use ? 1 : 0;
+                    player.setLoses(player.getLoses() + (MultiplayerController.use ? 1 : 0));
                 }
                 if (!board.getState().isBlackCloser() && botTime.isAfter(LocalTime.of(0, 0, 0))) {
                     resultWarning.setText("Došiel čas\nVíťaz biely 1-0");
-                    addWin = MultiplayerController.use ? 1 : 0;
+                    player.setWins(player.getWins() + (MultiplayerController.use ? 1 : 0));
                 }
 
-                LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, addWin, 0, addLose);
-                LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
                 break;
             }
 
-            case GIVEUPME: {
-                exitEverything();
-                resultWarning.setVisible(true);
+            case GIVE_UP_ME: {
                 if (board.getState().isBlackCloser())
                     resultWarning.setText("Vzdal si sa\n Víťaz biely 0-1 ");
                 else
                     resultWarning.setText("Vzdal si sa\n Víťaz čierny 0-1 ");
 
-                LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, 0, 0, MultiplayerController.use ? 1 : 0);
-                LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
+                player.setLoses(player.getLoses() + (MultiplayerController.use ? 1 : 0));
+
                 break;
             }
 
-            case GIVEUPOTHER: {
-                exitEverything();
-                resultWarning.setVisible(true);
+            case GIVE_UP_OTHER: {
                 if (board.getState().isBlackCloser())
                     resultWarning.setText("Súper sa vzdal\n Víťaz čierny 1-0 ");
                 else
                     resultWarning.setText("Súper sa vzdal\n Víťaz biely 1-0 ");
 
-                LoginConnection.getInstance().addPoints(SingleplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, MultiplayerController.use ? 1 : 0, 0, 0);
-                LoginConnection.getInstance().loginUser(LoginConnection.getInstance().getActivePlayer().getName(), LoginConnection.getInstance().getActivePlayer().getPassword());
+                player.setWins(player.getWins() + (MultiplayerController.use ? 1 : 0));
+
                 break;
             }
         }
+
+        if (MultiplayerController.use)
+            player.setGamesVsPlayer(player.getGamesVsPlayer() + 1);
+        if (SingleplayerController.use)
+            player.setGamesVsPc(player.getGamesVsPc() + 1);
+
+        LoginConnection.getInstance().saveUser();
     }
 
     public void initialize() {
@@ -256,7 +254,7 @@ public class GameBoardController {
         secondPlayerThread = new Thread(new Runnable() {
             private void checkIfGiveUp() {
                 if (MultiplayerController.use && MultiplayerConnection.getInstance().isGiveUp()) {
-                    board.setLastSignal(Signalization.GIVEUPOTHER);
+                    board.setLastSignal(Signalization.GIVE_UP_OTHER);
                     Platform.runLater(() -> handleSignalFromChessboard());
                 }
             }
@@ -375,7 +373,7 @@ public class GameBoardController {
                 board.makeMove(activeFigure.getX(), activeFigure.getY(), x, y, tmp);
 
                 activeFigure = null;
-                if (board.getLastSignal() == Signalization.NOPIECE) {
+                if (board.getLastSignal() == Signalization.NO_PIECE) {
                     board.setLastSignal(signal);
                     drawingFunctions.refreshBoard();
                     return;
@@ -416,11 +414,11 @@ public class GameBoardController {
 
     public void giveUp(ActionEvent actionEvent) {
         if (SingleplayerController.use) {
-            board.setLastSignal(Signalization.GIVEUPME);
+            board.setLastSignal(Signalization.GIVE_UP_ME);
             handleSignalFromChessboard();
         }
         if (MultiplayerController.use) {
-            board.setLastSignal(Signalization.GIVEUPME);
+            board.setLastSignal(Signalization.GIVE_UP_ME);
             handleSignalFromChessboard();
             MultiplayerConnection.getInstance().setGiveUp(true);
         }

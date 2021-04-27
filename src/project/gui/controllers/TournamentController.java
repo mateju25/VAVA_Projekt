@@ -2,6 +2,7 @@ package project.gui.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import project.model.databaseSystem.ChessPlayer;
 import project.model.databaseSystem.LoginConnection;
@@ -23,13 +25,14 @@ import project.model.databaseSystem.Tournament;
 import java.io.IOException;
 import java.net.URL;
 
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static javafx.scene.paint.Color.rgb;
 
-public class TournamentController implements Initializable {
+public class TournamentController {
+    @FXML
+    public Button buttonCancelTournament;
     @FXML
     private Label warning;
     @FXML
@@ -50,23 +53,23 @@ public class TournamentController implements Initializable {
     @FXML
     private Canvas canvas;
     private GraphicsContext gc;
-    //si ho len getnem ten turnaj toto treba spravit prve
+
     private final Tournament tournament= Tournament.getInstance();
     private final ChessPlayer activePlayer = LoginConnection.getInstance().getActivePlayer();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
+        gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         tournament.setFormat(tournament.loadType());
         tournament.setMapOfParticipants(tournament.loadMapOfParticipantsFromDatabase());
-        if (tournament.loadType()!=0) {
+        if (tournament.getFormat() != 0) {
             tournament.setActive(true);
         }
-        gc=canvas.getGraphicsContext2D();
+
         gc.setFill(rgb(255,255,255));
-        gc.setFont(new Font("serif",  20));
+        gc.setFont(Font.font("serif", FontWeight.BOLD,  20));
         participantsCount.setItems(counts);
-//        tournament.setMapOfParticipants(new HashMap<>());
-//        tournament.setMapOfParticipantsToDatabase();
+
         if(activePlayer.isAdministrator()){
             if(!tournament.isActive()){
                 setNoActiveTournamentAdmin();
@@ -84,18 +87,15 @@ public class TournamentController implements Initializable {
         setNamesIntoBrackets();
 
     }
+
     private void setNamesIntoBrackets() {
         displayBrackets();
-        for (String key:tournament.getMapOfParticipants().keySet()
-        ) {
-            if (Integer.parseInt(key) < 12)
-                joinTournamentBrackets(Integer.parseInt(key),tournament.getMapOfParticipants().get(key));
-            else
-                addResult(key,tournament.getMapOfParticipants().get(key));
-        }
+        for (String key:tournament.getMapOfParticipants().keySet())
+            addNameIntoBracket(key, tournament.getMapOfParticipants().get(key));
     }
 
-    private void setActiveTournamentAdmin(){
+    private void setActiveTournamentAdmin() {
+        buttonCancelTournament.setVisible(true);
         buttonJoin.setVisible(!activePlayer.isParticipant());
         match.setVisible(true);
         result.setVisible(true);
@@ -106,7 +106,9 @@ public class TournamentController implements Initializable {
         description.setVisible(true);
         description.setText("Zapísať výsledok");
     }
+
     private void setNoActiveTournamentAdmin(){
+        buttonCancelTournament.setVisible(false);
         match.setVisible(false);
         result.setVisible(false);
         warning.setVisible(true);
@@ -117,8 +119,12 @@ public class TournamentController implements Initializable {
         description.setVisible(true);
         description.setText("Počet účastníkov");
     }
+
     private void setActiveTournamentPlayer(){
+        buttonCancelTournament.setVisible(false);
         buttonJoin.setVisible(!activePlayer.isParticipant());
+        if (tournament.getMapOfParticipants().containsKey(String.valueOf(tournament.getFormat())))
+            buttonJoin.setVisible(false);
         match.setVisible(false);
         result.setVisible(false);
         warning.setVisible(false);
@@ -128,7 +134,9 @@ public class TournamentController implements Initializable {
         description.setVisible(true);
         description.setText("Nech zvíťazi ten najlepší, veľa štastia!");
     }
+
     private void setNoActiveTournamentPlayer(){
+        buttonCancelTournament.setVisible(false);
         match.setVisible(false);
         result.setVisible(false);
         warning.setVisible(true);
@@ -138,50 +146,23 @@ public class TournamentController implements Initializable {
         participantsCount.setVisible(false);
         description.setVisible(false);
     }
-    private void joinTournamentBrackets(int x, String name){
-        if(tournament.getFormat() == 8) {
-            int temp = x;
-            int gen = 0;
-            while (temp != 1 && temp != 0) {
-                temp = temp - 2;
-                gen++;
-            }
-            if (x % 2 == 1) {
-                gc.fillText(name, 65, 40 + (94 * (x - gen - 1)));
 
-            } else {
-
-                gc.fillText(name, 65, 88 + (94 * (x - gen - 1)));
-            }
-        }
-        if(tournament.getFormat() == 4){
-            if (x == 1) {
-                gc.fillText(name, 68, 40);
-            } else {
-                gc.fillText(name, 68, 40+(100 * (x-1)));
-            }
-        }
-    }
     private void displayBrackets(){
-        Image brackets=null;
-        if(tournament.getFormat()==4){
-            brackets = new Image("/project/gui/resources/pictures/turnaj4.png");
+        if (tournament.getFormat() != 0) {
+            String url = "/project/gui/resources/pictures/turnaj" + tournament.getFormat() + ".png";
+            gc.drawImage(new Image(url), 0, 0);
         }
-        if(tournament.getFormat()==8){
-            brackets = new Image("/project/gui/resources/pictures/turnaj8.png");
-        }
-        gc.drawImage(brackets, 0, 0);
-
     }
+
     @FXML
     private void createTournament(){
         if(participantsCount.getSelectionModel().getSelectedItem()==null)
-        {
-                return;
-        }
+            return;
+
         tournament.setActive(true);
         tournament.setFormat(participantsCount.getValue());
         tournament.setType();
+
         match.setVisible(true);
         result.setVisible(true);
         warning.setVisible(false);
@@ -192,6 +173,7 @@ public class TournamentController implements Initializable {
         description.setVisible(true);
         description.setText("Zapísať výsledok");
         displayBrackets();
+        initialize();
     }
 
     private String getAvailablePosition() {
@@ -211,77 +193,84 @@ public class TournamentController implements Initializable {
 
         return pos==-1 ? null : String.valueOf(pos);
     }
+
     @FXML
     private void joinTournament(){
-    
         gc.setFill(rgb(0,255,255));
-        int x=1;
-        joinTournamentBrackets(x,activePlayer.getName());
         buttonJoin.setVisible(false);
         String pos = getAvailablePosition();
         if(pos!=null){
             tournament.getMapOfParticipants().put(pos,activePlayer.getName());
             tournament.setMapOfParticipantsToDatabase();
+            addNameIntoBracket(pos, activePlayer.getName());
+            activePlayer.setParticipant(true);
+            LoginConnection.getInstance().saveUser();
         }
     }
+
     @FXML
     private void addResult() {
+        if (tournament.getMapOfParticipants().containsKey(match.getText()))
+            return;
 
-        String matchround = match.getText();
-        String winner = result.getText();
-        if (tournament.getMapOfParticipants().containsKey(matchround)) {
+        addNameIntoBracket(match.getText(),result.getText());
+    }
+
+    private void addNameIntoBracket(String x, String name) {
+        if (Integer.parseInt(x) < 12)
+            addParticipant(x, name);
+        else
+            addResult(x, name);
+    }
+
+    private void addParticipant(String x, String name){
+        if(tournament.getFormat() == 8) {
+            int temp = Integer.parseInt(x);
+            int gen = 0;
+            while (temp != 1 && temp != 0) {
+                temp = temp - 2;
+                gen++;
+            }
+            if (Integer.parseInt(x) % 2 == 1) {
+                gc.fillText(name, 65, 40 + (94 * (Integer.parseInt(x) - gen - 1)));
+
+            } else {
+
+                gc.fillText(name, 65, 88 + (94 * (Integer.parseInt(x) - gen - 1)));
+            }
+        }
+        if(tournament.getFormat() == 4){
+            if (Integer.parseInt(x) == 1) {
+                gc.fillText(name, 68, 40);
+            } else {
+                gc.fillText(name, 68, 40+(100 * (Integer.parseInt(x)-1)));
+            }
+        }
+    }
+
+    private void addResult(String matchround,String winner){
+        if (tournament.getFormat() == 0) {
             return;
         }
-        addResult(matchround,winner);
-    }
-    private void addResult(String matchround,String winner){
-
         if (tournament.getFormat() == 8) {
-            if (matchround.equals("12")) {
-                gc.fillText(winner, 270, 64);
-                tournament.getMapOfParticipants().put("12",winner);
-            }
-            if (matchround.equals("34")) {
-                gc.fillText(winner, 270, 158);
-                tournament.getMapOfParticipants().put("34",winner);
-                }
-            }
-            if (matchround.equals("56")) {
-                gc.fillText(winner, 270, 252);
-                tournament.getMapOfParticipants().put("56",winner);
-            }
-            if (matchround.equals("78")) {
-
-                gc.fillText(winner, 270, 346);
-                tournament.getMapOfParticipants().put("78",winner);
-            }
-            if (matchround.equals("1234")) {
-                gc.fillText(winner, 440, 109);
-                tournament.getMapOfParticipants().put("1234",winner);
-            }
-            if (matchround.equals("5678")) {
-                gc.fillText(winner, 440, 302);
-                tournament.getMapOfParticipants().put("5678",winner);
-            }
-            if (matchround.equals("12345678")) {
-                gc.fillText(winner, 610, 205);
-                tournament.getMapOfParticipants().put("12345678",winner);
-        }
-        if(tournament.getFormat()==4)
-        {
-            if (matchround.equals("12")) {
-                gc.fillText(winner, 310, 95);
-                tournament.getMapOfParticipants().put("12",winner);
-            }
-            if (matchround.equals("34")) {
-                gc.fillText(winner, 310, 320);
-                tournament.getMapOfParticipants().put("34",winner);
-            }
-            if (matchround.equals("1234")) {
-                gc.fillText(winner, 550, 207);
-                tournament.getMapOfParticipants().put("1234",winner);
+            switch (matchround.intern()) {
+                case "12": gc.fillText(winner, 270, 64); break;
+                case "34": gc.fillText(winner, 270, 158); break;
+                case "56": gc.fillText(winner, 270, 252); break;
+                case "78": gc.fillText(winner, 270, 346); break;
+                case "1234": gc.fillText(winner, 440, 109); break;
+                case "5678": gc.fillText(winner, 440, 302); break;
+                case "12345678": gc.fillText(winner, 610, 205); break;
             }
         }
+        if (tournament.getFormat() == 4) {
+            switch (matchround.intern()) {
+                case "12": gc.fillText(winner, 310, 95); break;
+                case "34": gc.fillText(winner, 310, 320); break;
+                case "1234": gc.fillText(winner, 550, 207); break;
+            }
+        }
+        tournament.getMapOfParticipants().put(matchround,winner);
         tournament.setMapOfParticipantsToDatabase();
     }
 
@@ -290,5 +279,9 @@ public class TournamentController implements Initializable {
         LoginSceneController.switchScene("/project/gui/views/MenuScene.fxml");
     }
 
-
+    @FXML
+    public void cancelTournament(ActionEvent actionEvent) {
+        tournament.deleteTournament();
+        initialize();
+    }
 }
