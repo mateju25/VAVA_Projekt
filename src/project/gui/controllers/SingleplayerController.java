@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.util.converter.DateTimeStringConverter;
 import project.gui.Main;
+import project.model.stockfishApi.Stockfish;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -62,7 +63,14 @@ public class SingleplayerController {
             if (impossibleLevelBtn.isSelected())
                 level = 10;
 
+            Stockfish secondPlayer = Stockfish.getInstance(SingleplayerController.level);
+            if ((secondPlayer).getLevel() == -1) {
+                warningText.setText("Chýba súbor stockfish v Data");
+                return;
+            }
+
             use = true;
+            MultiplayerController.use = false;
 
             minutes = Integer.parseInt(timeText.getText(0, 2));
             seconds = Integer.parseInt(timeText.getText(3, 5));

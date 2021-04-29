@@ -59,15 +59,10 @@ public class MultiplayerController {
                 warningText.setText("Vygenerujte link na hru!");
                 return;
             }
-            if (whiteSideBtn.isSelected())
-                blackSide = false;
-            if (blackSideBtn.isSelected())
-                blackSide = true;
-            if (randomSideBtn.isSelected())
-                blackSide = new Random().nextBoolean();
 
             use = true;
             host = true;
+            SingleplayerController.use = false;
 
             minutes = Integer.parseInt(timeText.getText(0, 2));
             seconds = Integer.parseInt(timeText.getText(3, 5));
@@ -92,6 +87,7 @@ public class MultiplayerController {
         blackSideBtn.setSelected(false);
     }
     public void blackSideChoose(ActionEvent actionEvent) {
+        blackSide = true;
         joinLinkText.setText("");
         randomSideBtn.setSelected(false);
         whiteSideBtn.setSelected(false);
@@ -99,12 +95,14 @@ public class MultiplayerController {
 
 
     public void whiteSideClick(ActionEvent actionEvent) {
+        blackSide = false;
         joinLinkText.setText("");
         randomSideBtn.setSelected(false);
         blackSideBtn.setSelected(false);
     }
 
     public void randomSideClick(ActionEvent actionEvent) {
+        blackSide = new Random().nextBoolean();
         joinLinkText.setText("");
         blackSideBtn.setSelected(false);
         whiteSideBtn.setSelected(false);
@@ -117,17 +115,19 @@ public class MultiplayerController {
         seconds = Integer.parseInt(timeText.getText(3, 5));
         host = false;
         if (whiteSideBtn.isSelected()) {
+            blackSide = false;
             MultiplayerConnection.getInstance().createNewGame(false, LocalTime.of(0, minutes, seconds));
             generateLinkText.setText(String.valueOf(MultiplayerConnection.getInstance().getId()));
             return;
         }
         if (blackSideBtn.isSelected()){
+            blackSide = true;
             MultiplayerConnection.getInstance().createNewGame(true, LocalTime.of(0, minutes, seconds));
             generateLinkText.setText(String.valueOf(MultiplayerConnection.getInstance().getId()));
             return;
         }
         if (randomSideBtn.isSelected()) {
-            MultiplayerConnection.getInstance().createNewGame(new Random().nextBoolean(), LocalTime.of(0, minutes, seconds));
+            MultiplayerConnection.getInstance().createNewGame(blackSide, LocalTime.of(0, minutes, seconds));
             generateLinkText.setText(String.valueOf(MultiplayerConnection.getInstance().getId()));
             return;
         }
@@ -145,6 +145,7 @@ public class MultiplayerController {
             return;
         }
         use = true;
+        SingleplayerController.use = false;
 
         MultiplayerConnection.getInstance().setId(Integer.parseInt(joinLinkText.getText()));
         blackSide = !MultiplayerConnection.getInstance().getColor();

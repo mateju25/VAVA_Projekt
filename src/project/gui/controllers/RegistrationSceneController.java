@@ -34,6 +34,11 @@ public class RegistrationSceneController {
     private Button backBtn;
     private int generatedPin = 0;
 
+    public void initialize() {
+        sendPinBtn.setVisible(false);
+        textPin.setVisible(false);
+    }
+
     @FXML
     private void registration() {
         warning.setText("");
@@ -67,10 +72,10 @@ public class RegistrationSceneController {
             warning.setText("Daný užívateľ už existuje!");
             return;
         }
-        if (!(String.valueOf(generatedPin).equals(pin)))  {
-            warning.setText("Nesprávny PIN!");
-            return;
-        }
+//        if (!(String.valueOf(generatedPin).equals(pin)))  {
+//            warning.setText("Nesprávny PIN!");
+//            return;
+//        }
 
         LoginConnection.getInstance().registrationUser(name,password,email);
 
@@ -84,12 +89,14 @@ public class RegistrationSceneController {
         LoginSceneController.switchScene("/project/gui/views/LoginScene.fxml");
     }
     public void changeToSlovak() {
+        warning.setText("");
         Locale.setDefault(new Locale("sk"));
         Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
 
     public  void changeToEnglish() {
+        warning.setText("");
         Locale.setDefault(new Locale("us"));
         Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
         refreshTexts();
@@ -104,6 +111,7 @@ public class RegistrationSceneController {
         backBtn.setText(Main.bundle.getString("backBtn"));
     }
     public void sendVerificationMail(ActionEvent actionEvent) {
+        warning.setText("");
         Random rand = new Random();
         generatedPin = rand.nextInt(1000) * 9 + 1;
         Pattern p = Pattern.compile(".*@.*[.].*");

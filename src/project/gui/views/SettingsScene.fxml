@@ -120,6 +120,11 @@
                   <Font size="20.0" />
                </font>
             </Button>
+            <Label fx:id="warning" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="454.0" prefHeight="39.0" prefWidth="432.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </center>

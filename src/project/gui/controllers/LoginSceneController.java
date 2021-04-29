@@ -53,7 +53,7 @@ public class LoginSceneController {
         }
 
         if (!LoginConnection.getInstance().loginUser(name, password)) {
-            warning.setText("Nepodarilo sa prihlasit");
+            warning.setText("Nepodarilo sa prihlásiť!");
             return;
         }
 
@@ -69,12 +69,14 @@ public class LoginSceneController {
     }
 
     public void changeToSlovak() {
+        warning.setText("");
         Locale.setDefault(new Locale("sk"));
         Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
 
     public  void changeToEnglish() {
+        warning.setText("");
         Locale.setDefault(new Locale("us"));
         Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/english");
         refreshTexts();
