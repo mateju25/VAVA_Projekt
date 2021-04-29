@@ -47,29 +47,29 @@ public class RegistrationSceneController {
         String email= this.email.getText();
         String pin= this.textPin.getText();
 
-        if(name.isEmpty() || password.isEmpty() || pin.isEmpty()) {
-            warning.setText("Vyplnťe všetky povinné polia!");
+        if(name.isEmpty() || password.isEmpty() /*|| pin.isEmpty()*/) {
+            warning.setText(Main.bundle.getString("important"));
             return;
         }
 
         if(password.length()<6){
-            warning.setText("Príliš krátke heslo - aspoň 6 znakov!");
+            warning.setText(Main.bundle.getString("shortPas"));
             return;
         }
 
         if(name.length()>20){
-            warning.setText("Príliš dlhé meno - najviac 20 znakov!");
+            warning.setText(Main.bundle.getString("longPas"));
             return;
         }
 
         Pattern p = Pattern.compile(".*@.*[.].*");
         Matcher m = p.matcher(email);
         if (!m.matches()) {
-            warning.setText("Email v zlom tvare!");
+            warning.setText(Main.bundle.getString("badEmail"));
             return;
         }
         if (LoginConnection.getInstance().existsUserName(name, email)) {
-            warning.setText("Daný užívateľ už existuje!");
+            warning.setText(Main.bundle.getString("userDoNotExists"));
             return;
         }
 //        if (!(String.valueOf(generatedPin).equals(pin)))  {
@@ -82,7 +82,7 @@ public class RegistrationSceneController {
         this.name.setText("");
         this.password.setText("");
         this.email.setText("");
-        warning.setText("Registrácia prebehla úspešne!");
+        warning.setText(Main.bundle.getString("registrationGood"));
     }
     @FXML
     private void changeSceneLogin() throws IOException {

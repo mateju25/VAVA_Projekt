@@ -34,6 +34,8 @@ public class LoginSceneController {
     @FXML
     private Button loginBtn;
     public void initialize() {
+        Locale.setDefault(new Locale("sk"));
+        Main.bundle = ResourceBundle.getBundle("project/gui/resources/bundles/slovak");
         refreshTexts();
     }
     @FXML
@@ -48,12 +50,12 @@ public class LoginSceneController {
         String password= this.password.getText();
 
         if(name.isEmpty()||password.isEmpty()) {
-            warning.setText("Vyplnťe všetky povinné polia!");
+            warning.setText(Main.bundle.getString("important"));
             return;
         }
 
         if (!LoginConnection.getInstance().loginUser(name, password)) {
-            warning.setText("Nepodarilo sa prihlásiť!");
+            warning.setText(Main.bundle.getString("cannotLogIn"));
             return;
         }
 
