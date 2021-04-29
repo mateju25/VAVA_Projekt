@@ -34,11 +34,6 @@ public class RegistrationSceneController {
     private Button backBtn;
     private int generatedPin = 0;
 
-    public void initialize() {
-        sendPinBtn.setVisible(false);
-        textPin.setVisible(false);
-    }
-
     @FXML
     private void registration() {
         warning.setText("");
@@ -72,10 +67,10 @@ public class RegistrationSceneController {
             warning.setText("Daný užívateľ už existuje!");
             return;
         }
-//        if (!(String.valueOf(generatedPin).equals(pin)))  {
-//            warning.setText("Nesprávny PIN!");
-//            return;
-//        }
+        if (!(String.valueOf(generatedPin).equals(pin)))  {
+            warning.setText("Nesprávny PIN!");
+            return;
+        }
 
         LoginConnection.getInstance().registrationUser(name,password,email);
 
